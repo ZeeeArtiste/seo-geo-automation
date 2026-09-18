@@ -38,7 +38,12 @@ Cloudflare a une Registrar API en beta qui permet de chercher, vérifier la disp
 acheter un domaine par API, au prix coûtant (pas de marge Cloudflare sur le prix du registre).
 
 1. Créez un compte Cloudflare si besoin, notez votre `Account ID` (visible dans le dashboard).
-2. Créez un token API sur `https://dash.cloudflare.com/profile/api-tokens` avec **trois** permissions :
+2. Créez un token API avec **trois** permissions. Attention à l'emplacement : un token
+   *account-owned* ne figure **pas** sur la page des tokens utilisateur.
+   - token de compte : `https://dash.cloudflare.com/<ACCOUNT_ID>/api-tokens`
+   - token utilisateur : `https://dash.cloudflare.com/profile/api-tokens`
+
+   Permissions requises :
    - **Account / Registrar / Edit** — recherche, vérification et achat de domaine
    - **Zone / Zone / Read** — retrouver la zone créée après l'achat
    - **Zone / DNS / Edit** — créer les enregistrements A vers votre serveur

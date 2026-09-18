@@ -64,7 +64,9 @@ async function main() {
     }
     if (r.dnsAccess === 'denied') {
       console.log(
-        `\n👉 Ajoutez à votre token, sur https://dash.cloudflare.com/profile/api-tokens :\n` +
+        `\n👉 Ajoutez les permissions manquantes à votre token :\n` +
+          `   · token de COMPTE (account-owned) : https://dash.cloudflare.com/${process.env.CLOUDFLARE_ACCOUNT_ID ?? '<ACCOUNT_ID>'}/api-tokens\n` +
+          `   · token UTILISATEUR               : https://dash.cloudflare.com/profile/api-tokens\n` +
           `   · Zone / Zone / Read\n` +
           `   · Zone / DNS  / Edit\n` +
           `   (en gardant Account / Registrar / Edit pour l'achat de domaine)`
