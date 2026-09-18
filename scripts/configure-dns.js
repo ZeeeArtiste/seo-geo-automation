@@ -41,10 +41,28 @@ async function main() {
   if (args['check-token']) {
     console.log('Diagnostic des permissions du token Cloudflare (aucune modification)...\n');
     const r = await checkTokenPermissions();
-    console.log(`Zones visibles      : ${r.zoneCount ?? 'inconnu'}${r.zones?.length ? ` (${r.zones.join(', ')})` : ''}`);
-    console.log(`Accès DNS records   : ${r.dnsEdit === true ? '✅ oui' : r.dnsEdit === false ? '❌ non' : '❓ indéterminé'}`);
+    console.log(`Token               : ${r.tokenValid ? '✅ valide' : '❌ invalide'}`);
+    console.log(
+      `Zones visibles      : ${r.zoneCount ?? 'inconnu'}${
+        r.zones?.length ? ` (${r.zones.map((z) => z.name).join(', ')})` : ''
+      }`
+    );
+    console.log(
+      `Accès DNS records   : ${
+        { granted: '✅ confirmé', denied: '❌ refusé', indeterminate: '❓ invérifiable pour le moment' }[
+          r.dnsAccess
+        ]
+      }`
+    );
     r.notes.forEach((n) => console.log(`  · ${n}`));
-    if (r.dnsEdit === false) {
+    if (r.dnsAccess === 'indeterminate') {
+      console.log(
+        `\nℹ️  Ce n'est PAS un refus : la permission DNS ne se teste que contre une zone\n` +
+          `   réelle, et ce compte n'en a aucune. Le diagnostic deviendra concluant dès\n` +
+          `   qu'un domaine y sera enregistré.`
+      );
+    }
+    if (r.dnsAccess === 'denied') {
       console.log(
         `\n👉 Ajoutez à votre token, sur https://dash.cloudflare.com/profile/api-tokens :\n` +
           `   · Zone / Zone / Read\n` +

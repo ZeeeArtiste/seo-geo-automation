@@ -47,6 +47,13 @@ acheter un domaine par API, au prix coûtant (pas de marge Cloudflare sur le pri
    silencieux : `GET /zones?name=...` renvoie `success: true` avec une liste **vide** au lieu
    d'un 403, ce qui ressemble à « domaine inexistant ». Diagnostic :
    `node scripts/configure-dns.js --domain <domaine> --check-token`
+
+   À savoir sur ce diagnostic : la permission DNS **n'est vérifiable que contre une zone
+   réelle**. Tant que le compte n'a aucun domaine, `--check-token` répond « invérifiable »,
+   ce qui n'est pas un refus. Sonder un zone-id inexistant ne sert à rien : l'API renvoie 403
+   quoi qu'il arrive, puisque cette zone n'est dans le scope d'aucun token. De même, un token
+   *account-owned* échoue avec 401 sur `/user/tokens/verify` tout en étant valide — c'est
+   `/accounts/{id}/tokens/verify` qu'il faut interroger.
 3. Configurez un moyen de paiement par défaut et un contact registrant par défaut dans
    `https://dash.cloudflare.com/<ACCOUNT_ID>/domains/registrations` (obligatoire avant tout achat).
 4. Renseignez `CLOUDFLARE_ACCOUNT_ID` et `CLOUDFLARE_API_TOKEN` dans `.env`.
@@ -73,8 +80,12 @@ node scripts/provision-domain.js --domain aspirob.com --confirm --ip 1.2.3.4   #
 
 Deux garde-fous importants :
 
-- **Préflight des permissions avant l'achat.** Le script vérifie l'accès DNS *avant* de payer :
-  acheter puis échouer sur le DNS vous laisserait avec un domaine débité et inutilisable.
+- **Préflight avant l'achat.** Le script vérifie la validité du token et l'accès DNS *avant* de
+  payer, et n'interrompt que sur un refus **démontré** (403 sur une zone réelle). Si l'accès est
+  simplement invérifiable — cas du premier achat, quand le compte n'a encore aucune zone — il
+  prévient et continue : c'est l'achat lui-même qui crée la première zone. Le filet de sécurité
+  est l'idempotence ci-dessous : si le DNS échoue après l'achat, le domaine reste acquis et
+  relancer la même commande n'applique que le DNS.
 - **Idempotent.** Si le domaine est déjà sur le compte, l'achat est sauté et seul le DNS est
   réappliqué. Relancer ne crée jamais de doublon d'enregistrement.
 

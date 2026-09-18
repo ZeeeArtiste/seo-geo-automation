@@ -45,21 +45,42 @@ if (!domain) {
 async function main() {
   const ip = args.ip || (await detectPublicIp());
 
-  // ── Préflight : sans permission DNS, l'étape 4 échouera APRÈS un achat non
-  // remboursable. On refuse donc de démarrer un achat qu'on ne pourra pas finir.
+  // ── Préflight. On ne bloque que sur un refus DÉMONTRÉ : quand le compte n'a
+  // encore aucune zone, la permission DNS est invérifiable (il faut une zone réelle
+  // pour la tester), et bloquer là-dessus rendrait tout premier achat impossible.
   console.log('▶ 0/4 Préflight des permissions du token');
   const perms = await checkTokenPermissions();
-  console.log(`   Zones visibles: ${perms.zoneCount ?? '?'} | accès DNS: ${
-    perms.dnsEdit === true ? 'oui' : perms.dnsEdit === false ? 'NON' : 'indéterminé'
-  }`);
-  if (perms.dnsEdit === false) {
+  console.log(
+    `   Token: ${perms.tokenValid ? 'valide' : 'INVALIDE'} | zones visibles: ${
+      perms.zoneCount ?? '?'
+    } | accès DNS: ${
+      { granted: '✅ confirmé', denied: '❌ refusé', indeterminate: '❓ invérifiable' }[perms.dnsAccess]
+    }`
+  );
+  perms.notes.forEach((n) => console.log(`   · ${n}`));
+
+  if (perms.tokenValid === false) {
+    console.error(`\n❌ Token Cloudflare invalide — corrigez CLOUDFLARE_API_TOKEN dans .env.`);
+    process.exit(1);
+  }
+
+  if (perms.dnsAccess === 'denied') {
     console.error(
-      `\n❌ Le token n'a pas accès au DNS (Zone:Read + Zone:DNS:Edit).\n` +
+      `\n❌ Le token n'a pas Zone:DNS:Edit (refus démontré sur une zone réelle).\n` +
         `   J'interromps ICI, avant tout achat : acheter puis échouer sur le DNS vous\n` +
-        `   laisserait avec un domaine payé et non configuré.\n` +
-        `   Corrigez le token sur https://dash.cloudflare.com/profile/api-tokens puis relancez.`
+        `   laisserait avec un domaine payé et non configuré.`
     );
     process.exit(1);
+  }
+
+  if (perms.dnsAccess === 'indeterminate' && confirmed) {
+    console.log(
+      `\n⚠️  La permission DNS ne peut pas être vérifiée avant l'achat (aucune zone sur ce\n` +
+        `   compte — c'est justement l'achat qui crée la première zone). Je continue.\n` +
+        `   Filet de sécurité : si le DNS échoue après l'achat, le domaine reste acquis et\n` +
+        `   il suffira de corriger le token puis de relancer cette même commande — l'étape\n` +
+        `   d'achat sera sautée et seul le DNS sera appliqué. Rien n'est perdu.`
+    );
   }
 
   // ── 1. Disponibilité / déjà possédé ?

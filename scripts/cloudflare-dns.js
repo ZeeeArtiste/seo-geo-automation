@@ -112,40 +112,78 @@ export async function detectPublicIp() {
 /**
  * Diagnostic des permissions du token, sans rien modifier.
  *
- * Subtilité : /zones?name=X renvoie `success: true` avec une liste vide quand le
- * token n'a pas Zone:Read — impossible de distinguer "zone absente" de "zone
- * invisible". On sonde donc en plus un zone-id inexistant mais bien formé sur
- * l'endpoint DNS : un 403 signale l'absence de permission DNS.
+ * Deux pièges, tous les deux sources de faux diagnostics :
+ *
+ * 1. `GET /zones?name=X` renvoie `success: true` avec une liste VIDE quand le token
+ *    n'a pas Zone:Read — et non un 403. "Zone absente" et "zone invisible" sont
+ *    donc indistinguables par ce seul appel.
+ * 2. Sonder un zone-id inexistant sur l'endpoint DNS renvoie 403 QUOI QU'IL ARRIVE,
+ *    puisque cette zone n'est dans le scope d'aucun token. Ce n'est donc PAS une
+ *    preuve d'absence de permission DNS (faux négatif garanti).
+ *
+ * Conséquence : la permission DNS n'est vérifiable que contre une zone RÉELLE.
+ * Tant que le compte n'a aucune zone, le résultat est 'indeterminate' — et il ne
+ * faut surtout pas le traiter comme un refus.
  */
 export async function checkTokenPermissions() {
   const h = headers();
-  const out = { zoneRead: null, dnsEdit: null, zoneCount: null, notes: [] };
+  const out = {
+    tokenValid: null,
+    zoneCount: null,
+    zones: [],
+    dnsAccess: 'indeterminate', // 'granted' | 'denied' | 'indeterminate'
+    notes: [],
+  };
+
+  // Validité : les tokens "account-owned" échouent sur /user/tokens/verify (401)
+  // alors qu'ils sont parfaitement valides. On teste donc les deux endpoints.
+  const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
+  for (const url of [
+    accountId ? `${BASE}/accounts/${accountId}/tokens/verify` : null,
+    `${BASE}/user/tokens/verify`,
+  ].filter(Boolean)) {
+    const r = await fetch(url, { headers: h });
+    const j = await r.json().catch(() => ({}));
+    if (j.success) {
+      out.tokenValid = true;
+      out.notes.push(`Token validé via ${url.includes('/accounts/') ? 'l\'endpoint compte (token account-owned)' : 'l\'endpoint utilisateur'}.`);
+      break;
+    }
+    out.tokenValid = false;
+  }
 
   const zres = await fetch(`${BASE}/zones?per_page=50`, { headers: h });
   const zj = await zres.json().catch(() => ({}));
   if (zj.success) {
-    out.zoneCount = (zj.result || []).length;
-    out.zones = (zj.result || []).map((z) => z.name);
+    out.zones = (zj.result || []).map((z) => ({ name: z.name, id: z.id }));
+    out.zoneCount = out.zones.length;
   } else {
     out.notes.push(`GET /zones a échoué: ${JSON.stringify(zj.errors)}`);
   }
 
-  const fake = '0'.repeat(32);
-  const dres = await fetch(`${BASE}/zones/${fake}/dns_records`, { headers: h });
-  if (dres.status === 403) {
-    out.dnsEdit = false;
+  if (!out.zoneCount) {
     out.notes.push(
-      "403 sur l'endpoint DNS : le token n'a pas accès aux enregistrements DNS."
+      "Aucune zone dans ce compte : la permission DNS n'est pas vérifiable pour l'instant " +
+        '(il faut une zone réelle pour la tester).'
     );
-  } else if (dres.status === 404 || dres.status === 400) {
-    out.dnsEdit = true;
-    out.notes.push(
-      'Le token atteint bien l\'endpoint DNS (la zone sondée est inexistante, ce qui est attendu).'
-    );
-  } else {
-    out.notes.push(`Réponse inattendue de l'endpoint DNS: HTTP ${dres.status}`);
+    out.dnsAccess = 'indeterminate';
+    return out;
   }
 
-  out.zoneRead = out.zoneCount !== null && out.dnsEdit !== false ? true : out.dnsEdit === false ? false : null;
+  // Test décisif : lister les enregistrements d'une zone réellement accessible.
+  const z = out.zones[0];
+  const dres = await fetch(`${BASE}/zones/${z.id}/dns_records?per_page=1`, { headers: h });
+  if (dres.ok) {
+    out.dnsAccess = 'granted';
+    out.notes.push(`Lecture DNS confirmée sur la zone réelle "${z.name}".`);
+  } else if (dres.status === 403) {
+    out.dnsAccess = 'denied';
+    out.notes.push(
+      `403 en listant le DNS de la zone réelle "${z.name}" : il manque Zone:DNS:Edit.`
+    );
+  } else {
+    out.notes.push(`Réponse inattendue sur le DNS de "${z.name}": HTTP ${dres.status}`);
+  }
+
   return out;
 }
