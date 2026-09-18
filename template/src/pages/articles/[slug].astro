@@ -82,8 +82,17 @@ const breadcrumbSchema = {
   description={data.description}
   ogType="article"
   ogImage={`/og-${article.slug}.png`}
+  wide
   jsonLd={[articleSchema, breadcrumbSchema, faqSchema]}
 >
+  <div class="lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-10 xl:gap-14">
+    <!-- Colonne latérale : sommaire collant, masqué sous lg où la version
+         dans le flux prend le relais. -->
+    <aside class="hidden lg:block">
+      <Sommaire headings={headings} variant="rail" />
+    </aside>
+
+    <div class="min-w-0 max-w-3xl">
   <nav aria-label="Fil d'Ariane" class="mb-8 text-sm text-muted">
     <ol class="flex flex-wrap items-center gap-2">
       <li><a href="/" class="hover:text-ink underline underline-offset-4 decoration-lineStrong">Accueil</a></li>
@@ -118,7 +127,7 @@ const breadcrumbSchema = {
          (ChatGPT, Perplexity) citent en priorité. -->
     <Essentiel text={data.directAnswer} />
 
-    <Sommaire headings={headings} />
+    <div class="lg:hidden"><Sommaire headings={headings} /></div>
 
     {data.affiliate && <AffiliateDisclosure />}
 
@@ -179,4 +188,33 @@ const breadcrumbSchema = {
       </ul>
     </aside>
   )}
+    </div>
+  </div>
+
+  <script>
+    // Suivi de lecture : met en avant la section visible dans le sommaire.
+    const links = document.querySelectorAll('.sommaire-rail a[data-somm]');
+    if (links.length) {
+      const map = new Map(
+        [...links].map((a) => [a.getAttribute('data-somm'), a])
+      );
+      const targets = [...map.keys()]
+        .map((id) => document.getElementById(id))
+        .filter(Boolean);
+      let current = null;
+      const obs = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              if (current) current.classList.remove('is-active');
+              current = map.get(e.target.id) ?? null;
+              if (current) current.classList.add('is-active');
+            }
+          }
+        },
+        { rootMargin: '-88px 0px -70% 0px', threshold: 0 }
+      );
+      targets.forEach((t) => obs.observe(t));
+    }
+  </script>
 </Base>

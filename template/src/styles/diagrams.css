@@ -260,3 +260,50 @@ figure.diagram figcaption {
 
 .prose blockquote p:first-of-type::before,
 .prose blockquote p:last-of-type::after { content: none; }
+
+/* ── Sommaire en colonne latérale ──────────────────────────────────── */
+.sommaire-rail {
+  position: sticky;
+  top: 6rem;
+  max-height: calc(100vh - 8rem);
+  overflow-y: auto;
+  padding-left: 0.9rem;
+  border-left: 1px solid #e2e8f0;
+}
+
+.sommaire-rail .sommaire-titre {
+  margin: 0 0 0.7rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.sommaire-rail ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sommaire-rail li { margin: 0.1rem 0; }
+
+.sommaire-rail a {
+  display: block;
+  padding: 0.35rem 0 0.35rem 0.7rem;
+  margin-left: -0.9rem;
+  border-left: 2px solid transparent;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: #64748b;
+  text-decoration: none;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.sommaire-rail a:hover { color: #0f172a; }
+
+.sommaire-rail a.is-active {
+  color: #2563eb;
+  border-left-color: #2563eb;
+  font-weight: 500;
+}
