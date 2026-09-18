@@ -1,0 +1,68 @@
+{
+  "accueil": {
+    "id": "u8EUjaYDrCA",
+    "file": "/photos/accueil.webp",
+    "fallback": "/photos/accueil.jpg",
+    "alt": "Robot vacuum cleans floor while family relaxes",
+    "author": "Dreame Vacuum Cleaner",
+    "authorUrl": "https://unsplash.com/@dreametech?utm_source=CleanTop&utm_medium=referral",
+    "unsplashUrl": "https://unsplash.com/photos/robot-vacuum-cleans-floor-while-family-relaxes-u8EUjaYDrCA?utm_source=CleanTop&utm_medium=referral",
+    "width": 1600,
+    "height": 1066
+  },
+  "aspirateur-robot-poils-animaux-chat-chien": {
+    "id": "skThVPN5vH8",
+    "file": "/photos/aspirateur-robot-poils-animaux-chat-chien.webp",
+    "fallback": "/photos/aspirateur-robot-poils-animaux-chat-chien.jpg",
+    "alt": "Husky dog rests on couch near robot vacuum cleaner",
+    "author": "Dreame Vacuum Cleaner",
+    "authorUrl": "https://unsplash.com/@dreametech?utm_source=CleanTop&utm_medium=referral",
+    "unsplashUrl": "https://unsplash.com/photos/husky-dog-rests-on-couch-near-robot-vacuum-cleaner-skThVPN5vH8?utm_source=CleanTop&utm_medium=referral",
+    "width": 1600,
+    "height": 1066
+  },
+  "roomba-j9-plus-vs-roborock-s8-pro-ultra": {
+    "id": "YiLArpymKoA",
+    "file": "/photos/roomba-j9-plus-vs-roborock-s8-pro-ultra.webp",
+    "fallback": "/photos/roomba-j9-plus-vs-roborock-s8-pro-ultra.jpg",
+    "alt": "black and white round device",
+    "author": "Denny Müller",
+    "authorUrl": "https://unsplash.com/@redaquamedia?utm_source=CleanTop&utm_medium=referral",
+    "unsplashUrl": "https://unsplash.com/photos/black-and-white-round-device-YiLArpymKoA?utm_source=CleanTop&utm_medium=referral",
+    "width": 1600,
+    "height": 1066
+  },
+  "navigation-lidar-aspirateur-robot-explication": {
+    "id": "GVHu2oJimH4",
+    "file": "/photos/navigation-lidar-aspirateur-robot-explication.webp",
+    "fallback": "/photos/navigation-lidar-aspirateur-robot-explication.jpg",
+    "alt": "a robotic vacuum is on the floor next to a couch",
+    "author": "Onur Binay",
+    "authorUrl": "https://unsplash.com/@onurbinay?utm_source=CleanTop&utm_medium=referral",
+    "unsplashUrl": "https://unsplash.com/photos/a-robotic-vacuum-is-on-the-floor-next-to-a-couch-GVHu2oJimH4?utm_source=CleanTop&utm_medium=referral",
+    "width": 1600,
+    "height": 1066
+  },
+  "navigation-lidar-camera-aspirateur-robot-differences": {
+    "id": "uhJgh4FHi6I",
+    "file": "/photos/navigation-lidar-camera-aspirateur-robot-differences.webp",
+    "fallback": "/photos/navigation-lidar-camera-aspirateur-robot-differences.jpg",
+    "alt": "a black robot vacuum on a wooden floor",
+    "author": "Onur Binay",
+    "authorUrl": "https://unsplash.com/@onurbinay?utm_source=CleanTop&utm_medium=referral",
+    "unsplashUrl": "https://unsplash.com/photos/a-black-robot-vacuum-on-a-wooden-floor-uhJgh4FHi6I?utm_source=CleanTop&utm_medium=referral",
+    "width": 1600,
+    "height": 1066
+  },
+  "aspirateur-robot-animaux-erreurs-eviter": {
+    "id": "a2oQ9zjg990",
+    "file": "/photos/aspirateur-robot-animaux-erreurs-eviter.webp",
+    "fallback": "/photos/aspirateur-robot-animaux-erreurs-eviter.jpg",
+    "alt": "Girl and dog watch robot vacuum cleaner",
+    "author": "Dreame Vacuum Cleaner",
+    "authorUrl": "https://unsplash.com/@dreametech?utm_source=CleanTop&utm_medium=referral",
+    "unsplashUrl": "https://unsplash.com/photos/girl-and-dog-watch-robot-vacuum-cleaner-a2oQ9zjg990?utm_source=CleanTop&utm_medium=referral",
+    "width": 1600,
+    "height": 1066
+  }
+}

@@ -1,0 +1,29 @@
+---
+/** Photo d'en-tête : WebP avec repli JPEG, dimensions déclarées pour éviter
+    le décalage de mise en page au chargement. */
+import PhotoCredit from './PhotoCredit.astro';
+interface Props {
+  photo: { file: string; fallback: string; alt: string; author: string; authorUrl: string; unsplashUrl: string; width: number; height: number };
+  eager?: boolean;
+  class?: string;
+}
+const { photo, eager = false, class: klass = '' } = Astro.props;
+---
+<figure class={klass}>
+  <picture>
+    <source srcset={photo.file} type="image/webp" />
+    <img
+      src={photo.fallback}
+      alt={photo.alt}
+      width={photo.width}
+      height={photo.height}
+      loading={eager ? 'eager' : 'lazy'}
+      fetchpriority={eager ? 'high' : undefined}
+      decoding="async"
+      class="w-full h-full object-cover rounded-md border border-line bg-surface"
+    />
+  </picture>
+  <figcaption>
+    <PhotoCredit author={photo.author} authorUrl={photo.authorUrl} unsplashUrl={photo.unsplashUrl} />
+  </figcaption>
+</figure>

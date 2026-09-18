@@ -1,0 +1,19 @@
+---
+/**
+ * Crédit photo Unsplash.
+ * L'attribution du photographe ET d'Unsplash, avec les paramètres UTM, est
+ * exigée par les conditions de l'API — ce n'est pas facultatif.
+ */
+interface Props {
+  author: string;
+  authorUrl: string;
+  unsplashUrl: string;
+}
+const { author, authorUrl, unsplashUrl } = Astro.props;
+---
+<p class="mt-2 text-xs text-muted">
+  Photo d'illustration&nbsp;—
+  <a href={authorUrl} rel="noopener nofollow" target="_blank" class="underline underline-offset-2 decoration-lineStrong hover:text-accent">{author}</a>
+  sur
+  <a href={unsplashUrl} rel="noopener nofollow" target="_blank" class="underline underline-offset-2 decoration-lineStrong hover:text-accent">Unsplash</a>
+</p>

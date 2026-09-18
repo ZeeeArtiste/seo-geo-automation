@@ -3,6 +3,10 @@ import Base from '../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 import { SITE } from '../lib/site';
 import { formatDateShort, readingTime } from '../lib/format';
+import Hero from '../components/Hero.astro';
+import credits from '../data/photo-credits.json';
+
+const heroPhoto = (credits as Record<string, any>)['accueil'];
 
 const all = (await getCollection('articles', ({ data }) => !data.draft)).sort(
   (a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
@@ -49,6 +53,7 @@ const guides = rest.filter((a) => a.data.category !== 'Comparatif');
       le type de brosse, la station — plutôt que de comparer des fiches techniques.
       <span class="text-ink">Aucun chiffre que nous n'avons pas pu vérifier.</span>
     </p>
+    {heroPhoto && <Hero photo={heroPhoto} eager class="mt-8 aspect-[3/2] sm:aspect-[21/9]" />}
   </section>
 
 

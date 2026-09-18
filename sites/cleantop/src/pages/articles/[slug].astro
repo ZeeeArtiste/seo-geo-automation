@@ -1,6 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
 import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
+import Hero from '../../components/Hero.astro';
+import credits from '../../data/photo-credits.json';
 import { getCollection } from 'astro:content';
 import { SITE, AUTHOR } from '../../lib/site';
 import { formatDate, readingTime } from '../../lib/format';
@@ -15,6 +17,7 @@ export async function getStaticPaths() {
 }
 
 const { article, all } = Astro.props;
+const photo = (credits as Record<string, any>)[article.slug];
 const { Content } = await article.render();
 const { data } = article;
 
@@ -99,6 +102,8 @@ const breadcrumbSchema = {
         <span>{minutes} min de lecture</span>
       </p>
     </header>
+
+    {photo && <Hero photo={photo} eager class="mb-8" />}
 
     <!-- Réponse directe : ce paragraphe est ce que les moteurs génératifs
          (ChatGPT, Perplexity) citent en priorité. -->
