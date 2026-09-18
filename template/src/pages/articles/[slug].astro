@@ -131,8 +131,6 @@ const breadcrumbSchema = {
 
     <div class="lg:hidden"><Sommaire headings={headings} /></div>
 
-    {data.affiliate && <AffiliateDisclosure />}
-
     {data.products.length > 0 && (
       <section class="mb-12" aria-labelledby="modeles">
         <h2 id="modeles" class="font-serif text-2xl font-semibold tracking-tight mb-4">
@@ -147,6 +145,7 @@ const breadcrumbSchema = {
             <ProductCard product={p} index={data.products.length > 2 ? i + 1 : undefined} />
           ))}
         </div>
+        {data.affiliate && <AffiliateDisclosure />}
       </section>
     )}
 

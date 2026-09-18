@@ -470,3 +470,22 @@ figure.fiche img {
 }
 
 .tableau-comparatif tbody tr:hover td { background: #f7f8fa; }
+
+/* ── Divulgation d'affiliation ─────────────────────────────────────────
+   Obligatoire (DGCCRF, CGU Amazon Partenaires) mais discrète : une ligne
+   au contact des liens, pas un encadré en tête d'article. */
+.affiliation {
+  margin: 0.9rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: #64748b;
+}
+
+.affiliation a {
+  color: #64748b;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: #cbd5e1;
+}
+
+.affiliation a:hover { color: #2563eb; text-decoration-color: #2563eb; }
