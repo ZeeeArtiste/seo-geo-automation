@@ -22,7 +22,9 @@ const args = minimist(process.argv.slice(2));
 const siteDir = args.site;
 const domain = args.domain;
 const email = args.email;
-const skipSsl = !!args['no-ssl'];
+// minimist convertit `--no-ssl` en `{ ssl: false }` (convention --no-<flag>),
+// donc args['no-ssl'] est toujours undefined. On accepte les deux formes.
+const skipSsl = !!args['no-ssl'] || args.ssl === false;
 
 if (!siteDir || !domain) {
   console.error(
