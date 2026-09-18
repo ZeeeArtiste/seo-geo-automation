@@ -6,6 +6,10 @@ const articles = defineCollection({
     title: z.string(),
     description: z.string(),
     publishDate: z.string(),
+    // Date de dernière révision. Les moteurs génératifs et Google privilégient
+    // le contenu récemment vérifié : afficher cette date est un signal fort.
+    updatedDate: z.string().optional(),
+    directAnswer: z.string(),
     // Un article en draft n'est ni listé, ni rendu, ni présent dans le sitemap.
     // generate-content.js le met automatiquement à true quand l'article contient
     // des marqueurs [À VÉRIFIER], pour ne jamais publier de données non vérifiées.
@@ -14,11 +18,17 @@ const articles = defineCollection({
     // l'article. La divulgation ne s'affiche que dans ce cas : l'annoncer sans
     // lien serait une affirmation fausse.
     affiliate: z.boolean().default(false),
-    directAnswer: z.string(),
-    faq: z.array(z.object({
-      question: z.string(),
-      answer: z.string(),
-    })),
+    // Étiquette éditoriale affichée et utilisée pour le regroupement en page
+    // d'accueil.
+    category: z.enum(['Comparatif', 'Guide', 'Test', 'Actualité']).default('Guide'),
+    // Un seul article mis en avant en page d'accueil.
+    featured: z.boolean().default(false),
+    faq: z.array(
+      z.object({
+        question: z.string(),
+        answer: z.string(),
+      })
+    ),
   }),
 });
 

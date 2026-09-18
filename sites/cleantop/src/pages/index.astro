@@ -1,28 +1,115 @@
 ---
 import Base from '../layouts/Base.astro';
 import { getCollection } from 'astro:content';
+import { SITE } from '../lib/site';
+import { formatDateShort, readingTime } from '../lib/format';
 
-const articles = (await getCollection('articles', ({ data }) => !data.draft)).sort(
+const all = (await getCollection('articles', ({ data }) => !data.draft)).sort(
   (a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
 );
+
+// L'article mis en avant : celui marqué featured, sinon le comparatif le plus
+// récent, sinon le plus récent tout court.
+const featured =
+  all.find((a) => a.data.featured) ??
+  all.find((a) => a.data.category === 'Comparatif') ??
+  all[0];
+const rest = all.filter((a) => a.slug !== featured?.slug);
+
+const comparatifs = rest.filter((a) => a.data.category === 'Comparatif');
+const guides = rest.filter((a) => a.data.category !== 'Comparatif');
 ---
 <Base
-  title="Guides et comparatifs — aspirateurs robots"
-  description="Guides d'achat et comparatifs indépendants sur aspirateurs robots."
+  title={`${SITE.brand} — ${SITE.tagline}`}
+  description={SITE.description}
+  ogType="website"
+  rawTitle
 >
-  <h1 class="font-serif text-4xl font-semibold tracking-tight mb-3">CleanTop</h1>
-  <p class="text-lg text-[#54534C] mb-12">Guides d'achat et comparatifs sur aspirateurs robots.</p>
+  <section class="mb-16">
+    <h1 class="font-serif text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.1] mb-5">
+      {SITE.tagline}
+    </h1>
+    <div class="w-12 h-px bg-[#8A5A2B] mb-5"></div>
+    <p class="text-lg text-[#54534C] max-w-prose leading-relaxed">
+      Comprendre ce qui sépare réellement deux aspirateurs robots — la navigation,
+      le type de brosse, la station — plutôt que de comparer des fiches techniques.
+      <span class="text-[#1C1D22]">Aucun chiffre que nous n'avons pas pu vérifier.</span>
+    </p>
+  </section>
 
-  <ul class="space-y-8">
-    {articles.map(article => (
-      <li class="border-b border-[#E4E0D6] pb-8">
-        <a href={`/articles/${article.slug}/`} class="group block">
-          <h2 class="font-serif text-2xl font-medium group-hover:underline decoration-1 underline-offset-4">
-            {article.data.title}
-          </h2>
-          <p class="text-[#54534C] mt-2">{article.data.description}</p>
-        </a>
-      </li>
-    ))}
-  </ul>
+  {featured && (
+    <section class="mb-16" aria-labelledby="a-la-une">
+      <h2 id="a-la-une" class="text-xs font-medium tracking-[0.14em] uppercase text-[#8A5A2B] mb-5">
+        À la une
+      </h2>
+      <a href={`/articles/${featured.slug}/`} class="group block">
+        <article class="border border-[#E4E0D6] rounded-sm bg-white p-6 sm:p-8 transition-colors group-hover:border-[#C9C3B4]">
+          <p class="text-xs tracking-wide uppercase text-[#6B6A63] mb-3">
+            {featured.data.category}
+          </p>
+          <h3 class="font-serif text-2xl sm:text-3xl font-semibold tracking-tight leading-snug mb-3 group-hover:underline decoration-1 underline-offset-4 decoration-[#C9C3B4]">
+            {featured.data.title}
+          </h3>
+          <p class="text-[#54534C] leading-relaxed mb-4 max-w-prose">
+            {featured.data.description}
+          </p>
+          <p class="text-sm text-[#6B6A63]">
+            {formatDateShort(featured.data.publishDate)} · {readingTime(featured.body)} min de lecture
+          </p>
+        </article>
+      </a>
+    </section>
+  )}
+
+  {comparatifs.length > 0 && (
+    <section class="mb-14" aria-labelledby="comparatifs">
+      <h2 id="comparatifs" class="text-xs font-medium tracking-[0.14em] uppercase text-[#8A5A2B] mb-1">
+        Comparatifs
+      </h2>
+      <p class="text-sm text-[#6B6A63] mb-5">Face-à-face entre modèles.</p>
+      <ul class="divide-y divide-[#E4E0D6] border-t border-[#E4E0D6]">
+        {comparatifs.map((a) => (
+          <li>
+            <a href={`/articles/${a.slug}/`} class="group flex gap-4 py-5 items-baseline">
+              <span class="text-[#C9C3B4] group-hover:text-[#8A5A2B] transition-colors" aria-hidden="true">›</span>
+              <span class="flex-1">
+                <span class="block font-serif text-xl font-medium leading-snug group-hover:underline decoration-1 underline-offset-4 decoration-[#C9C3B4]">
+                  {a.data.title}
+                </span>
+                <span class="block text-sm text-[#6B6A63] mt-1">
+                  {formatDateShort(a.data.publishDate)} · {readingTime(a.body)} min
+                </span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {guides.length > 0 && (
+    <section aria-labelledby="guides">
+      <h2 id="guides" class="text-xs font-medium tracking-[0.14em] uppercase text-[#8A5A2B] mb-1">
+        Guides
+      </h2>
+      <p class="text-sm text-[#6B6A63] mb-5">Comprendre avant d'acheter.</p>
+      <ul class="divide-y divide-[#E4E0D6] border-t border-[#E4E0D6]">
+        {guides.map((a) => (
+          <li>
+            <a href={`/articles/${a.slug}/`} class="group flex gap-4 py-5 items-baseline">
+              <span class="text-[#C9C3B4] group-hover:text-[#8A5A2B] transition-colors" aria-hidden="true">›</span>
+              <span class="flex-1">
+                <span class="block font-serif text-xl font-medium leading-snug group-hover:underline decoration-1 underline-offset-4 decoration-[#C9C3B4]">
+                  {a.data.title}
+                </span>
+                <span class="block text-sm text-[#6B6A63] mt-1">
+                  {formatDateShort(a.data.publishDate)} · {readingTime(a.body)} min
+                </span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
 </Base>

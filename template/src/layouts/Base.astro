@@ -1,74 +1,128 @@
 ---
+import { getCollection } from 'astro:content';
+import { SITE, NAV } from '../lib/site';
+import '../styles/fonts.css';
+
 interface Props {
   title: string;
   description: string;
   jsonLd?: object[];
+  ogType?: 'website' | 'article';
+  ogImage?: string;
+  /** Rendu tel quel dans <title>, sans suffixe de marque (page d'accueil). */
+  rawTitle?: boolean;
 }
-import { getCollection } from 'astro:content';
-const { title, description, jsonLd = [] } = Astro.props;
+const {
+  title,
+  description,
+  jsonLd = [],
+  ogType = 'website',
+  ogImage = '/og-default.png',
+  rawTitle = false,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const ogImageUrl = new URL(ogImage, SITE.url).href;
+const pageTitle = rawTitle ? title : `${title} — ${SITE.brand}`;
+
 // Le site ne se déclare "avec liens affiliés" que si au moins un article publié
 // en contient réellement.
 const hasAffiliate = (
   await getCollection('articles', ({ data }) => !data.draft && data.affiliate)
 ).length > 0;
-const siteName = "{{BRAND}}";
+
+// Schéma WebSite : permet à Google d'associer le nom du site au domaine.
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE.brand,
+  url: SITE.url,
+  inLanguage: SITE.lang,
+  description: SITE.description,
+  publisher: { '@type': 'Organization', name: SITE.brand, url: SITE.url },
+};
 ---
 <!doctype html>
-<html lang="fr">
+<html lang={SITE.lang}>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{title} — {siteName}</title>
+  <title>{pageTitle}</title>
   <meta name="description" content={description} />
-  <link rel="canonical" href={Astro.url.href} />
+  <link rel="canonical" href={canonical} />
 
-  <!-- Open Graph -->
-  <meta property="og:title" content={title} />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <meta property="og:title" content={pageTitle} />
   <meta property="og:description" content={description} />
-  <meta property="og:type" content="article" />
-  <meta property="og:site_name" content={siteName} />
+  <meta property="og:type" content={ogType} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:site_name" content={SITE.brand} />
+  <meta property="og:locale" content={SITE.locale} />
+  <meta property="og:image" content={ogImageUrl} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
 
-  <!-- Organization schema (E-E-A-T signal, aide au GEO) -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": siteName,
-    "url": Astro.site?.href,
-  })} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={pageTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageUrl} />
 
-  {jsonLd.map(schema => (
+  <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+  {jsonLd.map((schema) => (
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   ))}
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 </head>
-<body class="bg-[#FAF8F4] text-[#1C1D22] font-sans antialiased">
+
+<body class="bg-[#FAF8F4] text-[#1C1D22] font-sans antialiased flex flex-col min-h-screen">
   <header class="border-b border-[#E4E0D6]">
-    <div class="max-w-3xl mx-auto px-6 py-5 flex items-center justify-between">
-      <a href="/" class="font-serif text-xl font-semibold tracking-tight">{siteName}</a>
-      <span class="text-sm text-[#6B6A63]">{{NICHE}}</span>
+    <div class="max-w-3xl mx-auto px-6 py-5 flex items-baseline justify-between gap-6">
+      <a href="/" class="font-serif text-xl font-semibold tracking-tight shrink-0">
+        {SITE.brand}
+      </a>
+      <nav aria-label="Navigation principale">
+        <ul class="flex gap-5 text-sm text-[#54534C]">
+          {NAV.filter((n) => n.href !== '/').map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="hover:text-[#1C1D22] underline-offset-4 hover:underline decoration-[#C9C3B4]"
+                aria-current={Astro.url.pathname === item.href ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </div>
   </header>
 
-  <main class="max-w-3xl mx-auto px-6 py-12">
+  <main class="max-w-3xl mx-auto px-6 py-12 w-full flex-1">
     <slot />
   </main>
 
   <footer class="border-t border-[#E4E0D6] mt-16">
-    <div class="max-w-3xl mx-auto px-6 py-8 text-sm text-[#6B6A63] space-y-2">
-      <p>© {new Date().getFullYear()} {siteName}. Tous droits réservés.</p>
+    <div class="max-w-3xl mx-auto px-6 py-10 text-sm text-[#6B6A63] space-y-4">
       {hasAffiliate && (
-        <p>Ce site contient des liens affiliés. Nous pouvons percevoir une commission sur les achats effectués via ces liens, sans coût supplémentaire pour vous.</p>
+        <p class="max-w-prose">
+          Certains liens de ce site sont des liens affiliés. Si vous achetez via ces liens,
+          nous pouvons percevoir une commission, sans coût supplémentaire pour vous. Cela
+          n'influence ni notre sélection ni ce que nous écrivons.
+        </p>
       )}
+      <nav aria-label="Pages légales">
+        <ul class="flex flex-wrap gap-x-5 gap-y-2">
+          <li><a class="hover:text-[#1C1D22] underline underline-offset-4 decoration-[#C9C3B4]" href="/a-propos/">Méthode</a></li>
+          <li><a class="hover:text-[#1C1D22] underline underline-offset-4 decoration-[#C9C3B4]" href="/contact/">Contact</a></li>
+          <li><a class="hover:text-[#1C1D22] underline underline-offset-4 decoration-[#C9C3B4]" href="/mentions-legales/">Mentions légales</a></li>
+          <li><a class="hover:text-[#1C1D22] underline underline-offset-4 decoration-[#C9C3B4]" href="/confidentialite/">Confidentialité</a></li>
+        </ul>
+      </nav>
+      <p>© {new Date().getFullYear()} {SITE.brand}. Tous droits réservés.</p>
     </div>
   </footer>
 </body>
 </html>
-
-<style is:global>
-  .font-serif { font-family: 'Source Serif 4', Georgia, serif; }
-  .font-sans { font-family: 'Inter', system-ui, sans-serif; }
-  body { -webkit-font-smoothing: antialiased; }
-</style>

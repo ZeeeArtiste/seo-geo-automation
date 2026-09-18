@@ -5,7 +5,8 @@
  * Usage:
  *   node scripts/run-pipeline.js --niche "aspirateurs robots" --brand "CleanTop" \
  *     [--articles 10] [--affiliate-links config/affiliate-links.json] [--deploy]
- *     [--target vercel|vps] [--domain cleantop.example.com] [--email vous@example.com] [--no-ssl]
+ *     [--target vercel|vps] [--domain cleantop.example.com] [--author "Prénom Nom"]
+ *     [--email vous@example.com] [--no-ssl] [--force-ssl]
  *
  * --target vps déploie sur ce serveur via nginx/certbot (scripts/deploy-vps.js,
  * nécessite root et --domain). Par défaut (--target vercel), utilise
@@ -49,7 +50,12 @@ const slug = brand.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 const siteDir = `sites/${slug}`;
 
 step('generate-domains.js', ['--niche', niche]);
-step('scaffold-site.js', ['--brand', brand, '--niche', niche]);
+const scaffoldArgs = ['--brand', brand, '--niche', niche];
+// Le domaine et l'auteur alimentent site.ts, les mentions légales et l'image de
+// partage. Les omettre produit un site à corriger à la main avant mise en ligne.
+if (domain) scaffoldArgs.push('--domain', domain);
+if (args.author) scaffoldArgs.push('--author', args.author);
+step('scaffold-site.js', scaffoldArgs);
 
 const contentArgs = ['--site', siteDir, '--niche', niche, '--articles', String(articles)];
 if (affiliateLinks) contentArgs.push('--affiliate-links', affiliateLinks);

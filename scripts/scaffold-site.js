@@ -3,9 +3,16 @@
  * Copie le template Astro vers sites/<brand>/ et personnalise
  * les fichiers de config (nom, niche) via remplacement de tokens.
  *
- * Usage: node scripts/scaffold-site.js --brand "CleanTop" --niche "aspirateurs robots"
+ * Usage:
+ *   node scripts/scaffold-site.js --brand "CleanTop" --niche "aspirateurs robots" \
+ *     [--domain aspirob.com] [--author "Prénom Nom"]
+ *
+ * --domain et --author alimentent src/lib/site.ts et les mentions légales
+ * (obligatoires en France). Sans eux, des valeurs d'attente sont posées et
+ * doivent être corrigées avant mise en ligne.
  */
 import fs from 'fs-extra';
+import { execFileSync } from 'child_process';
 import path from 'path';
 import minimist from 'minimist';
 import slugify from 'slugify';
@@ -17,6 +24,8 @@ const ROOT = path.resolve(__dirname, '..');
 const args = minimist(process.argv.slice(2));
 const brand = args.brand;
 const niche = args.niche;
+const domain = args.domain || 'example.com';
+const author = args.author || 'À COMPLÉTER';
 
 if (!brand || !niche) {
   console.error('Usage: node scaffold-site.js --brand "NomMarque" --niche "votre niche"');
@@ -36,10 +45,44 @@ async function main() {
   await fs.copy(templateDir, targetDir);
 
   // Remplacement des tokens {{BRAND}} et {{NICHE}} dans tous les fichiers texte
-  const tokens = { '{{BRAND}}': brand, '{{NICHE}}': niche, '{{SLUG}}': slug };
+  const tokens = {
+    '{{BRAND}}': brand,
+    '{{NICHE}}': niche,
+    '{{SLUG}}': slug,
+    '{{DOMAIN}}': domain,
+    '{{AUTHOR}}': author,
+  };
   await replaceTokensInDir(targetDir, tokens);
 
+  // L'image de partage porte le nom de la marque : elle doit être regénérée
+  // pour chaque site, sinon les liens partagés affichent la mauvaise marque.
+  try {
+    execFileSync('python3', [
+      path.join(__dirname, 'make-og-image.py'),
+      '--site', path.join('sites', slug),
+      '--brand', brand,
+      '--tagline', `${niche} : guides et comparatifs`,
+      '--domain', domain,
+    ], { stdio: 'inherit', cwd: ROOT });
+  } catch (e) {
+    console.warn(
+      `\n⚠️  Image de partage non générée (python3 + Pillow requis).\n` +
+      `   Installez : apt-get install -y python3-pil python3-fonttools python3-brotli\n` +
+      `   Puis : python3 scripts/make-og-image.py --site sites/${slug} --brand "${brand}" \\\n` +
+      `            --tagline "Guides et comparatifs — ${niche}" --domain ${domain}`
+    );
+  }
+
   console.log(`\n✅ Site créé dans sites/${slug}/`);
+  if (author === 'À COMPLÉTER' || domain === 'example.com') {
+    console.log(
+      `\n⚠️  À corriger dans sites/${slug}/src/lib/site.ts avant mise en ligne :` +
+      (domain === 'example.com' ? `\n   · domain / url (actuellement example.com)` : '') +
+      (author === 'À COMPLÉTER' ? `\n   · nom de l'éditeur — obligatoire dans les mentions légales` : '') +
+      `\n   · editorAddress — adresse postale de l'éditeur (LCEN art. 6 III)`
+    );
+  }
+
   console.log(`Prochaine étape :`);
   console.log(`  node scripts/generate-content.js --site sites/${slug} --niche "${niche}" --articles 10\n`);
 }
@@ -51,7 +94,7 @@ async function replaceTokensInDir(dir, tokens) {
     if (entry.isDirectory()) {
       if (entry.name === 'node_modules') continue;
       await replaceTokensInDir(full, tokens);
-    } else if (/\.(astro|js|mjs|json|md|txt|html)$/.test(entry.name)) {
+    } else if (/\.(astro|ts|js|mjs|json|md|txt|html|css)$/.test(entry.name)) {
       let content = await fs.readFile(full, 'utf-8');
       for (const [token, value] of Object.entries(tokens)) {
         content = content.split(token).join(value);

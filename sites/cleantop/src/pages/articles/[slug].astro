@@ -2,58 +2,164 @@
 import Base from '../../layouts/Base.astro';
 import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
 import { getCollection } from 'astro:content';
+import { SITE, AUTHOR } from '../../lib/site';
+import { formatDate, readingTime } from '../../lib/format';
 
 export async function getStaticPaths() {
   // Un draft ne produit aucune page : donc absent du site ET du sitemap.
   const articles = await getCollection('articles', ({ data }) => !data.draft);
-  return articles.map(article => ({
+  return articles.map((article) => ({
     params: { slug: article.slug },
-    props: { article },
+    props: { article, all: articles },
   }));
 }
 
-const { article } = Astro.props;
+const { article, all } = Astro.props;
 const { Content } = await article.render();
+const { data } = article;
+
+const url = new URL(`/articles/${article.slug}/`, SITE.url).href;
+const minutes = readingTime(article.body);
+
+// Articles liés : même catégorie d'abord, complété par les plus récents.
+const others = all.filter((a) => a.slug !== article.slug);
+const related = [
+  ...others.filter((a) => a.data.category === data.category),
+  ...others.filter((a) => a.data.category !== data.category),
+].slice(0, 3);
 
 const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": article.data.faq.map(item => ({
-    "@type": "Question",
-    "name": item.question,
-    "acceptedAnswer": { "@type": "Answer", "text": item.answer },
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: data.faq.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
   })),
 };
----
-<Base title={article.data.title} description={article.data.description} jsonLd={[faqSchema]}>
-  <article>
-    <h1 class="font-serif text-3xl md:text-4xl font-semibold tracking-tight mb-6">
-      {article.data.title}
-    </h1>
 
-    <!-- Réponse directe : ce paragraphe est ce que les moteurs génératifs (ChatGPT, Perplexity) citent -->
-    <p class="text-lg leading-relaxed text-[#1C1D22] mb-8 font-medium">
-      {article.data.directAnswer}
+// BlogPosting : identifie l'article, son auteur et ses dates. Absent jusqu'ici,
+// c'est pourtant le schéma central pour un site éditorial.
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: data.title,
+  description: data.description,
+  inLanguage: SITE.lang,
+  datePublished: data.publishDate,
+  dateModified: data.updatedDate ?? data.publishDate,
+  author: { '@type': 'Person', name: AUTHOR.name, url: AUTHOR.url },
+  publisher: { '@type': 'Organization', name: SITE.brand, url: SITE.url },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+  url,
+  articleSection: data.category,
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Accueil', item: SITE.url },
+    { '@type': 'ListItem', position: 2, name: data.category, item: SITE.url },
+    { '@type': 'ListItem', position: 3, name: data.title, item: url },
+  ],
+};
+---
+<Base
+  title={data.title}
+  description={data.description}
+  ogType="article"
+  jsonLd={[articleSchema, breadcrumbSchema, faqSchema]}
+>
+  <nav aria-label="Fil d'Ariane" class="mb-8 text-sm text-[#6B6A63]">
+    <ol class="flex flex-wrap items-center gap-2">
+      <li><a href="/" class="hover:text-[#1C1D22] underline underline-offset-4 decoration-[#C9C3B4]">Accueil</a></li>
+      <li aria-hidden="true" class="text-[#C9C3B4]">/</li>
+      <li class="text-[#54534C]">{data.category}</li>
+    </ol>
+  </nav>
+
+  <article>
+    <header class="mb-8">
+      <h1 class="font-serif text-3xl md:text-4xl font-semibold tracking-tight leading-[1.15] mb-4">
+        {data.title}
+      </h1>
+      <p class="text-sm text-[#6B6A63] flex flex-wrap items-center gap-x-2 gap-y-1">
+        <span>Par {AUTHOR.name}</span>
+        <span aria-hidden="true" class="text-[#C9C3B4]">·</span>
+        <time datetime={data.publishDate}>{formatDate(data.publishDate)}</time>
+        {data.updatedDate && (
+          <>
+            <span aria-hidden="true" class="text-[#C9C3B4]">·</span>
+            <span>mis à jour le <time datetime={data.updatedDate}>{formatDate(data.updatedDate)}</time></span>
+          </>
+        )}
+        <span aria-hidden="true" class="text-[#C9C3B4]">·</span>
+        <span>{minutes} min de lecture</span>
+      </p>
+    </header>
+
+    <!-- Réponse directe : ce paragraphe est ce que les moteurs génératifs
+         (ChatGPT, Perplexity) citent en priorité. -->
+    <p class="text-lg leading-relaxed mb-8 pl-5 border-l-2 border-[#8A5A2B] text-[#1C1D22]">
+      {data.directAnswer}
     </p>
 
-    {article.data.affiliate && <AffiliateDisclosure />}
+    {data.affiliate && <AffiliateDisclosure />}
 
-    <div class="prose prose-lg max-w-none prose-headings:font-serif prose-headings:font-semibold prose-a:text-[#8A5A2B] prose-a:underline prose-a:underline-offset-2">
+    <div class="prose prose-lg max-w-none
+                prose-headings:font-serif prose-headings:font-semibold prose-headings:tracking-tight
+                prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
+                prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+                prose-p:text-[#26272C] prose-p:leading-[1.75]
+                prose-li:text-[#26272C] prose-li:leading-[1.7]
+                prose-strong:text-[#1C1D22] prose-strong:font-semibold
+                prose-a:text-[#8A5A2B] prose-a:underline prose-a:underline-offset-2 prose-a:decoration-[#D9C3A8]
+                hover:prose-a:decoration-[#8A5A2B]
+                prose-hr:border-[#E4E0D6] prose-hr:my-10
+                prose-table:text-[0.95em] prose-th:bg-[#F1EEE6] prose-th:font-medium
+                prose-td:border-[#E4E0D6] prose-th:border-[#E4E0D6]
+                prose-blockquote:border-l-[#8A5A2B] prose-blockquote:text-[#54534C] prose-blockquote:font-normal prose-blockquote:not-italic">
       <Content />
     </div>
 
-    {article.data.faq.length > 0 && (
-      <section class="mt-12 pt-8 border-t border-[#E4E0D6]">
-        <h2 class="font-serif text-2xl font-semibold mb-6">Questions fréquentes</h2>
+    {data.faq.length > 0 && (
+      <section class="mt-14 pt-8 border-t border-[#E4E0D6]" aria-labelledby="faq">
+        <h2 id="faq" class="font-serif text-2xl font-semibold tracking-tight mb-6">
+          Questions fréquentes
+        </h2>
         <dl class="space-y-6">
-          {article.data.faq.map(item => (
+          {data.faq.map((item) => (
             <div>
-              <dt class="font-medium text-lg">{item.question}</dt>
-              <dd class="text-[#54534C] mt-1">{item.answer}</dd>
+              <dt class="font-medium text-lg leading-snug">{item.question}</dt>
+              <dd class="text-[#54534C] mt-1.5 leading-relaxed">{item.answer}</dd>
             </div>
           ))}
         </dl>
       </section>
     )}
   </article>
+
+  {related.length > 0 && (
+    <aside class="mt-14 pt-8 border-t border-[#E4E0D6]" aria-labelledby="lire-aussi">
+      <h2 id="lire-aussi" class="text-xs font-medium tracking-[0.14em] uppercase text-[#8A5A2B] mb-5">
+        À lire aussi
+      </h2>
+      <ul class="divide-y divide-[#E4E0D6] border-t border-[#E4E0D6]">
+        {related.map((a) => (
+          <li>
+            <a href={`/articles/${a.slug}/`} class="group flex gap-4 py-4 items-baseline">
+              <span class="text-[#C9C3B4] group-hover:text-[#8A5A2B] transition-colors" aria-hidden="true">›</span>
+              <span class="flex-1">
+                <span class="block font-serif text-lg font-medium leading-snug group-hover:underline decoration-1 underline-offset-4 decoration-[#C9C3B4]">
+                  {a.data.title}
+                </span>
+                <span class="block text-sm text-[#6B6A63] mt-0.5">{a.data.category}</span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  )}
 </Base>
