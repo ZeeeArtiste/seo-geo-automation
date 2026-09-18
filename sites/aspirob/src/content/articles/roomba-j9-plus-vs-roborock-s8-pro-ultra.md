@@ -48,7 +48,7 @@ du tableau ci-dessus.
 </figure>
 
 
-Le [Roomba j9+](https://www.amazon.fr/dp/B0C415NHBM?tag=aspirob0d-21) est conçu pour un cas d'usage précis : aspirer efficacement des surfaces textiles avec des poils d'animaux. Sa brosse caoutchouc double (le système Clean Base d'iRobot) évite l'emmêlement, ce qui est un vrai avantage concret si vous avez un labrador ou un chat à long poil. La station vide le bac automatiquement et peut stocker plusieurs semaines de déchets selon la fréquence d'utilisation.
+Le Roomba j9+ est conçu pour un cas d'usage précis : aspirer efficacement des surfaces textiles avec des poils d'animaux. Sa brosse caoutchouc double (le système Clean Base d'iRobot) évite l'emmêlement, ce qui est un vrai avantage concret si vous avez un labrador ou un chat à long poil. La station vide le bac automatiquement et peut stocker plusieurs semaines de déchets selon la fréquence d'utilisation.
 
 La navigation par caméra fonctionne bien dans la plupart des intérieurs, mais elle est moins précise dans l'obscurité totale et peut parfois rater des bords. La détection d'obstacles (câbles, chaussettes) est en revanche une des meilleures du marché grâce aux capteurs visuels.
 
@@ -61,11 +61,17 @@ Ce qu'il ne fait pas bien : laver les sols. La fonction serpillière est anecdot
 </figure>
 
 
-Le [Roborock S8 Pro Ultra](https://www.amazon.fr/dp/B0BSL98D73?tag=aspirob0d-21) joue dans une autre catégorie dès qu'il s'agit de sols durs (carrelage, parquet, vinyle). Sa serpillière oscillante avec pression active retire les taches légères sèches de façon convaincante — pas parfaite, mais nettement au-dessus de la concurrence dans cette gamme. La station est son vrai argument : elle lave et sèche la serpillière automatiquement, ce qui évite les mauvaises odeurs et les moisissures, un problème réel sur les modèles concurrents moins équipés.
+Le Roborock S8 Pro Ultra joue dans une autre catégorie dès qu'il s'agit de sols durs (carrelage, parquet, vinyle). Sa serpillière oscillante avec pression active retire les taches légères sèches de façon convaincante — pas parfaite, mais nettement au-dessus de la concurrence dans cette gamme. La station est son vrai argument : elle lave et sèche la serpillière automatiquement, ce qui évite les mauvaises odeurs et les moisissures, un problème réel sur les modèles concurrents moins équipés.
 
 La navigation LiDAR est précise et fonctionne dans l'obscurité complète. La puissance d'aspiration est supérieure sur le papier, et on le ressent sur les tapis épais.
 
 Ses limites : la station est volumineuse (comptez un espace dédié de 30×40 cm environ), et la gestion des poils longs reste moins aboutie que celle du Roomba.
+
+[Voir le Roomba j9+](https://www.amazon.fr/dp/B0C415NHBM?tag=aspirob0d-21)
+
+
+[Voir le Roborock S8 Pro Ultra](https://www.amazon.fr/dp/B0BSL98D73?tag=aspirob0d-21)
+
 
 ---
 

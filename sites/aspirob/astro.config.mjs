@@ -14,7 +14,9 @@ const SITE = 'https://aspirob.com';
  * plus tard est couvert automatiquement.
  */
 function rehypeExternalLinks() {
-  const walk = (node) => {
+  const isText = (n) => n.type === 'text' && n.value.trim() === '';
+
+  const walk = (node, parent) => {
     if (node.type === 'element' && node.tagName === 'a') {
       const href = node.properties?.href ?? '';
       if (/^https?:\/\//.test(href) && !href.startsWith(SITE)) {
@@ -23,12 +25,21 @@ function rehypeExternalLinks() {
           ? 'sponsored nofollow noopener'
           : 'noopener';
         node.properties.target = '_blank';
-        if (affiliate) node.properties['data-affiliate'] = 'true';
+        if (affiliate) {
+          node.properties['data-affiliate'] = 'true';
+          // Un bouton n'a rien à faire au milieu d'une phrase. Seul un lien
+          // qui occupe SEUL son paragraphe devient un appel à l'action ; un
+          // lien contextuel reste un lien de texte.
+          const siblings = (parent?.children ?? []).filter((c) => !isText(c));
+          if (parent?.tagName === 'p' && siblings.length === 1) {
+            node.properties['data-cta'] = 'true';
+          }
+        }
       }
     }
-    (node.children ?? []).forEach(walk);
+    (node.children ?? []).forEach((c) => walk(c, node));
   };
-  return (tree) => walk(tree);
+  return (tree) => walk(tree, null);
 }
 
 export default defineConfig({

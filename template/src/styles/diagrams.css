@@ -30,19 +30,18 @@ figure.diagram figcaption {
   }
 }
 
-/* ── Boutons d'appel à l'action ────────────────────────────────────────
-   Les liens affiliés sont marqués `data-affiliate` à la compilation par le
-   plugin rehype : on peut donc les transformer en boutons sans toucher au
-   Markdown, et un lien ajouté plus tard le devient automatiquement. */
-.prose a[data-affiliate] {
+/* ── Appels à l'action ────────────────────────────────────────────────
+   Le plugin rehype ne pose `data-cta` que sur un lien affilié SEUL dans son
+   paragraphe. Un lien affilié au fil du texte reste un lien de texte : un
+   bouton en pleine phrase casse la lecture. */
+.prose a[data-cta] {
   display: inline-flex;
   align-items: center;
   gap: 0.45em;
-  margin-top: 0.4em;
-  padding: 0.55em 1.05em;
+  padding: 0.6em 1.15em;
   background: #2563eb;
   color: #fff;
-  font-size: 0.94em;
+  font-size: 0.95em;
   font-weight: 500;
   line-height: 1.2;
   border-radius: 6px;
@@ -50,13 +49,29 @@ figure.diagram figcaption {
   transition: background 0.15s ease;
 }
 
-.prose a[data-affiliate]:hover {
-  background: #1d4ed8;
-}
+.prose a[data-cta]:hover { background: #1d4ed8; }
 
-.prose a[data-affiliate]::after {
+.prose a[data-cta]::after {
   content: '→';
   font-weight: 400;
+}
+
+/* Le paragraphe qui ne contient qu'un CTA se resserre sur lui. */
+.prose p:has(> a[data-cta]:only-child) {
+  margin-top: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+/* Lien affilié contextuel : souligné discret, jamais un bouton. */
+.prose a[data-affiliate]:not([data-cta]) {
+  color: #2563eb;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: #bfdbfe;
+}
+
+.prose a[data-affiliate]:not([data-cta]):hover {
+  text-decoration-color: #2563eb;
 }
 
 /* ── Points forts / limites ────────────────────────────────────────── */
@@ -306,4 +321,16 @@ figure.diagram figcaption {
   color: #2563eb;
   border-left-color: #2563eb;
   font-weight: 500;
+}
+
+/* ── Fiche produit schématique ─────────────────────────────────────── */
+figure.fiche {
+  margin: 1.5rem 0;
+}
+
+figure.fiche img {
+  display: block;
+  width: 100%;
+  max-width: 640px;
+  height: auto;
 }
