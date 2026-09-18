@@ -42,6 +42,44 @@ if (!domain) {
   process.exit(1);
 }
 
+/**
+ * Traduit les échecs d'enregistrement Cloudflare en action concrète.
+ * Ces prérequis sont au niveau du COMPTE et se configurent une seule fois :
+ * une fois en place, tous les achats suivants sont entièrement automatiques.
+ */
+function explainRegistrationFailure(err) {
+  const msg = String(err.message || '');
+  console.error('\n❌ Achat impossible — AUCUN débit n\'a eu lieu.\n');
+
+  if (/registrant contact|address book/i.test(msg)) {
+    console.error(
+      "Cause : aucun contact registrant par défaut n'est configuré sur ce compte Cloudflare.\n" +
+      "        L'ICANN exige un contact propriétaire (nom, adresse postale, téléphone, email)\n" +
+      "        exact pour tout domaine — ces données ne peuvent pas être devinées.\n\n" +
+      "À faire UNE SEULE FOIS, dans le dashboard :\n" +
+      "  https://dash.cloudflare.com/" + (process.env.CLOUDFLARE_ACCOUNT_ID ?? '<ACCOUNT_ID>') +
+      "/domains/registrations\n" +
+      "  → renseignez le contact registrant par défaut, ET un moyen de paiement par défaut.\n\n" +
+      "Ensuite relancez simplement :\n" +
+      "  node scripts/provision-domain.js --domain <domaine> --confirm"
+    );
+  } else if (/payment|billing|card/i.test(msg)) {
+    console.error(
+      'Cause : moyen de paiement par défaut absent ou refusé sur ce compte Cloudflare.\n' +
+      '  https://dash.cloudflare.com/' + (process.env.CLOUDFLARE_ACCOUNT_ID ?? '<ACCOUNT_ID>') +
+      '/domains/registrations'
+    );
+  } else if (/not available|unavailable|registrable/i.test(msg)) {
+    console.error(
+      "Cause : le domaine vient d'être pris ou n'est plus enregistrable via l'API beta.\n" +
+      '  Relancez `node scripts/generate-domains.js --niche "..." --check-availability`.'
+    );
+  } else {
+    console.error(`Erreur brute : ${msg}`);
+  }
+  console.error('');
+}
+
 async function main() {
   const ip = args.ip || (await detectPublicIp());
 
@@ -115,7 +153,13 @@ async function main() {
     }
 
     console.log(`\n▶ 2/4 Achat (facturation immédiate, non remboursable)`);
-    const result = await registerDomain(domain);
+    let result;
+    try {
+      result = await registerDomain(domain);
+    } catch (e) {
+      explainRegistrationFailure(e);
+      process.exit(1);
+    }
     let state = result.state;
     if (!result.completed) {
       console.log(`   État "${state}" — attente de finalisation...`);
