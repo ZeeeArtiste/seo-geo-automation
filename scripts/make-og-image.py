@@ -19,11 +19,11 @@ from PIL import Image, ImageDraw, ImageFont
 from fontTools.ttLib import TTFont
 
 W, H = 1200, 630
-BG = (250, 248, 244)        # #FAF8F4 — fond du site
-INK = (28, 29, 34)          # #1C1D22
-MUTED = (107, 106, 99)      # #6B6A63
-ACCENT = (138, 90, 43)      # #8A5A2B
-RULE = (228, 224, 214)      # #E4E0D6
+BG = (255, 255, 255)        # blanc
+INK = (15, 23, 42)          # #0F172A
+MUTED = (100, 116, 139)     # #64748B
+ACCENT = (37, 99, 235)      # #2563EB
+RULE = (226, 232, 240)      # #E2E8F0
 
 
 def woff2_to_ttf(src: pathlib.Path) -> str:

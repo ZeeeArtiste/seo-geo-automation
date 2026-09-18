@@ -1,4 +1,4 @@
-INK, MUTED, ACCENT, RULE, PAPER, PANEL = '#1C1D22','#6B6A63','#8A5A2B','#E4E0D6','#FAF8F4','#FFFFFF'
+INK, MUTED, ACCENT, RULE, PAPER, PANEL = '#0F172A','#64748B','#2563EB','#E2E8F0','#F8FAFC','#FFFFFF'
 W, H = 820, 430
 DX, DY, DW, DH = 96, 106, 128, 216      # corps de la station
 
@@ -43,7 +43,7 @@ PW2, PH2 = 820, 400
 def room(x, y, w, h): return f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{PANEL}" stroke="{INK}" stroke-width="2"/>'
 def dock(x, y): return f'<rect x="{x}" y="{y}" width="46" height="20" rx="3" fill="{INK}"/>'
 def clear(x, y, w, h, ok):
-    c = '#2d6a4f' if ok else ACCENT
+    c = '#059669' if ok else ACCENT
     return f'<rect x="{x}" y="{y}" width="{w}" height="{h}" fill="{c}" opacity="0.13" stroke="{c}" stroke-width="1.4" stroke-dasharray="5 4"/>'
 
 AX, AY = 60, 118
@@ -53,7 +53,7 @@ svg2 = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {PW2} {PH2}" wid
 <desc id="plDesc">Vue de dessus. À gauche, la station est posée le long d'un mur dégagé : le robot dispose de l'espace libre nécessaire de chaque côté et devant elle pour s'y réamarrer sans hésiter. À droite, la station est coincée dans un angle ou un couloir : le robot rate son amarrage, repart chercher, et finit par tomber en panne de batterie.</desc>
 <rect width="{PW2}" height="{PH2}" fill="{PAPER}"/>
 <g font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
-  <text x="{AX}" y="48" font-size="12.5" font-weight="600" fill="#2d6a4f" letter-spacing="1.3">✓ LE LONG D'UN MUR DÉGAGÉ</text>
+  <text x="{AX}" y="48" font-size="12.5" font-weight="600" fill="#059669" letter-spacing="1.3">✓ LE LONG D'UN MUR DÉGAGÉ</text>
   <text x="{BX}" y="48" font-size="12.5" font-weight="600" fill="{ACCENT}" letter-spacing="1.3">✕ DANS UN ANGLE OU UN COULOIR</text>
   <text x="{AX}" y="74" font-size="13.5" fill="{INK}">Le robot se réamarre du premier coup.</text>
   <text x="{BX}" y="74" font-size="13.5" fill="{INK}">Il rate l'amarrage et tombe en panne.</text>
@@ -62,8 +62,8 @@ svg2 = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {PW2} {PH2}" wid
   {clear(AX+70, AY+22, 170, 112, True)}
   {dock(AX+132, AY+2)}
   <circle cx="{AX+155}" cy="{AY+110}" r="11" fill="{INK}"/>
-  <path d="M {AX+155} {AY+96} L {AX+155} {AY+34}" stroke="#2d6a4f" stroke-width="2"/>
-  <path d="M {AX+149} {AY+44} L {AX+155} {AY+30} L {AX+161} {AY+44}" fill="none" stroke="#2d6a4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M {AX+155} {AY+96} L {AX+155} {AY+34}" stroke="#059669" stroke-width="2"/>
+  <path d="M {AX+149} {AY+44} L {AX+155} {AY+30} L {AX+161} {AY+44}" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   <text x="{AX+8}" y="{AY+192}" font-size="12" fill="{MUTED}">Zone libre de part et d'autre et devant la station.</text>
 
   {room(BX, AY, 310, 200)}

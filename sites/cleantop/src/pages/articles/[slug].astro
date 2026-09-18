@@ -72,11 +72,11 @@ const breadcrumbSchema = {
   ogImage={`/og-${article.slug}.png`}
   jsonLd={[articleSchema, breadcrumbSchema, faqSchema]}
 >
-  <nav aria-label="Fil d'Ariane" class="mb-8 text-sm text-[#6B6A63]">
+  <nav aria-label="Fil d'Ariane" class="mb-8 text-sm text-muted">
     <ol class="flex flex-wrap items-center gap-2">
-      <li><a href="/" class="hover:text-[#1C1D22] underline underline-offset-4 decoration-[#C9C3B4]">Accueil</a></li>
-      <li aria-hidden="true" class="text-[#C9C3B4]">/</li>
-      <li class="text-[#54534C]">{data.category}</li>
+      <li><a href="/" class="hover:text-ink underline underline-offset-4 decoration-lineStrong">Accueil</a></li>
+      <li aria-hidden="true" class="text-lineStrong">/</li>
+      <li class="text-body">{data.category}</li>
     </ol>
   </nav>
 
@@ -85,24 +85,24 @@ const breadcrumbSchema = {
       <h1 class="font-serif text-3xl md:text-4xl font-semibold tracking-tight leading-[1.15] mb-4">
         {data.title}
       </h1>
-      <p class="text-sm text-[#6B6A63] flex flex-wrap items-center gap-x-2 gap-y-1">
+      <p class="text-sm text-muted flex flex-wrap items-center gap-x-2 gap-y-1">
         <span>Par {AUTHOR.name}</span>
-        <span aria-hidden="true" class="text-[#C9C3B4]">·</span>
+        <span aria-hidden="true" class="text-lineStrong">·</span>
         <time datetime={data.publishDate}>{formatDate(data.publishDate)}</time>
         {data.updatedDate && (
           <>
-            <span aria-hidden="true" class="text-[#C9C3B4]">·</span>
+            <span aria-hidden="true" class="text-lineStrong">·</span>
             <span>mis à jour le <time datetime={data.updatedDate}>{formatDate(data.updatedDate)}</time></span>
           </>
         )}
-        <span aria-hidden="true" class="text-[#C9C3B4]">·</span>
+        <span aria-hidden="true" class="text-lineStrong">·</span>
         <span>{minutes} min de lecture</span>
       </p>
     </header>
 
     <!-- Réponse directe : ce paragraphe est ce que les moteurs génératifs
          (ChatGPT, Perplexity) citent en priorité. -->
-    <p class="text-lg leading-relaxed mb-8 pl-5 border-l-2 border-[#8A5A2B] text-[#1C1D22]">
+    <p class="text-lg leading-relaxed mb-8 pl-5 border-l-2 border-accent text-ink">
       {data.directAnswer}
     </p>
 
@@ -112,20 +112,20 @@ const breadcrumbSchema = {
                 prose-headings:font-serif prose-headings:font-semibold prose-headings:tracking-tight
                 prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
                 prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
-                prose-p:text-[#26272C] prose-p:leading-[1.75]
-                prose-li:text-[#26272C] prose-li:leading-[1.7]
-                prose-strong:text-[#1C1D22] prose-strong:font-semibold
-                prose-a:text-[#8A5A2B] prose-a:underline prose-a:underline-offset-2 prose-a:decoration-[#D9C3A8]
-                hover:prose-a:decoration-[#8A5A2B]
-                prose-hr:border-[#E4E0D6] prose-hr:my-10
-                prose-table:text-[0.95em] prose-th:bg-[#F1EEE6] prose-th:font-medium
-                prose-td:border-[#E4E0D6] prose-th:border-[#E4E0D6]
-                prose-blockquote:border-l-[#8A5A2B] prose-blockquote:text-[#54534C] prose-blockquote:font-normal prose-blockquote:not-italic">
+                prose-p:text-body prose-p:leading-[1.75]
+                prose-li:text-body prose-li:leading-[1.7]
+                prose-strong:text-ink prose-strong:font-semibold
+                prose-a:text-accent prose-a:underline prose-a:underline-offset-2 prose-a:decoration-accentSoft
+                hover:prose-a:decoration-accent
+                prose-hr:border-line prose-hr:my-10
+                prose-table:text-[0.95em] prose-th:bg-surface prose-th:font-medium
+                prose-td:border-line prose-th:border-line
+                prose-blockquote:border-l-accent prose-blockquote:text-body prose-blockquote:font-normal prose-blockquote:not-italic">
       <Content />
     </div>
 
     {data.faq.length > 0 && (
-      <section class="mt-14 pt-8 border-t border-[#E4E0D6]" aria-labelledby="faq">
+      <section class="mt-14 pt-8 border-t border-line" aria-labelledby="faq">
         <h2 id="faq" class="font-serif text-2xl font-semibold tracking-tight mb-6">
           Questions fréquentes
         </h2>
@@ -133,7 +133,7 @@ const breadcrumbSchema = {
           {data.faq.map((item) => (
             <div>
               <dt class="font-medium text-lg leading-snug">{item.question}</dt>
-              <dd class="text-[#54534C] mt-1.5 leading-relaxed">{item.answer}</dd>
+              <dd class="text-body mt-1.5 leading-relaxed">{item.answer}</dd>
             </div>
           ))}
         </dl>
@@ -142,20 +142,20 @@ const breadcrumbSchema = {
   </article>
 
   {related.length > 0 && (
-    <aside class="mt-14 pt-8 border-t border-[#E4E0D6]" aria-labelledby="lire-aussi">
-      <h2 id="lire-aussi" class="text-xs font-medium tracking-[0.14em] uppercase text-[#8A5A2B] mb-5">
+    <aside class="mt-14 pt-8 border-t border-line" aria-labelledby="lire-aussi">
+      <h2 id="lire-aussi" class="text-xs font-medium tracking-[0.14em] uppercase text-accent mb-5">
         À lire aussi
       </h2>
-      <ul class="divide-y divide-[#E4E0D6] border-t border-[#E4E0D6]">
+      <ul class="divide-y divide-line border-t border-line">
         {related.map((a) => (
           <li>
             <a href={`/articles/${a.slug}/`} class="group flex gap-4 py-4 items-baseline">
-              <span class="text-[#C9C3B4] group-hover:text-[#8A5A2B] transition-colors" aria-hidden="true">›</span>
+              <span class="text-lineStrong group-hover:text-accent transition-colors" aria-hidden="true">›</span>
               <span class="flex-1">
-                <span class="block font-serif text-lg font-medium leading-snug group-hover:underline decoration-1 underline-offset-4 decoration-[#C9C3B4]">
+                <span class="block font-serif text-lg font-medium leading-snug group-hover:underline decoration-1 underline-offset-4 decoration-lineStrong">
                   {a.data.title}
                 </span>
-                <span class="block text-sm text-[#6B6A63] mt-0.5">{a.data.category}</span>
+                <span class="block text-sm text-muted mt-0.5">{a.data.category}</span>
               </span>
             </a>
           </li>

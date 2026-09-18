@@ -16,20 +16,20 @@ const schema = {
   jsonLd={[schema]}
 >
   <h1 class="font-serif text-3xl md:text-4xl font-semibold tracking-tight mb-4">Contact</h1>
-  <p class="text-lg text-[#54534C] leading-relaxed mb-8 max-w-prose">
+  <p class="text-lg text-body leading-relaxed mb-8 max-w-prose">
     Une erreur à signaler, une question sur un article, une demande de correction ?
   </p>
 
-  <div class="border border-[#E4E0D6] rounded-sm bg-white p-6 mb-8">
-    <p class="text-sm uppercase tracking-wide text-[#6B6A63] mb-2">Adresse e-mail</p>
+  <div class="border border-line rounded-sm bg-white p-6 mb-8">
+    <p class="text-sm uppercase tracking-wide text-muted mb-2">Adresse e-mail</p>
     <p class="font-serif text-xl">
-      <a href={`mailto:${LEGAL.contactEmail}`} class="text-[#8A5A2B] underline underline-offset-4 decoration-[#D9C3A8] hover:decoration-[#8A5A2B]">
+      <a href={`mailto:${LEGAL.contactEmail}`} class="text-accent underline underline-offset-4 decoration-accentSoft hover:decoration-accent">
         {LEGAL.contactEmail}
       </a>
     </p>
   </div>
 
-  <p class="text-[#54534C] leading-relaxed max-w-prose">
+  <p class="text-body leading-relaxed max-w-prose">
     Si vous signalez une information inexacte, indiquez si possible l'article concerné et la
     source qui la contredit : c'est ce qui nous permet de corriger vite. Les corrections sont
     appliquées directement dans l'article, et sa date de révision est mise à jour.

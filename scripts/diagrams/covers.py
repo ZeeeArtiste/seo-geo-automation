@@ -8,7 +8,7 @@ formes, aucune typographie.
 """
 import math, pathlib, sys
 
-INK, MUTED, ACCENT, RULE, PAPER, PANEL = '#1C1D22','#6B6A63','#8A5A2B','#E4E0D6','#FAF8F4','#FFFFFF'
+INK, MUTED, ACCENT, RULE, PAPER, PANEL = '#0F172A','#64748B','#2563EB','#E2E8F0','#F8FAFC','#FFFFFF'
 W, H = 480, 300
 
 def frame(body, title, desc):

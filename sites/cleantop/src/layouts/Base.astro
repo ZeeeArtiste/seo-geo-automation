@@ -77,19 +77,19 @@ const websiteSchema = {
   ))}
 </head>
 
-<body class="bg-[#FAF8F4] text-[#1C1D22] font-sans antialiased flex flex-col min-h-screen">
-  <header class="border-b border-[#E4E0D6]">
+<body class="bg-paper text-ink font-sans antialiased flex flex-col min-h-screen">
+  <header class="border-b border-line">
     <div class="max-w-3xl mx-auto px-6 py-5 flex items-baseline justify-between gap-6">
       <a href="/" class="font-serif text-xl font-semibold tracking-tight shrink-0">
         {SITE.brand}
       </a>
       <nav aria-label="Navigation principale">
-        <ul class="flex gap-5 text-sm text-[#54534C]">
+        <ul class="flex gap-5 text-sm text-body">
           {NAV.filter((n) => n.href !== '/').map((item) => (
             <li>
               <a
                 href={item.href}
-                class="hover:text-[#1C1D22] underline-offset-4 hover:underline decoration-[#C9C3B4]"
+                class="hover:text-ink underline-offset-4 hover:underline decoration-lineStrong"
                 aria-current={Astro.url.pathname === item.href ? 'page' : undefined}
               >
                 {item.label}
@@ -105,8 +105,8 @@ const websiteSchema = {
     <slot />
   </main>
 
-  <footer class="border-t border-[#E4E0D6] mt-16">
-    <div class="max-w-3xl mx-auto px-6 py-10 text-sm text-[#6B6A63] space-y-4">
+  <footer class="border-t border-line mt-16">
+    <div class="max-w-3xl mx-auto px-6 py-10 text-sm text-muted space-y-4">
       {hasAffiliate && (
         <p class="max-w-prose">
           Certains liens de ce site sont des liens affiliés. Si vous achetez via ces liens,
@@ -116,10 +116,10 @@ const websiteSchema = {
       )}
       <nav aria-label="Pages légales">
         <ul class="flex flex-wrap gap-x-5 gap-y-2">
-          <li><a class="hover:text-[#1C1D22] underline underline-offset-4 decoration-[#C9C3B4]" href="/a-propos/">Méthode</a></li>
-          <li><a class="hover:text-[#1C1D22] underline underline-offset-4 decoration-[#C9C3B4]" href="/contact/">Contact</a></li>
-          <li><a class="hover:text-[#1C1D22] underline underline-offset-4 decoration-[#C9C3B4]" href="/mentions-legales/">Mentions légales</a></li>
-          <li><a class="hover:text-[#1C1D22] underline underline-offset-4 decoration-[#C9C3B4]" href="/confidentialite/">Confidentialité</a></li>
+          <li><a class="hover:text-ink underline underline-offset-4 decoration-lineStrong" href="/a-propos/">Méthode</a></li>
+          <li><a class="hover:text-ink underline underline-offset-4 decoration-lineStrong" href="/contact/">Contact</a></li>
+          <li><a class="hover:text-ink underline underline-offset-4 decoration-lineStrong" href="/mentions-legales/">Mentions légales</a></li>
+          <li><a class="hover:text-ink underline underline-offset-4 decoration-lineStrong" href="/confidentialite/">Confidentialité</a></li>
         </ul>
       </nav>
       <p>© {new Date().getFullYear()} {SITE.brand}. Tous droits réservés.</p>

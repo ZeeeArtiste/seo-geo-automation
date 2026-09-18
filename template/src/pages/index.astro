@@ -29,41 +29,41 @@ const guides = rest.filter((a) => a.data.category !== 'Comparatif');
     <h1 class="font-serif text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.1] mb-5">
       {SITE.tagline}
     </h1>
-    <div class="w-12 h-px bg-[#8A5A2B] mb-5"></div>
-    <p class="text-lg text-[#54534C] max-w-prose leading-relaxed">
+    <div class="w-12 h-px bg-accent mb-5"></div>
+    <p class="text-lg text-body max-w-prose leading-relaxed">
       Comprendre ce qui sépare réellement deux aspirateurs robots — la navigation,
       le type de brosse, la station — plutôt que de comparer des fiches techniques.
-      <span class="text-[#1C1D22]">Aucun chiffre que nous n'avons pas pu vérifier.</span>
+      <span class="text-ink">Aucun chiffre que nous n'avons pas pu vérifier.</span>
     </p>
   </section>
 
   {featured && (
     <section class="mb-16" aria-labelledby="a-la-une">
-      <h2 id="a-la-une" class="text-xs font-medium tracking-[0.14em] uppercase text-[#8A5A2B] mb-5">
+      <h2 id="a-la-une" class="text-xs font-medium tracking-[0.14em] uppercase text-accent mb-5">
         À la une
       </h2>
       <a href={`/articles/${featured.slug}/`} class="group block">
-        <article class="border border-[#E4E0D6] rounded-sm bg-white overflow-hidden transition-colors group-hover:border-[#C9C3B4]">
+        <article class="border border-line rounded-sm bg-white overflow-hidden transition-colors group-hover:border-lineStrong">
           {featured.data.cover && (
             <img
               src={featured.data.cover}
               alt=""
               width="480"
               height="300"
-              class="w-full h-40 sm:h-48 object-cover border-b border-[#E4E0D6]"
+              class="w-full h-40 sm:h-48 object-cover border-b border-line"
             />
           )}
           <div class="p-6 sm:p-8">
-          <p class="text-xs tracking-wide uppercase text-[#6B6A63] mb-3">
+          <p class="text-xs tracking-wide uppercase text-muted mb-3">
             {featured.data.category}
           </p>
-          <h3 class="font-serif text-2xl sm:text-3xl font-semibold tracking-tight leading-snug mb-3 group-hover:underline decoration-1 underline-offset-4 decoration-[#C9C3B4]">
+          <h3 class="font-serif text-2xl sm:text-3xl font-semibold tracking-tight leading-snug mb-3 group-hover:underline decoration-1 underline-offset-4 decoration-lineStrong">
             {featured.data.title}
           </h3>
-          <p class="text-[#54534C] leading-relaxed mb-4 max-w-prose">
+          <p class="text-body leading-relaxed mb-4 max-w-prose">
             {featured.data.description}
           </p>
-          <p class="text-sm text-[#6B6A63]">
+          <p class="text-sm text-muted">
             {formatDateShort(featured.data.publishDate)} · {readingTime(featured.body)} min de lecture
           </p>
           </div>
@@ -74,11 +74,11 @@ const guides = rest.filter((a) => a.data.category !== 'Comparatif');
 
   {comparatifs.length > 0 && (
     <section class="mb-14" aria-labelledby="comparatifs">
-      <h2 id="comparatifs" class="text-xs font-medium tracking-[0.14em] uppercase text-[#8A5A2B] mb-1">
+      <h2 id="comparatifs" class="text-xs font-medium tracking-[0.14em] uppercase text-accent mb-1">
         Comparatifs
       </h2>
-      <p class="text-sm text-[#6B6A63] mb-5">Face-à-face entre modèles.</p>
-      <ul class="divide-y divide-[#E4E0D6] border-t border-[#E4E0D6]">
+      <p class="text-sm text-muted mb-5">Face-à-face entre modèles.</p>
+      <ul class="divide-y divide-line border-t border-line">
         {comparatifs.map((a) => (
           <li>
             <a href={`/articles/${a.slug}/`} class="group flex gap-4 sm:gap-5 py-5 items-center">
@@ -88,16 +88,16 @@ const guides = rest.filter((a) => a.data.category !== 'Comparatif');
                   alt=""
                   width="480"
                   height="300"
-                  class="w-24 sm:w-32 h-16 sm:h-20 shrink-0 object-cover rounded-sm border border-[#E4E0D6] bg-white"
+                  class="w-24 sm:w-32 h-16 sm:h-20 shrink-0 object-cover rounded-sm border border-line bg-white"
                 />
               ) : (
-                <span class="text-[#C9C3B4] group-hover:text-[#8A5A2B] transition-colors" aria-hidden="true">›</span>
+                <span class="text-lineStrong group-hover:text-accent transition-colors" aria-hidden="true">›</span>
               )}
               <span class="flex-1">
-                <span class="block font-serif text-lg sm:text-xl font-medium leading-snug group-hover:underline decoration-1 underline-offset-4 decoration-[#C9C3B4]">
+                <span class="block font-serif text-lg sm:text-xl font-medium leading-snug group-hover:underline decoration-1 underline-offset-4 decoration-lineStrong">
                   {a.data.title}
                 </span>
-                <span class="block text-sm text-[#6B6A63] mt-1">
+                <span class="block text-sm text-muted mt-1">
                   {formatDateShort(a.data.publishDate)} · {readingTime(a.body)} min
                 </span>
               </span>
@@ -110,11 +110,11 @@ const guides = rest.filter((a) => a.data.category !== 'Comparatif');
 
   {guides.length > 0 && (
     <section aria-labelledby="guides">
-      <h2 id="guides" class="text-xs font-medium tracking-[0.14em] uppercase text-[#8A5A2B] mb-1">
+      <h2 id="guides" class="text-xs font-medium tracking-[0.14em] uppercase text-accent mb-1">
         Guides
       </h2>
-      <p class="text-sm text-[#6B6A63] mb-5">Comprendre avant d'acheter.</p>
-      <ul class="divide-y divide-[#E4E0D6] border-t border-[#E4E0D6]">
+      <p class="text-sm text-muted mb-5">Comprendre avant d'acheter.</p>
+      <ul class="divide-y divide-line border-t border-line">
         {guides.map((a) => (
           <li>
             <a href={`/articles/${a.slug}/`} class="group flex gap-4 sm:gap-5 py-5 items-center">
@@ -124,16 +124,16 @@ const guides = rest.filter((a) => a.data.category !== 'Comparatif');
                   alt=""
                   width="480"
                   height="300"
-                  class="w-24 sm:w-32 h-16 sm:h-20 shrink-0 object-cover rounded-sm border border-[#E4E0D6] bg-white"
+                  class="w-24 sm:w-32 h-16 sm:h-20 shrink-0 object-cover rounded-sm border border-line bg-white"
                 />
               ) : (
-                <span class="text-[#C9C3B4] group-hover:text-[#8A5A2B] transition-colors" aria-hidden="true">›</span>
+                <span class="text-lineStrong group-hover:text-accent transition-colors" aria-hidden="true">›</span>
               )}
               <span class="flex-1">
-                <span class="block font-serif text-lg sm:text-xl font-medium leading-snug group-hover:underline decoration-1 underline-offset-4 decoration-[#C9C3B4]">
+                <span class="block font-serif text-lg sm:text-xl font-medium leading-snug group-hover:underline decoration-1 underline-offset-4 decoration-lineStrong">
                   {a.data.title}
                 </span>
-                <span class="block text-sm text-[#6B6A63] mt-1">
+                <span class="block text-sm text-muted mt-1">
                   {formatDateShort(a.data.publishDate)} · {readingTime(a.body)} min
                 </span>
               </span>

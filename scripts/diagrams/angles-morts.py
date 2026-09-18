@@ -1,5 +1,5 @@
 import math
-INK, MUTED, ACCENT, RULE, PAPER, PANEL = '#1C1D22','#6B6A63','#8A5A2B','#E4E0D6','#FAF8F4','#FFFFFF'
+INK, MUTED, ACCENT, RULE, PAPER, PANEL = '#0F172A','#64748B','#2563EB','#E2E8F0','#F8FAFC','#FFFFFF'
 
 def seg_int(p, d, a, b):
     x1,y1=a; x2,y2=b; ex,ey=x2-x1,y2-y1

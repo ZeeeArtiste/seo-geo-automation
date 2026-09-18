@@ -1,30 +1,30 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 400" width="820" height="400" role="img" aria-labelledby="plTitle plDesc">
 <title id="plTitle">Où placer la station de recharge</title>
 <desc id="plDesc">Vue de dessus. À gauche, la station est posée le long d'un mur dégagé : le robot dispose de l'espace libre nécessaire de chaque côté et devant elle pour s'y réamarrer sans hésiter. À droite, la station est coincée dans un angle ou un couloir : le robot rate son amarrage, repart chercher, et finit par tomber en panne de batterie.</desc>
-<rect width="820" height="400" fill="#FAF8F4"/>
+<rect width="820" height="400" fill="#F8FAFC"/>
 <g font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
-  <text x="60" y="48" font-size="12.5" font-weight="600" fill="#2d6a4f" letter-spacing="1.3">✓ LE LONG D'UN MUR DÉGAGÉ</text>
-  <text x="450" y="48" font-size="12.5" font-weight="600" fill="#8A5A2B" letter-spacing="1.3">✕ DANS UN ANGLE OU UN COULOIR</text>
-  <text x="60" y="74" font-size="13.5" fill="#1C1D22">Le robot se réamarre du premier coup.</text>
-  <text x="450" y="74" font-size="13.5" fill="#1C1D22">Il rate l'amarrage et tombe en panne.</text>
+  <text x="60" y="48" font-size="12.5" font-weight="600" fill="#059669" letter-spacing="1.3">✓ LE LONG D'UN MUR DÉGAGÉ</text>
+  <text x="450" y="48" font-size="12.5" font-weight="600" fill="#2563EB" letter-spacing="1.3">✕ DANS UN ANGLE OU UN COULOIR</text>
+  <text x="60" y="74" font-size="13.5" fill="#0F172A">Le robot se réamarre du premier coup.</text>
+  <text x="450" y="74" font-size="13.5" fill="#0F172A">Il rate l'amarrage et tombe en panne.</text>
 
-  <rect x="60" y="118" width="310" height="200" fill="#FFFFFF" stroke="#1C1D22" stroke-width="2"/>
-  <rect x="130" y="140" width="170" height="112" fill="#2d6a4f" opacity="0.13" stroke="#2d6a4f" stroke-width="1.4" stroke-dasharray="5 4"/>
-  <rect x="192" y="120" width="46" height="20" rx="3" fill="#1C1D22"/>
-  <circle cx="215" cy="228" r="11" fill="#1C1D22"/>
-  <path d="M 215 214 L 215 152" stroke="#2d6a4f" stroke-width="2"/>
-  <path d="M 209 162 L 215 148 L 221 162" fill="none" stroke="#2d6a4f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="68" y="310" font-size="12" fill="#6B6A63">Zone libre de part et d'autre et devant la station.</text>
+  <rect x="60" y="118" width="310" height="200" fill="#FFFFFF" stroke="#0F172A" stroke-width="2"/>
+  <rect x="130" y="140" width="170" height="112" fill="#059669" opacity="0.13" stroke="#059669" stroke-width="1.4" stroke-dasharray="5 4"/>
+  <rect x="192" y="120" width="46" height="20" rx="3" fill="#0F172A"/>
+  <circle cx="215" cy="228" r="11" fill="#0F172A"/>
+  <path d="M 215 214 L 215 152" stroke="#059669" stroke-width="2"/>
+  <path d="M 209 162 L 215 148 L 221 162" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="68" y="310" font-size="12" fill="#64748B">Zone libre de part et d'autre et devant la station.</text>
 
-  <rect x="450" y="118" width="310" height="200" fill="#FFFFFF" stroke="#1C1D22" stroke-width="2"/>
-  <rect x="452" y="120" width="96" height="88" fill="#E4E0D6" stroke="#6B6A63" stroke-width="1"/>
-  <rect x="550" y="140" width="52" height="70" fill="#8A5A2B" opacity="0.13" stroke="#8A5A2B" stroke-width="1.4" stroke-dasharray="5 4"/>
-  <rect x="552" y="120" width="46" height="20" rx="3" fill="#1C1D22"/>
-  <circle cx="650" cy="238" r="11" fill="#1C1D22"/>
-  <path d="M 640 228 Q 600 198 610 170" fill="none" stroke="#8A5A2B" stroke-width="2" stroke-dasharray="5 4"/>
-  <g stroke="#8A5A2B" stroke-width="2.2" stroke-linecap="round"><line x1="602" y1="158" x2="616" y2="172"/><line x1="616" y1="158" x2="602" y2="172"/></g>
-  <text x="458" y="310" font-size="12" fill="#6B6A63">Meuble collé à la station : approche impossible.</text>
+  <rect x="450" y="118" width="310" height="200" fill="#FFFFFF" stroke="#0F172A" stroke-width="2"/>
+  <rect x="452" y="120" width="96" height="88" fill="#E2E8F0" stroke="#64748B" stroke-width="1"/>
+  <rect x="550" y="140" width="52" height="70" fill="#2563EB" opacity="0.13" stroke="#2563EB" stroke-width="1.4" stroke-dasharray="5 4"/>
+  <rect x="552" y="120" width="46" height="20" rx="3" fill="#0F172A"/>
+  <circle cx="650" cy="238" r="11" fill="#0F172A"/>
+  <path d="M 640 228 Q 600 198 610 170" fill="none" stroke="#2563EB" stroke-width="2" stroke-dasharray="5 4"/>
+  <g stroke="#2563EB" stroke-width="2.2" stroke-linecap="round"><line x1="602" y1="158" x2="616" y2="172"/><line x1="616" y1="158" x2="602" y2="172"/></g>
+  <text x="458" y="310" font-size="12" fill="#64748B">Meuble collé à la station : approche impossible.</text>
 
-  <text x="60" y="372" font-size="13" fill="#6B6A63">C'est l'erreur la plus fréquente, et la plus simple à corriger : il suffit de déplacer la station.</text>
+  <text x="60" y="372" font-size="13" fill="#64748B">C'est l'erreur la plus fréquente, et la plus simple à corriger : il suffit de déplacer la station.</text>
 </g>
 </svg>
