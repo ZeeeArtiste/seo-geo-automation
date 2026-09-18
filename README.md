@@ -176,7 +176,24 @@ Chaque site généré vit dans `sites/<brand>/` — un projet Astro autonome.
    sur un article qui n'en a aucun est une affirmation fausse — le sens de l'obligation légale est
    de ne pas dissimuler une rémunération, pas d'en inventer une.
 
-   **Ce que le projet ne peut pas faire** : créer votre compte d'affiliation ni fabriquer vos liens.
+   **Génération des liens** : `make-affiliate-links.js` construit `config/affiliate-links.json`
+   à partir d'URLs produit Amazon collées depuis le navigateur. Il extrait l'ASIN, reconstruit un
+   lien propre `amazon.fr/dp/<ASIN>?tag=<tag>`, déduit le nom depuis le slug de l'URL, déduplique
+   par ASIN et rejette ce qui n'est pas exploitable (liens raccourcis `amzn.to`/`amzn.eu`, qui ne
+   contiennent pas l'ASIN, et pages de recherche). Le tag est lu depuis `AMAZON_ASSOCIATE_TAG`.
+
+   ```bash
+   node scripts/make-affiliate-links.js \
+     --url "https://www.amazon.fr/.../dp/B0XXXXXXXX" \
+     --url "https://www.amazon.fr/.../dp/B0YYYYYYYY"
+   # puis régénérer le contenu avec --affiliate-links config/affiliate-links.json
+   ```
+
+   Les noms déduits du slug sont signalés `⚠️ nom deviné` : relisez-les, ils apparaîtront dans
+   les articles.
+
+   **Ce que le projet ne peut pas faire** : créer votre compte d'affiliation, ni deviner les ASIN
+   des produits que vous voulez recommander.
    Inscrivez-vous au programme (Amazon Associates, Awin…), puis renseignez vos vrais liens dans
    `config/affiliate-links.json` (modèle : `affiliate-links.example.json`) et régénérez le contenu
    avec `--affiliate-links`. La divulgation réapparaîtra automatiquement.
