@@ -38,7 +38,15 @@ Cloudflare a une Registrar API en beta qui permet de chercher, vérifier la disp
 acheter un domaine par API, au prix coûtant (pas de marge Cloudflare sur le prix du registre).
 
 1. Créez un compte Cloudflare si besoin, notez votre `Account ID` (visible dans le dashboard).
-2. Créez un token API avec la permission **Registrar: write** : `https://dash.cloudflare.com/<ACCOUNT_ID>/api-tokens`
+2. Créez un token API sur `https://dash.cloudflare.com/profile/api-tokens` avec **trois** permissions :
+   - **Account / Registrar / Edit** — recherche, vérification et achat de domaine
+   - **Zone / Zone / Read** — retrouver la zone créée après l'achat
+   - **Zone / DNS / Edit** — créer les enregistrements A vers votre serveur
+
+   ⚠️ Un token limité à Registrar **ne suffit pas** pour la partie DNS, et l'échec est
+   silencieux : `GET /zones?name=...` renvoie `success: true` avec une liste **vide** au lieu
+   d'un 403, ce qui ressemble à « domaine inexistant ». Diagnostic :
+   `node scripts/configure-dns.js --domain <domaine> --check-token`
 3. Configurez un moyen de paiement par défaut et un contact registrant par défaut dans
    `https://dash.cloudflare.com/<ACCOUNT_ID>/domains/registrations` (obligatoire avant tout achat).
 4. Renseignez `CLOUDFLARE_ACCOUNT_ID` et `CLOUDFLARE_API_TOKEN` dans `.env`.
@@ -51,6 +59,35 @@ node scripts/generate-domains.js --niche "aspirateurs robots" --check-availabili
 node scripts/register-domain.js --domain "cleantop.dev"            # dry-run, montre juste le prix
 node scripts/register-domain.js --domain "cleantop.dev" --confirm  # achète réellement, débit immédiat
 ```
+
+### Achat + DNS en une commande
+
+`provision-domain.js` enchaîne vérification → achat → attente de la zone → enregistrements A
+(domaine nu **et** `www`) pointés vers l'IP publique de la machine courante :
+
+```bash
+node scripts/provision-domain.js --domain aspirob.com            # dry-run : prix + DNS prévu, aucun débit
+node scripts/provision-domain.js --domain aspirob.com --confirm  # achète puis configure le DNS
+node scripts/provision-domain.js --domain aspirob.com --confirm --ip 1.2.3.4   # IP explicite
+```
+
+Deux garde-fous importants :
+
+- **Préflight des permissions avant l'achat.** Le script vérifie l'accès DNS *avant* de payer :
+  acheter puis échouer sur le DNS vous laisserait avec un domaine débité et inutilisable.
+- **Idempotent.** Si le domaine est déjà sur le compte, l'achat est sauté et seul le DNS est
+  réappliqué. Relancer ne crée jamais de doublon d'enregistrement.
+
+Pour configurer le DNS seul (domaine déjà acheté) :
+
+```bash
+node scripts/configure-dns.js --domain aspirob.com           # A @ et www → IP de ce serveur
+node scripts/configure-dns.js --domain aspirob.com --wait    # attend l'apparition de la zone
+node scripts/configure-dns.js --domain aspirob.com --proxied # derrière le CDN Cloudflare
+```
+
+⚠️ N'activez `--proxied` **qu'après** avoir obtenu le certificat : le challenge HTTP-01 de
+certbot a besoin d'un accès direct au serveur.
 
 ⚠️ **L'achat est non remboursable dès qu'il réussit.** `register-domain.js` ne débite jamais sans
 `--confirm` explicite — pas d'achat "silencieux" dans le pipeline automatique par défaut.
