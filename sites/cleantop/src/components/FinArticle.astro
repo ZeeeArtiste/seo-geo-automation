@@ -1,0 +1,25 @@
+---
+/**
+ * Bloc de fin d'article : oriente vers l'étape suivante plutôt que de laisser
+ * le lecteur en cul-de-sac. Les cibles sont des articles existants du site.
+ */
+interface Props {
+  links: { href: string; label: string; hint: string }[];
+}
+const { links } = Astro.props;
+---
+{links.length > 0 && (
+  <aside class="mt-14 border border-line rounded-md bg-surface p-6" aria-labelledby="suite">
+    <p id="suite" class="text-xs font-medium tracking-[0.14em] uppercase text-accent mb-4">
+      Et maintenant
+    </p>
+    <div class="grid sm:grid-cols-2 gap-3">
+      {links.map((l) => (
+        <a href={l.href} class="group block border border-line rounded-md bg-paper p-4 transition-colors hover:border-accent">
+          <span class="block font-medium leading-snug group-hover:text-accent transition-colors">{l.label}</span>
+          <span class="block text-sm text-muted mt-0.5">{l.hint}</span>
+        </a>
+      ))}
+    </div>
+  </aside>
+)}

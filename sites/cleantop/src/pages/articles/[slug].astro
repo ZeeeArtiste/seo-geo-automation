@@ -2,6 +2,9 @@
 import Base from '../../layouts/Base.astro';
 import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
 import Hero from '../../components/Hero.astro';
+import Sommaire from '../../components/Sommaire.astro';
+import Essentiel from '../../components/Essentiel.astro';
+import FinArticle from '../../components/FinArticle.astro';
 import credits from '../../data/photo-credits.json';
 import { getCollection } from 'astro:content';
 import { SITE, AUTHOR } from '../../lib/site';
@@ -18,7 +21,7 @@ export async function getStaticPaths() {
 
 const { article, all } = Astro.props;
 const photo = (credits as Record<string, any>)[article.slug];
-const { Content } = await article.render();
+const { Content, headings } = await article.render();
 const { data } = article;
 
 const url = new URL(`/articles/${article.slug}/`, SITE.url).href;
@@ -30,6 +33,12 @@ const related = [
   ...others.filter((a) => a.data.category === data.category),
   ...others.filter((a) => a.data.category !== data.category),
 ].slice(0, 3);
+
+const suite = related.slice(0, 2).map((a) => ({
+  href: `/articles/${a.slug}/`,
+  label: a.data.title,
+  hint: a.data.category,
+}));
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -84,7 +93,9 @@ const breadcrumbSchema = {
   </nav>
 
   <article>
-    <header class="mb-8">
+    {photo && <Hero photo={photo} eager class="mb-7" />}
+
+    <header class="mb-7">
       <h1 class="font-serif text-3xl md:text-4xl font-semibold tracking-tight leading-[1.15] mb-4">
         {data.title}
       </h1>
@@ -103,13 +114,11 @@ const breadcrumbSchema = {
       </p>
     </header>
 
-    {photo && <Hero photo={photo} eager class="mb-8" />}
-
     <!-- Réponse directe : ce paragraphe est ce que les moteurs génératifs
          (ChatGPT, Perplexity) citent en priorité. -->
-    <p class="text-lg leading-relaxed mb-8 pl-5 border-l-2 border-accent text-ink">
-      {data.directAnswer}
-    </p>
+    <Essentiel text={data.directAnswer} />
+
+    <Sommaire headings={headings} />
 
     {data.affiliate && <AffiliateDisclosure />}
 
@@ -145,6 +154,8 @@ const breadcrumbSchema = {
       </section>
     )}
   </article>
+
+  <FinArticle links={suite} />
 
   {related.length > 0 && (
     <aside class="mt-14 pt-8 border-t border-line" aria-labelledby="lire-aussi">

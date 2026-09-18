@@ -1,0 +1,22 @@
+---
+/**
+ * Sommaire généré à partir des titres de niveau 2 de l'article.
+ * Astro expose `headings` au rendu : rien n'est à maintenir à la main, et un
+ * article modifié voit son sommaire suivre automatiquement.
+ */
+interface Props {
+  headings: { depth: number; slug: string; text: string }[];
+}
+const { headings } = Astro.props;
+const items = headings.filter((h) => h.depth === 2);
+---
+{items.length >= 3 && (
+  <nav class="sommaire" aria-labelledby="sommaire-titre">
+    <p id="sommaire-titre" class="sommaire-titre">Sommaire</p>
+    <ol>
+      {items.map((h) => (
+        <li><a href={`#${h.slug}`}>{h.text}</a></li>
+      ))}
+    </ol>
+  </nav>
+)}

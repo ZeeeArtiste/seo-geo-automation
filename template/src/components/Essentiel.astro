@@ -1,0 +1,13 @@
+---
+/**
+ * « L'essentiel » — la réponse directe, mise en boîte.
+ * C'est le paragraphe que les moteurs génératifs citent en priorité : lui
+ * donner une forme identifiable aide le lecteur autant que la machine.
+ */
+interface Props { text: string }
+const { text } = Astro.props;
+---
+<aside class="essentiel" aria-label="L'essentiel">
+  <p class="essentiel-titre">L'essentiel</p>
+  <p class="essentiel-texte">{text}</p>
+</aside>

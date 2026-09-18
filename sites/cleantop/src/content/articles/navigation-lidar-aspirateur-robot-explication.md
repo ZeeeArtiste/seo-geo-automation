@@ -94,7 +94,3 @@ Pour les portes vitrées : placez un autocollant ou un petit obstacle visuel à 
 ## Et si votre robot n'est pas équipé d'un LiDAR ?
 
 Les modèles à navigation par **vSLAM** (caméra visuelle) construisent leur carte à partir de repères visuels, et leurs angles morts ne sont pas les mêmes : ils manquent moins certains obstacles fins, mais dépendent de la lumière ambiante. Si vous hésitez encore entre les deux technologies, le sujet est traité en détail dans [LiDAR vs caméra : comment votre aspirateur robot « voit » votre maison](/articles/navigation-lidar-camera-aspirateur-robot-differences/).
-
----
-
-## FAQ

@@ -116,6 +116,15 @@ async function main() {
     const article = await generateArticle(niche, titleObj, affiliateLinks);
     const slug = titleObj.slug || slugify(titleObj.title, { lower: true, strict: true });
 
+    // Claude laisse parfois un titre "## FAQ" en fin de corps alors que la FAQ
+    // est renvoyée séparément et rendue par le gabarit : ce titre vide polluait
+    // le sommaire et dupliquait la section. On le retire.
+    if (article.bodyMarkdown) {
+      article.bodyMarkdown = article.bodyMarkdown
+        .replace(/\n+(---\s*\n+)?##+\s*(FAQ|Questions fréquentes)\s*\n*\s*$/i, '\n')
+        .trimEnd();
+    }
+
     // Un article contenant des marqueurs [À VÉRIFIER] embarque des données non
     // vérifiées. Sans garde-fou, ces marqueurs finissent rendus tels quels sur la
     // page publique. On le publie donc en draft : invisible sur le site et absent

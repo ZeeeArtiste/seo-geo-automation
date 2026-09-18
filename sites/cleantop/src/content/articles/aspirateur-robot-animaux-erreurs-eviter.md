@@ -53,7 +53,3 @@ L'heure compte aussi : programmer le robot quand l'animal est dans la pièce peu
 ## Ce que ça change concrètement
 
 En corrigeant ces cinq points, la plupart des propriétaires d'animaux passent d'un robot sous-utilisé ou en panne prématurée à un outil qui réduit vraiment le temps consacré au ménage. La brosse en caoutchouc seule peut doubler la durée de vie utile de l'appareil en environnement poilu. Le reste relève de l'organisation, sans coût supplémentaire.
-
----
-
-## FAQ
