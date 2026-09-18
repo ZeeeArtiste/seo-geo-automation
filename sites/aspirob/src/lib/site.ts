@@ -4,7 +4,7 @@
  * ces valeurs se dispersent dans les gabarits.
  */
 export const SITE = {
-  brand: 'CleanTop',
+  brand: 'Aspirob',
   niche: 'aspirateurs robots',
   domain: 'aspirob.com',
   url: 'https://aspirob.com',

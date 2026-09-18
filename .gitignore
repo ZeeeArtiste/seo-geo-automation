@@ -5,7 +5,7 @@ node_modules/
 # à partir du template et du pipeline.
 sites/*
 
-# Exception pour cleantop. La raison d'origine était l'intégration GitHub de
+# Exception pour aspirob. La raison d'origine était l'intégration GitHub de
 # Vercel, qui n'est plus utilisée : le site est hébergé sur le VPS (nginx +
 # certbot, voir scripts/deploy-vps.js).
 #
@@ -13,4 +13,4 @@ sites/*
 # ce site a été relu et corrigé à la main (suppression des données non vérifiées,
 # liens affiliés placés un par un) et n'est donc PAS reproductible en relançant
 # generate-content.js. Le dépôt en est la seule sauvegarde — le VPS n'en a aucune.
-!sites/cleantop/
+!sites/aspirob/

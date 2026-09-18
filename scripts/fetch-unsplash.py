@@ -22,7 +22,7 @@ import argparse, json, os, pathlib, sys, urllib.parse, urllib.request
 from PIL import Image
 
 API = 'https://api.unsplash.com'
-UTM = '?utm_source=CleanTop&utm_medium=referral'
+UTM = '?utm_source={brand}&utm_medium=referral'  # {brand} renseigné à l'exécution
 TARGET_W, TARGET_RATIO = 1600, 3 / 2
 
 
@@ -57,7 +57,7 @@ def crop_to_ratio(img, ratio):
     return img
 
 
-def fetch(photo_id, out_dir, name):
+def fetch(photo_id, out_dir, name, utm):
     p = api(f'/photos/{photo_id}')
 
     # Obligatoire : signale le téléchargement à Unsplash. Sans cet appel, le
@@ -84,8 +84,8 @@ def fetch(photo_id, out_dir, name):
         'fallback': f'/photos/{name}.jpg',
         'alt': p.get('alt_description') or p.get('description') or '',
         'author': p['user']['name'],
-        'authorUrl': p['user']['links']['html'] + UTM,
-        'unsplashUrl': p['links']['html'] + UTM,
+        'authorUrl': p['user']['links']['html'] + utm,
+        'unsplashUrl': p['links']['html'] + utm,
         'width': img.width,
         'height': img.height,
     }
@@ -94,6 +94,7 @@ def fetch(photo_id, out_dir, name):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--site', required=True)
+    ap.add_argument('--brand', default='', help="Marque, pour le paramètre utm_source exigé par Unsplash")
     ap.add_argument('--map', help='JSON { "nom-de-sortie": "id_unsplash" }')
     ap.add_argument('--search')
     ap.add_argument('--per-page', type=int, default=8)
@@ -112,9 +113,12 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     mapping = json.loads(pathlib.Path(a.map).read_text(encoding='utf-8'))
 
+    brand = a.brand or site.name
+    utm = UTM.format(brand=urllib.parse.quote(brand))
+
     credits = {}
     for name, pid in mapping.items():
-        credits[name] = fetch(pid, out, name)
+        credits[name] = fetch(pid, out, name, utm)
         m = credits[name]
         print(f"✅ {name}.webp — {m['width']}x{m['height']} — © {m['author']}")
 
