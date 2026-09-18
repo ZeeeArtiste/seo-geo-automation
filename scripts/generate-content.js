@@ -109,12 +109,16 @@ Réponds UNIQUEMENT en JSON avec cette structure exacte:
 
 CONTRAINTES SUR "products" :
 - UNIQUEMENT des produits de la liste de liens affiliés fournie. Liste vide si aucun lien n'est fourni.
-- "attrs" ne contient QUE des caractéristiques structurelles vérifiables (type de brosse,
-  technologie de navigation, modules de la station, lavage oui/non). JAMAIS de prix, de
-  puissance en pascals, d'autonomie en minutes ni de note : ces valeurs ne sont pas
-  vérifiables et ne doivent pas être inventées.
-- Utilise les MÊMES clés d'attributs pour tous les produits d'un article : elles deviennent
-  les colonnes d'un tableau comparatif.`
+- "attrs" : choisis TOI-MÊME 3 à 4 critères pertinents pour la niche "${niche}". Ce sont les
+  critères qui font réellement diverger deux modèles de cette catégorie, et sur lesquels un
+  acheteur doit trancher. N'utilise pas de critères d'une autre catégorie de produit.
+- Ces critères doivent être STRUCTURELS et vérifiables sur une fiche produit : un type, une
+  technologie, une présence ou une absence. JAMAIS de valeur chiffrée invérifiable — pas de
+  prix, pas de mesure de performance, pas d'autonomie en minutes, pas de note sur 10. Ces
+  valeurs périment ou sont invérifiables, et ne doivent jamais être inventées.
+- Les valeurs sont COURTES : 1 à 4 mots. Elles remplissent des cellules de tableau.
+- Utilise EXACTEMENT les mêmes clés pour tous les produits de l'article : elles deviennent les
+  colonnes du tableau comparatif. Si un produit n'a pas l'information, mets la chaîne vide.`
     }]
   });
 
@@ -177,6 +181,34 @@ async function main() {
         };
       })
       .filter(Boolean);
+
+    // Les colonnes du tableau sont l'union des clés : si le modèle varie ses
+    // intitulés d'un produit à l'autre, le tableau se remplit de cellules vides.
+    // On ne garde donc que les critères présents sur la majorité des produits,
+    // plafonnés à 4 — au-delà, la table déborde sur mobile.
+    if (products.length > 1) {
+      const freq = new Map();
+      for (const p of products) {
+        for (const k of Object.keys(p.attrs)) freq.set(k, (freq.get(k) ?? 0) + 1);
+      }
+      const keep = [...freq.entries()]
+        .filter(([, n]) => n >= Math.ceil(products.length / 2))
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 4)
+        .map(([k]) => k);
+      const droppedCols = [...freq.keys()].filter((k) => !keep.includes(k));
+      for (const p of products) {
+        p.attrs = Object.fromEntries(
+          keep.map((k) => [k, (p.attrs[k] ?? '').toString().trim()]).filter(([, v]) => v !== '')
+        );
+      }
+      if (droppedCols.length) {
+        console.log(`    ↳ colonnes écartées (trop rares ou trop nombreuses) : ${droppedCols.join(', ')}`);
+      }
+      if (keep.length) {
+        console.log(`    ↳ tableau comparatif : ${keep.join(' · ')}`);
+      }
+    }
 
     const dropped = (article.products ?? []).length - products.length;
     if (dropped > 0) {

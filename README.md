@@ -178,9 +178,19 @@ products:
 du tableau sont l'union des clés `attrs`. Un produit renvoyé par le modèle sans lien affilié
 correspondant est écarté : on ne publie pas de fiche pour un produit inventé.
 
-Les `attrs` ne doivent contenir que des caractéristiques **structurelles** (type de brosse,
-navigation, modules de la station). Prix, pascals, autonomie et notes en sont exclus par la
-consigne donnée au modèle : ces valeurs ne sont pas vérifiables.
+**Les colonnes s'adaptent à la niche.** Rien n'est codé en dur : le modèle choisit lui-même
+3 à 4 critères pertinents pour la catégorie de produits traitée — type de brosse et navigation
+pour des aspirateurs robots, guidage et pente franchissable pour des tondeuses, tout autre chose
+ailleurs. Les colonnes du tableau sont ensuite l'union des clés `attrs`.
+
+Deux garde-fous côté `generate-content.js` :
+
+- Seuls les critères présents sur la **majorité** des produits sont conservés, et au maximum
+  **4** — sinon un intitulé employé pour un seul produit créerait une colonne presque vide, et
+  une table de huit colonnes déborderait sur mobile. Les critères écartés sont journalisés.
+- Les valeurs doivent être **structurelles et vérifiables** : un type, une technologie, une
+  présence ou une absence. Prix, mesures de performance, autonomies et notes sur 10 sont
+  exclus par la consigne — ils périment ou sont invérifiables.
 
 Les schémas produit (`/fiches/*.svg`) sont propres à la niche : voir
 `scripts/diagrams/fiches-produit.py`, à réécrire pour chaque nouveau site. Sans schéma, la
