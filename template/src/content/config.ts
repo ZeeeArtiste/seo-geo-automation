@@ -23,6 +23,9 @@ const articles = defineCollection({
     category: z.enum(['Comparatif', 'Guide', 'Test', 'Actualité']).default('Guide'),
     // Un seul article mis en avant en page d'accueil.
     featured: z.boolean().default(false),
+    // Vignette affichée en page d'accueil. Optionnelle : sans elle, l'entrée
+    // reste purement typographique plutôt que d'afficher une image cassée.
+    cover: z.string().optional(),
     faq: z.array(
       z.object({
         question: z.string(),

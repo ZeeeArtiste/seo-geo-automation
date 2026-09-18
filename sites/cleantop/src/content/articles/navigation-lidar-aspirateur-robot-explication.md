@@ -3,6 +3,7 @@ title: "Comment fonctionne la navigation LiDAR : pourquoi votre robot aspire (ou
 description: "Comprendre la navigation LiDAR des aspirateurs robots : comment ça marche, pourquoi certaines zones sont ratées et comment y remédier."
 publishDate: "2026-09-18"
 directAnswer: "Un aspirateur robot LiDAR utilise un faisceau laser tournant pour mesurer en temps réel la distance aux obstacles et construire une carte précise de votre logement. C'est cette carte qui lui permet de planifier des trajectoires en lignes parallèles plutôt que de se déplacer au hasard. Si votre robot rate toujours les mêmes zones, c'est presque toujours lié à un angle mort du capteur, une carte corrompue ou un obstacle que le LiDAR ne détecte pas."
+cover: "/covers/navigation-lidar-aspirateur-robot-explication.svg"
 category: "Guide"
 faq: [{"question":"Mon robot LiDAR fonctionne-t-il dans le noir complet ?","answer":"Oui. Le LiDAR utilise son propre faisceau laser infrarouge et ne dépend pas de la lumière ambiante. Il peut nettoyer dans l'obscurité totale sans perte de précision, contrairement aux robots à navigation par caméra."},{"question":"Pourquoi mon robot tourne-t-il en rond au lieu de faire des lignes droites ?","answer":"Cela arrive généralement quand la carte est corrompue ou quand le robot ne parvient pas à se localiser (capteur LiDAR sale ou bloqué). Nettoyez le module rotatif avec un chiffon sec et supprimez la carte pour en créer une nouvelle."},{"question":"Le LiDAR détecte-t-il les obstacles au sol comme les câbles ?","answer":"Non, le LiDAR scanne en plan horizontal et ne voit pas les objets plats posés au sol. Les câbles, chaussettes ou petits jouets sont détectés uniquement par les capteurs anti-chute ou les capteurs tactiles en façade — avec une fiabilité variable selon les modèles."},{"question":"Combien de temps faut-il pour que le robot construise une carte complète ?","answer":"Pour un appartement de 60 à 80 m², comptez généralement une à deux sessions complètes, soit 1 à 3 heures. La carte se précise ensuite à chaque passage. Certains modèles affichent une carte exploitable dès la première session."},{"question":"La présence d'animaux ou d'enfants qui bougent perturbe-t-elle la navigation LiDAR ?","answer":"Ponctuellement oui : le robot peut détecter un animal comme un obstacle et le contourner. Mais cela ne corrompt pas la carte enregistrée, car le SLAM distingue les obstacles fixes (murs, meubles) des obstacles mobiles détectés en temps réel."}]
 ---
@@ -33,6 +34,12 @@ Ces deux tâches s'alimentent mutuellement. Plus la carte est précise, mieux le
 ## Pourquoi votre robot rate toujours les mêmes zones
 
 C'est la question centrale. Les causes sont plus précises qu'on ne le croit.
+
+<figure class="diagram">
+  <img src="/diagrams/angles-morts.svg" alt="Vue de dessus d'une pièce meublée. Depuis sa position, le laser du robot n'atteint pas les zones situées derrière les meubles ; ces ombres portées sont les zones que la carte ignore tant que le robot ne s'est pas déplacé." width="820" height="450" loading="lazy" decoding="async" />
+  <figcaption>Les zones teintées sont invisibles depuis ce point : c'est la première cause des passages manqués.</figcaption>
+</figure>
+
 
 ### 1. Les angles morts du capteur LiDAR
 

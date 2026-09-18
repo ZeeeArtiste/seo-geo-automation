@@ -43,7 +43,17 @@ const guides = rest.filter((a) => a.data.category !== 'Comparatif');
         À la une
       </h2>
       <a href={`/articles/${featured.slug}/`} class="group block">
-        <article class="border border-[#E4E0D6] rounded-sm bg-white p-6 sm:p-8 transition-colors group-hover:border-[#C9C3B4]">
+        <article class="border border-[#E4E0D6] rounded-sm bg-white overflow-hidden transition-colors group-hover:border-[#C9C3B4]">
+          {featured.data.cover && (
+            <img
+              src={featured.data.cover}
+              alt=""
+              width="480"
+              height="300"
+              class="w-full h-40 sm:h-48 object-cover border-b border-[#E4E0D6]"
+            />
+          )}
+          <div class="p-6 sm:p-8">
           <p class="text-xs tracking-wide uppercase text-[#6B6A63] mb-3">
             {featured.data.category}
           </p>
@@ -56,6 +66,7 @@ const guides = rest.filter((a) => a.data.category !== 'Comparatif');
           <p class="text-sm text-[#6B6A63]">
             {formatDateShort(featured.data.publishDate)} · {readingTime(featured.body)} min de lecture
           </p>
+          </div>
         </article>
       </a>
     </section>
@@ -70,10 +81,20 @@ const guides = rest.filter((a) => a.data.category !== 'Comparatif');
       <ul class="divide-y divide-[#E4E0D6] border-t border-[#E4E0D6]">
         {comparatifs.map((a) => (
           <li>
-            <a href={`/articles/${a.slug}/`} class="group flex gap-4 py-5 items-baseline">
-              <span class="text-[#C9C3B4] group-hover:text-[#8A5A2B] transition-colors" aria-hidden="true">›</span>
+            <a href={`/articles/${a.slug}/`} class="group flex gap-4 sm:gap-5 py-5 items-center">
+              {a.data.cover ? (
+                <img
+                  src={a.data.cover}
+                  alt=""
+                  width="480"
+                  height="300"
+                  class="w-24 sm:w-32 h-16 sm:h-20 shrink-0 object-cover rounded-sm border border-[#E4E0D6] bg-white"
+                />
+              ) : (
+                <span class="text-[#C9C3B4] group-hover:text-[#8A5A2B] transition-colors" aria-hidden="true">›</span>
+              )}
               <span class="flex-1">
-                <span class="block font-serif text-xl font-medium leading-snug group-hover:underline decoration-1 underline-offset-4 decoration-[#C9C3B4]">
+                <span class="block font-serif text-lg sm:text-xl font-medium leading-snug group-hover:underline decoration-1 underline-offset-4 decoration-[#C9C3B4]">
                   {a.data.title}
                 </span>
                 <span class="block text-sm text-[#6B6A63] mt-1">
@@ -96,10 +117,20 @@ const guides = rest.filter((a) => a.data.category !== 'Comparatif');
       <ul class="divide-y divide-[#E4E0D6] border-t border-[#E4E0D6]">
         {guides.map((a) => (
           <li>
-            <a href={`/articles/${a.slug}/`} class="group flex gap-4 py-5 items-baseline">
-              <span class="text-[#C9C3B4] group-hover:text-[#8A5A2B] transition-colors" aria-hidden="true">›</span>
+            <a href={`/articles/${a.slug}/`} class="group flex gap-4 sm:gap-5 py-5 items-center">
+              {a.data.cover ? (
+                <img
+                  src={a.data.cover}
+                  alt=""
+                  width="480"
+                  height="300"
+                  class="w-24 sm:w-32 h-16 sm:h-20 shrink-0 object-cover rounded-sm border border-[#E4E0D6] bg-white"
+                />
+              ) : (
+                <span class="text-[#C9C3B4] group-hover:text-[#8A5A2B] transition-colors" aria-hidden="true">›</span>
+              )}
               <span class="flex-1">
-                <span class="block font-serif text-xl font-medium leading-snug group-hover:underline decoration-1 underline-offset-4 decoration-[#C9C3B4]">
+                <span class="block font-serif text-lg sm:text-xl font-medium leading-snug group-hover:underline decoration-1 underline-offset-4 decoration-[#C9C3B4]">
                   {a.data.title}
                 </span>
                 <span class="block text-sm text-[#6B6A63] mt-1">

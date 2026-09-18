@@ -20,3 +20,17 @@ Dépendances de vérification : `apt-get install -y librsvg2-bin`
 Les SVG finaux vivent dans `sites/<site>/public/diagrams/`. Leur pile de
 polices vise les polices système (SF Pro, Segoe UI, Roboto) : une SVG chargée
 via `<img>` ne peut pas utiliser les `@font-face` de la page.
+
+## Vignettes de page d'accueil
+
+`covers.py` produit un motif simplifié par article, pensé pour rester lisible à
+200 px — réduire un schéma détaillé à cette taille ne donne qu'une bouillie.
+Les motifs sont **propres à la niche** : le fichier associe un slug d'article à
+une fonction de dessin, à réécrire pour chaque nouveau site.
+
+```bash
+python3 scripts/diagrams/covers.py sites/<site>/public/covers
+```
+
+Le champ `cover` du frontmatter est optionnel. Sans lui, l'entrée de la page
+d'accueil reste purement typographique au lieu d'afficher une image cassée.
