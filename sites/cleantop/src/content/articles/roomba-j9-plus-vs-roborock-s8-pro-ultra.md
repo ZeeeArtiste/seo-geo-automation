@@ -1,13 +1,13 @@
 ---
-title: "Roomba j9+ vs Roborock S8 Pro Ultra : lequel mérite vraiment ses 1000€ ?"
-description: "Roomba j9+ vs Roborock S8 Pro Ultra : deux robots à plus de 1000€ aux approches opposées. Lequel vaut vraiment son prix ? Comparatif complet."
+title: "Roomba j9+ vs Roborock S8 Pro Ultra : deux approches opposées du haut de gamme"
+description: "Roomba j9+ ou Roborock S8 Pro Ultra : lavage des sols, station de base, navigation. Comprendre ce qui sépare vraiment ces deux robots avant de choisir."
 publishDate: "2026-09-18"
 directAnswer: "Si vous devez choisir entre les deux : le Roborock S8 Pro Ultra est plus polyvalent et offre un meilleur rapport fonctionnalités/prix, notamment grâce à sa station tout-en-un qui lave, sèche et se remplit automatiquement. Le Roomba j9+ reste pertinent si vous avez principalement des poils d'animaux et que vous faites confiance à l'écosystème iRobot pour la cartographie. Ni l'un ni l'autre ne se justifie réellement si votre intérieur fait moins de 80 m² ou si vous n'avez pas de sols durs à laver."
-draft: true
-faq: [{"question":"Le Roborock S8 Pro Ultra lave-t-il vraiment les sols ou c'est du marketing ?","answer":"Il lave réellement mieux que la plupart des concurrents grâce à sa serpillière oscillante avec pression, mais il ne remplace pas un lavage manuel pour les taches incrustées ou les joints de carrelage. Sur des sols entretenus régulièrement, le résultat est satisfaisant."},{"question":"Le Roomba j9+ fonctionne-t-il sans connexion Wi-Fi ?","answer":"Le robot peut aspirer sans Wi-Fi, mais la cartographie, les plannings et le contrôle via l'application nécessitent une connexion. La configuration initiale demande également une connexion internet."},{"question":"Quelle est la fréquence de remplacement des consommables (filtres, brosses) ?","answer":"En moyenne, les filtres se changent tous les 2-3 mois et les brosses tous les 6-12 mois selon l'usage. Prévoyez entre 60 et 150 € par an de consommables pour ces deux modèles [À VÉRIFIER: tarifs officiels actuels]."},{"question":"Ces robots fonctionnent-ils bien sur des tapis à poils longs ?","answer":"Le j9+ s'en sort mieux grâce à ses brosses caoutchouc qui s'emmêlent moins. Le S8 Pro Ultra peut rencontrer des difficultés sur des poils dépassant 2-3 cm, et soulève automatiquement sa serpillière pour éviter de mouiller les tapis — ce qui est un bon réflexe."},{"question":"Peut-on trouver ces robots moins chers lors des soldes ?","answer":"Oui. Le Black Friday et les French Days sont les meilleures périodes : des remises de 200 à 300 € sur ces deux modèles sont régulièrement constatées [À VÉRIFIER: historique des prix]. Utiliser un tracker de prix comme Idealo ou Keepa permet de repérer le bon moment."}]
+draft: false
+faq: [{"question":"Le Roborock S8 Pro Ultra lave-t-il vraiment les sols ou c'est du marketing ?","answer":"Il lave réellement mieux que la plupart des concurrents grâce à sa serpillière oscillante avec pression, mais il ne remplace pas un lavage manuel pour les taches incrustées ou les joints de carrelage. Sur des sols entretenus régulièrement, le résultat est satisfaisant."},{"question":"Le Roomba j9+ fonctionne-t-il sans connexion Wi-Fi ?","answer":"Le robot peut aspirer sans Wi-Fi, mais la cartographie, les plannings et le contrôle via l'application nécessitent une connexion. La configuration initiale demande également une connexion internet."},{"question":"Quelle est la fréquence de remplacement des consommables (filtres, brosses) ?","answer":"En moyenne, les filtres se changent tous les 2-3 mois et les brosses tous les 6-12 mois selon l'usage. Le budget annuel dépend surtout du prix des pièces chez chaque fabricant : vérifiez-le sur leur site avant d'acheter, les écarts entre marques sont importants."},{"question":"Ces robots fonctionnent-ils bien sur des tapis à poils longs ?","answer":"Le j9+ s'en sort mieux grâce à ses brosses caoutchouc qui s'emmêlent moins. Le S8 Pro Ultra peut rencontrer des difficultés sur des poils dépassant 2-3 cm, et soulève automatiquement sa serpillière pour éviter de mouiller les tapis — ce qui est un bon réflexe."},{"question":"Peut-on trouver ces robots moins chers lors des soldes ?","answer":"Oui. Le Black Friday et les French Days sont les meilleures périodes : ces deux modèles y sont fréquemment remisés. Un traqueur de prix comme Keepa ou Idealo vous montrera l'historique réel du modèle qui vous intéresse et vous évitera de prendre une fausse promotion pour une bonne affaire."}]
 ---
 
-## Roomba j9+ vs Roborock S8 Pro Ultra : lequel mérite vraiment ses 1000€ ?
+## Roomba j9+ vs Roborock S8 Pro Ultra : deux approches opposées du haut de gamme
 
 Si vous devez choisir entre les deux : le Roborock S8 Pro Ultra est plus polyvalent et offre un meilleur rapport fonctionnalités/prix, notamment grâce à sa station tout-en-un qui lave, sèche et se remplit automatiquement. Le Roomba j9+ reste pertinent si vous avez principalement des poils d'animaux et que vous faites confiance à l'écosystème iRobot pour la cartographie. Ni l'un ni l'autre ne se justifie réellement si votre intérieur fait moins de 80 m² ou si vous n'avez pas de sols durs à laver.
 
@@ -17,12 +17,15 @@ Si vous devez choisir entre les deux : le Roborock S8 Pro Ultra est plus polyval
 
 | Critère | Roomba j9+ | Roborock S8 Pro Ultra |
 |---|---|---|
-| Prix indicatif | ~1 100 € [À VÉRIFIER: prix] | ~1 200 € [À VÉRIFIER: prix] |
-| Puissance d'aspiration | ~2 500 Pa [À VÉRIFIER: specs] | ~6 000 Pa [À VÉRIFIER: specs] |
 | Lavage de sols | Non (accessoire basique) | Oui, actif avec serpillière oscillante |
 | Station de base | Vidange + remplissage | Vidange + remplissage + lavage + séchage serpillière |
 | Navigation | iRobot OS + caméra | LiDAR + capteurs de précision |
-| Autonomie | ~90 min [À VÉRIFIER: specs] | ~180 min [À VÉRIFIER: specs] |
+
+Les prix de ces deux modèles fluctuent fortement selon les périodes : consultez la fiche
+produit pour le tarif du jour. Quant à la puissance d'aspiration annoncée en pascals, elle
+n'est pas mesurée selon une norme commune d'un fabricant à l'autre — comparer deux chiffres
+de marques différentes n'a donc pas grand sens. Les écarts qui comptent vraiment sont ceux
+du tableau ci-dessus.
 
 ---
 
@@ -59,17 +62,24 @@ Ses limites : la station est volumineuse (comptez un espace dédié de 30×40 cm
 - Vous êtes prêt à dédier un espace pour une station plus grande
 
 ### Aucun des deux si :
-- Votre appartement fait moins de 60-70 m² : un modèle à 400-600 € couvrira 90 % de vos besoins
+- Votre appartement fait moins de 60-70 m² : un modèle de milieu de gamme, sans lavage ni station tout-en-un, couvrira l'essentiel de vos besoins
 - Vous n'avez pas de tapis et pas d'animaux : la proposition de valeur s'effondre
 - Vous comptez sur le lavage pour remplacer un vrai nettoyage à la serpillière manuelle — aucun robot ne le fait encore
 
 ---
 
-## Ce que les tests en conditions réelles révèlent
+## Le coût réel ne s'arrête pas au prix d'achat
 
-Dans des tests menés sur parquet avec taches de café séchées, le S8 Pro Ultra retire environ 70 à 80 % des résidus légers [À VÉRIFIER: données de tests indépendants]. Le j9+, dans les mêmes conditions, laisse la majorité des taches intactes. Sur moquette courte avec poils de chien, les deux aspirent efficacement, mais le j9+ s'emmêle moins.
+Deux postes sont systématiquement sous-estimés au moment de l'achat.
 
-La durabilité à long terme est un vrai sujet : les pompes à eau des robots laveurs s'usent, et le coût de maintenance (filtres, brosses, joints) peut atteindre 80 à 150 € par an selon l'usage [À VÉRIFIER: tarifs pièces officielles]. À intégrer dans le calcul du coût réel.
+**Les consommables.** Filtres, brosses latérales, brosse principale et, sur le S8 Pro Ultra,
+serpillière et sac de la station : tout cela se remplace. Avant d'acheter, regardez le prix
+des pièces détachées sur le site du fabricant et leur disponibilité — c'est ce qui déterminera
+le coût sur cinq ans, bien plus que l'écart de prix initial entre les deux modèles.
+
+**L'usure spécifique au lavage.** Un robot laveur embarque une pompe et un circuit d'eau,
+donc des pièces mobiles supplémentaires que le j9+ n'a pas. C'est le compromis à accepter en
+échange du lavage : plus de fonctions, plus de points d'usure potentiels.
 
 ---
 

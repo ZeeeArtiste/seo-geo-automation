@@ -38,9 +38,9 @@ La lumière ambiante devient une variable critique : dans une pièce sans fenêt
 
 ## LiDAR + caméra : la tendance des modèles haut de gamme
 
-De plus en plus de robots combinent les deux technologies. Le LiDAR gère la cartographie géométrique précise et la navigation, pendant que la caméra (ou un capteur 3D structuré) s'occupe de la détection fine des obstacles au sol. C'est l'approche adoptée par plusieurs modèles positionnés dans la gamme supérieure du marché. Le [Modèle X](https://exemple-affilie.com/produit-x?tag=VOTRE_ID_AFFILIE) est un exemple de robot qui combine navigation LiDAR et détection d'obstacles par caméra, une combinaison pertinente si votre intérieur est jonché de jouets ou de câbles.
+De plus en plus de robots combinent les deux technologies. Le LiDAR gère la cartographie géométrique précise et la navigation, pendant que la caméra (ou un capteur 3D structuré) s'occupe de la détection fine des obstacles au sol. C'est l'approche adoptée par plusieurs modèles positionnés dans la gamme supérieure du marché. Cette combinaison est particulièrement pertinente si votre intérieur est jonché de jouets ou de câbles : le laser assure la couverture méthodique des pièces, la caméra évite les objets que le plan de balayage horizontal ne voit pas.
 
-Si votre priorité est le budget et que votre intérieur est bien éclairé et dégagé, un robot à navigation par caméra comme le [Modèle Y](https://exemple-affilie.com/produit-y?tag=VOTRE_ID_AFFILIE) peut suffire amplement.
+Si votre priorité est le budget et que votre intérieur est bien éclairé et dégagé, un robot à navigation par caméra peut suffire amplement.
 
 ## Comment choisir selon votre situation
 
