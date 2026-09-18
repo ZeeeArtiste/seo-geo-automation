@@ -129,14 +129,14 @@ const breadcrumbSchema = {
         <h2 id="faq" class="font-serif text-2xl font-semibold tracking-tight mb-6">
           Questions fréquentes
         </h2>
-        <dl class="space-y-6">
-          {data.faq.map((item) => (
-            <div>
-              <dt class="font-medium text-lg leading-snug">{item.question}</dt>
-              <dd class="text-body mt-1.5 leading-relaxed">{item.answer}</dd>
-            </div>
+        <div class="border-t border-line">
+          {data.faq.map((item, i) => (
+            <details class="faq-item" open={i === 0}>
+              <summary>{item.question}</summary>
+              <div class="answer">{item.answer}</div>
+            </details>
           ))}
-        </dl>
+        </div>
       </section>
     )}
   </article>

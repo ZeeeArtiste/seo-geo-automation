@@ -29,3 +29,131 @@ figure.diagram figcaption {
     margin-right: -3rem;
   }
 }
+
+/* ── Boutons d'appel à l'action ────────────────────────────────────────
+   Les liens affiliés sont marqués `data-affiliate` à la compilation par le
+   plugin rehype : on peut donc les transformer en boutons sans toucher au
+   Markdown, et un lien ajouté plus tard le devient automatiquement. */
+.prose a[data-affiliate] {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  margin-top: 0.4em;
+  padding: 0.55em 1.05em;
+  background: #2563eb;
+  color: #fff;
+  font-size: 0.94em;
+  font-weight: 500;
+  line-height: 1.2;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.prose a[data-affiliate]:hover {
+  background: #1d4ed8;
+}
+
+.prose a[data-affiliate]::after {
+  content: '→';
+  font-weight: 400;
+}
+
+/* ── Points forts / limites ────────────────────────────────────────── */
+.verdict {
+  display: grid;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+@media (min-width: 640px) {
+  .verdict { grid-template-columns: 1fr 1fr; }
+}
+
+.verdict > div {
+  background: #f7f8fa;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 0.9rem 1.1rem;
+}
+
+.verdict h4 {
+  margin: 0 0 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.verdict ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
+.verdict li {
+  padding-left: 1.35rem;
+  position: relative;
+  margin: 0.3rem 0;
+  color: #1e293b;
+}
+
+.verdict .plus li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #059669;
+  font-weight: 600;
+}
+
+.verdict .minus li::before {
+  content: '!';
+  position: absolute;
+  left: 0.3rem;
+  color: #d97706;
+  font-weight: 700;
+}
+
+/* ── FAQ dépliable ─────────────────────────────────────────────────── */
+.faq-item {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.faq-item summary {
+  cursor: pointer;
+  padding: 0.95rem 1.8rem 0.95rem 0;
+  font-weight: 500;
+  font-size: 1.04rem;
+  color: #0f172a;
+  list-style: none;
+  position: relative;
+}
+
+.faq-item summary::-webkit-details-marker { display: none; }
+
+.faq-item summary::after {
+  content: '+';
+  position: absolute;
+  right: 0.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #64748b;
+  transition: transform 0.18s ease;
+}
+
+.faq-item[open] summary::after {
+  content: '−';
+}
+
+.faq-item summary:hover { color: #2563eb; }
+
+.faq-item .answer {
+  padding: 0 0 1.1rem;
+  color: #475569;
+  line-height: 1.65;
+}

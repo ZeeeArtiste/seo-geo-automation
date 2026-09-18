@@ -16,6 +16,20 @@ const featured =
   all[0];
 const rest = all.filter((a) => a.slug !== featured?.slug);
 
+// Chaque entrée pointe vers un article existant : rien n'est promis qui
+// n'existe pas sur le site.
+const bySlug = (slug: string) => all.find((a) => a.slug === slug);
+const usecases = [
+  { label: "J'ai un chat ou un chien", hint: 'Le critère qui compte est la brosse.',
+    href: '/articles/aspirateur-robot-poils-animaux-chat-chien/' },
+  { label: 'Surtout du carrelage ou du parquet', hint: 'La question du lavage des sols.',
+    href: '/articles/roomba-j9-plus-vs-roborock-s8-pro-ultra/' },
+  { label: 'Mon robot rate toujours les mêmes zones', hint: 'Angles morts et carte obsolète.',
+    href: '/articles/navigation-lidar-aspirateur-robot-explication/' },
+  { label: "Je ne sais pas quelle navigation choisir", hint: 'LiDAR ou caméra, les deux angles morts.',
+    href: '/articles/navigation-lidar-camera-aspirateur-robot-differences/' },
+].filter((u) => all.some((a) => `/articles/${a.slug}/` === u.href));
+
 const comparatifs = rest.filter((a) => a.data.category === 'Comparatif');
 const guides = rest.filter((a) => a.data.category !== 'Comparatif');
 ---
@@ -35,6 +49,32 @@ const guides = rest.filter((a) => a.data.category !== 'Comparatif');
       le type de brosse, la station — plutôt que de comparer des fiches techniques.
       <span class="text-ink">Aucun chiffre que nous n'avons pas pu vérifier.</span>
     </p>
+  </section>
+
+
+  <!-- Orientation par cas d'usage. Version honnête du « configurateur » qu'on
+       trouve sur les comparateurs : elle oriente vers le bon article au lieu
+       de prétendre calculer une recommandation à partir de specs qu'on n'a
+       pas vérifiées. -->
+  <section class="mb-16" aria-labelledby="par-ou">
+    <h2 id="par-ou" class="text-xs font-medium tracking-[0.14em] uppercase text-accent mb-1">
+      Par où commencer
+    </h2>
+    <p class="text-sm text-muted mb-5">Choisissez votre situation.</p>
+    <div class="grid sm:grid-cols-2 gap-3">
+      {usecases.map((u) => (
+        <a
+          href={u.href}
+          class="group flex items-start gap-3 border border-line rounded-md bg-paper p-4 transition-colors hover:border-accent hover:bg-surface"
+        >
+          <span class="text-accent mt-0.5 shrink-0" aria-hidden="true">›</span>
+          <span>
+            <span class="block font-medium leading-snug group-hover:text-accent transition-colors">{u.label}</span>
+            <span class="block text-sm text-muted mt-0.5">{u.hint}</span>
+          </span>
+        </a>
+      ))}
+    </div>
   </section>
 
   {featured && (
