@@ -123,6 +123,17 @@ async function main() {
     const rawText = `${article.bodyMarkdown ?? ''} ${JSON.stringify(article.faq ?? [])}`;
     const markers = (rawText.match(/\[À VÉRIFIER/g) ?? []).length;
     const isDraft = markers > 0;
+
+    // La divulgation d'affiliation ne doit s'afficher que si un lien affilié est
+    // RÉELLEMENT présent. Claude reçoit pour consigne de n'intégrer les liens que
+    // s'ils sont pertinents : il peut donc n'en placer aucun. Annoncer des liens
+    // affiliés inexistants serait une affirmation fausse.
+    const usedAffiliate = affiliateLinks.some(
+      (l) => l.url && article.bodyMarkdown?.includes(l.url)
+    );
+    if (affiliateLinks.length > 0 && !usedAffiliate) {
+      console.log(`    ↳ aucun lien affilié retenu → pas de divulgation sur cet article`);
+    }
     if (isDraft) {
       draftCount++;
       console.log(`    ↳ ${markers} marqueur(s) [À VÉRIFIER] → publié en draft (non visible)`);
@@ -134,6 +145,7 @@ description: "${article.metaDescription.replace(/"/g, '\\"')}"
 publishDate: "${new Date().toISOString().split('T')[0]}"
 directAnswer: "${article.directAnswer.replace(/"/g, '\\"').replace(/\n/g, ' ')}"
 draft: ${isDraft}
+affiliate: ${usedAffiliate}
 faq: ${JSON.stringify(article.faq)}
 ---
 

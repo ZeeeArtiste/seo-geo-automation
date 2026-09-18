@@ -4,7 +4,13 @@ interface Props {
   description: string;
   jsonLd?: object[];
 }
+import { getCollection } from 'astro:content';
 const { title, description, jsonLd = [] } = Astro.props;
+// Le site ne se déclare "avec liens affiliés" que si au moins un article publié
+// en contient réellement.
+const hasAffiliate = (
+  await getCollection('articles', ({ data }) => !data.draft && data.affiliate)
+).length > 0;
 const siteName = "CleanTop";
 ---
 <!doctype html>
@@ -53,7 +59,9 @@ const siteName = "CleanTop";
   <footer class="border-t border-[#E4E0D6] mt-16">
     <div class="max-w-3xl mx-auto px-6 py-8 text-sm text-[#6B6A63] space-y-2">
       <p>© {new Date().getFullYear()} {siteName}. Tous droits réservés.</p>
-      <p>Ce site contient des liens affiliés. Nous pouvons percevoir une commission sur les achats effectués via ces liens, sans coût supplémentaire pour vous.</p>
+      {hasAffiliate && (
+        <p>Ce site contient des liens affiliés. Nous pouvons percevoir une commission sur les achats effectués via ces liens, sans coût supplémentaire pour vous.</p>
+      )}
     </div>
   </footer>
 </body>

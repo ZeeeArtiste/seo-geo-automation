@@ -168,7 +168,18 @@ Chaque site généré vit dans `sites/<brand>/` — un projet Astro autonome.
    réelle puis passez `draft: false`.
 
 1. **Contenu dupliqué / faible valeur** : générer 50 sites avec le même squelette et juste le nom du produit qui change est le profil-type sanctionné par le *Google Helpful Content Update*. Le script varie structure, angle et données réelles par article (voir `generate-content.js`), mais la vraie protection reste : de la donnée réelle (prix, specs, comparatifs) et une relecture humaine avant publication.
-2. **Divulgation obligatoire des liens affiliés** : légalement obligatoire (FTC aux US, DGCCRF en France, ARPP). Le composant `AffiliateDisclosure.astro` l'ajoute automatiquement sur chaque page — ne pas le retirer.
+2. **Divulgation des liens affiliés** : légalement obligatoire dès qu'il y a des liens (FTC aux US,
+   DGCCRF en France, ARPP). Elle est désormais **conditionnelle** : `generate-content.js` pose
+   `affiliate: true` dans le frontmatter uniquement si un lien affilié fourni apparaît réellement
+   dans l'article, et `AffiliateDisclosure.astro` ne s'affiche que dans ce cas. Le pied de page et
+   `llms.txt` suivent la même règle. Raison : afficher « cet article contient des liens affiliés »
+   sur un article qui n'en a aucun est une affirmation fausse — le sens de l'obligation légale est
+   de ne pas dissimuler une rémunération, pas d'en inventer une.
+
+   **Ce que le projet ne peut pas faire** : créer votre compte d'affiliation ni fabriquer vos liens.
+   Inscrivez-vous au programme (Amazon Associates, Awin…), puis renseignez vos vrais liens dans
+   `config/affiliate-links.json` (modèle : `affiliate-links.example.json`) et régénérez le contenu
+   avec `--affiliate-links`. La divulgation réapparaîtra automatiquement.
 3. **Réseaux d'affiliation** : la plupart (Amazon Associates en tête) interdisent explicitement les sites "auto-générés sans valeur ajoutée" dans leurs CGU et ferment les comptes qui en abusent. Lire les CGU du programme choisi avant de scaler.
 4. **GEO ≠ magie** : être cité par une IA générative dépend surtout de l'autorité perçue de la source (citations externes, cohérence factuelle) — pas seulement du balisage technique.
 

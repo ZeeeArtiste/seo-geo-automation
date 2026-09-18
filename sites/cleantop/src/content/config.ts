@@ -10,6 +10,10 @@ const articles = defineCollection({
     // generate-content.js le met automatiquement à true quand l'article contient
     // des marqueurs [À VÉRIFIER], pour ne jamais publier de données non vérifiées.
     draft: z.boolean().default(false),
+    // true seulement si des liens affiliés ont réellement été injectés dans
+    // l'article. La divulgation ne s'affiche que dans ce cas : l'annoncer sans
+    // lien serait une affirmation fausse.
+    affiliate: z.boolean().default(false),
     directAnswer: z.string(),
     faq: z.array(z.object({
       question: z.string(),
