@@ -4,6 +4,7 @@ description: "Roomba j9+ ou Roborock S8 Pro Ultra : lavage des sols, station de 
 publishDate: "2026-09-18"
 directAnswer: "Si vous devez choisir entre les deux : le Roborock S8 Pro Ultra est plus polyvalent et offre un meilleur rapport fonctionnalités/prix, notamment grâce à sa station tout-en-un qui lave, sèche et se remplit automatiquement. Le Roomba j9+ reste pertinent si vous avez principalement des poils d'animaux et que vous faites confiance à l'écosystème iRobot pour la cartographie. Ni l'un ni l'autre ne se justifie réellement si votre intérieur fait moins de 80 m² ou si vous n'avez pas de sols durs à laver."
 draft: false
+affiliate: true
 faq: [{"question":"Le Roborock S8 Pro Ultra lave-t-il vraiment les sols ou c'est du marketing ?","answer":"Il lave réellement mieux que la plupart des concurrents grâce à sa serpillière oscillante avec pression, mais il ne remplace pas un lavage manuel pour les taches incrustées ou les joints de carrelage. Sur des sols entretenus régulièrement, le résultat est satisfaisant."},{"question":"Le Roomba j9+ fonctionne-t-il sans connexion Wi-Fi ?","answer":"Le robot peut aspirer sans Wi-Fi, mais la cartographie, les plannings et le contrôle via l'application nécessitent une connexion. La configuration initiale demande également une connexion internet."},{"question":"Quelle est la fréquence de remplacement des consommables (filtres, brosses) ?","answer":"En moyenne, les filtres se changent tous les 2-3 mois et les brosses tous les 6-12 mois selon l'usage. Le budget annuel dépend surtout du prix des pièces chez chaque fabricant : vérifiez-le sur leur site avant d'acheter, les écarts entre marques sont importants."},{"question":"Ces robots fonctionnent-ils bien sur des tapis à poils longs ?","answer":"Le j9+ s'en sort mieux grâce à ses brosses caoutchouc qui s'emmêlent moins. Le S8 Pro Ultra peut rencontrer des difficultés sur des poils dépassant 2-3 cm, et soulève automatiquement sa serpillière pour éviter de mouiller les tapis — ce qui est un bon réflexe."},{"question":"Peut-on trouver ces robots moins chers lors des soldes ?","answer":"Oui. Le Black Friday et les French Days sont les meilleures périodes : ces deux modèles y sont fréquemment remisés. Un traqueur de prix comme Keepa ou Idealo vous montrera l'historique réel du modèle qui vous intéresse et vous évitera de prendre une fausse promotion pour une bonne affaire."}]
 ---
 
@@ -33,7 +34,7 @@ du tableau ci-dessus.
 
 ### Roomba j9+ : l'expert de la moquette et des poils d'animaux
 
-Le j9+ est conçu pour un cas d'usage précis : aspirer efficacement des surfaces textiles avec des poils d'animaux. Sa brosse caoutchouc double (le système Clean Base d'iRobot) évite l'emmêlement, ce qui est un vrai avantage concret si vous avez un labrador ou un chat à long poil. La station vide le bac automatiquement et peut stocker plusieurs semaines de déchets selon la fréquence d'utilisation.
+Le [Roomba j9+](https://www.amazon.fr/dp/B0C415NHBM?tag=aspirob0d-21) est conçu pour un cas d'usage précis : aspirer efficacement des surfaces textiles avec des poils d'animaux. Sa brosse caoutchouc double (le système Clean Base d'iRobot) évite l'emmêlement, ce qui est un vrai avantage concret si vous avez un labrador ou un chat à long poil. La station vide le bac automatiquement et peut stocker plusieurs semaines de déchets selon la fréquence d'utilisation.
 
 La navigation par caméra fonctionne bien dans la plupart des intérieurs, mais elle est moins précise dans l'obscurité totale et peut parfois rater des bords. La détection d'obstacles (câbles, chaussettes) est en revanche une des meilleures du marché grâce aux capteurs visuels.
 
@@ -41,7 +42,7 @@ Ce qu'il ne fait pas bien : laver les sols. La fonction serpillière est anecdot
 
 ### Roborock S8 Pro Ultra : le couteau suisse des sols durs
 
-Le S8 Pro Ultra joue dans une autre catégorie dès qu'il s'agit de sols durs (carrelage, parquet, vinyle). Sa serpillière oscillante avec pression active retire les taches légères sèches de façon convaincante — pas parfaite, mais nettement au-dessus de la concurrence dans cette gamme. La station est son vrai argument : elle lave et sèche la serpillière automatiquement, ce qui évite les mauvaises odeurs et les moisissures, un problème réel sur les modèles concurrents moins équipés.
+Le [Roborock S8 Pro Ultra](https://www.amazon.fr/dp/B0BSL98D73?tag=aspirob0d-21) joue dans une autre catégorie dès qu'il s'agit de sols durs (carrelage, parquet, vinyle). Sa serpillière oscillante avec pression active retire les taches légères sèches de façon convaincante — pas parfaite, mais nettement au-dessus de la concurrence dans cette gamme. La station est son vrai argument : elle lave et sèche la serpillière automatiquement, ce qui évite les mauvaises odeurs et les moisissures, un problème réel sur les modèles concurrents moins équipés.
 
 La navigation LiDAR est précise et fonctionne dans l'obscurité complète. La puissance d'aspiration est supérieure sur le papier, et on le ressent sur les tapis épais.
 
