@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { SITE, NAV } from '../lib/site';
+import { SITE, NAV, HEADER_CTA } from '../lib/site';
 import '../styles/fonts.css';
 import '../styles/diagrams.css';
 
@@ -82,26 +82,72 @@ const websiteSchema = {
 
 <body class="bg-paper text-ink font-sans antialiased flex flex-col min-h-screen">
   <header class="border-b border-line sticky top-0 z-40 bg-paper/95 backdrop-blur supports-[backdrop-filter]:bg-paper/80">
-    <div class="max-w-3xl mx-auto px-6 py-5 flex items-baseline justify-between gap-6">
-      <a href="/" class="font-serif text-xl font-semibold tracking-tight shrink-0">
-        {SITE.brand}
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center gap-6">
+      <!-- Gauche : marque -->
+      <a href="/" class="flex items-center gap-2.5 shrink-0 group" aria-label={`${SITE.brand}, accueil`}>
+        <svg viewBox="0 0 64 64" width="28" height="28" aria-hidden="true" class="shrink-0">
+          <rect width="64" height="64" rx="12" fill="#0F172A" />
+          <g stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" fill="none">
+            <path d="M16 20h26a6 6 0 0 1 0 12H22a6 6 0 0 0 0 12h26" />
+          </g>
+          <circle cx="46" cy="20" r="4.5" fill="#2563EB" />
+        </svg>
+        <span class="font-serif text-lg font-semibold tracking-tight group-hover:text-accent transition-colors">
+          {SITE.brand}
+        </span>
       </a>
-      <nav aria-label="Navigation principale">
-        <ul class="flex gap-5 text-sm text-body">
-          {NAV.filter((n) => n.href !== '/').map((item) => (
-            <li>
-              <a
-                href={item.href}
-                class="hover:text-ink underline-offset-4 hover:underline decoration-lineStrong"
-                aria-current={Astro.url.pathname === item.href ? 'page' : undefined}
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
+
+      <!-- Centre : navigation par catégorie -->
+      <nav aria-label="Navigation principale" class="hidden sm:block">
+        <ul class="flex gap-6 text-sm">
+          {NAV.map((item) => {
+            const active = Astro.url.pathname.startsWith(item.href);
+            return (
+              <li>
+                <a
+                  href={item.href}
+                  aria-current={active ? 'page' : undefined}
+                  class={`py-1 border-b-2 transition-colors ${
+                    active
+                      ? 'border-accent text-ink font-medium'
+                      : 'border-transparent text-muted hover:text-ink'
+                  }`}
+                >
+                  {item.label}
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </nav>
+
+      <!-- Droite : appel à l'action -->
+      <a
+        href={HEADER_CTA.href}
+        class="ml-auto shrink-0 inline-flex items-center gap-1.5 rounded-md bg-ink px-3.5 py-2 text-sm font-medium text-paper transition-colors hover:bg-accent"
+      >
+        {HEADER_CTA.label}
+        <span aria-hidden="true">→</span>
+      </a>
     </div>
+
+    <!-- Sous 640 px, la navigation passe sous la marque plutôt que dans un
+         menu déroulant : deux entrées ne justifient pas un hamburger. -->
+    <nav aria-label="Catégories" class="sm:hidden border-t border-line">
+      <ul class="max-w-6xl mx-auto px-6 flex gap-5 text-sm h-11 items-center">
+        {NAV.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              aria-current={Astro.url.pathname.startsWith(item.href) ? 'page' : undefined}
+              class={Astro.url.pathname.startsWith(item.href) ? 'text-ink font-medium' : 'text-muted'}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
   </header>
 
   <main class={`${wide ? 'max-w-6xl' : 'max-w-3xl'} mx-auto px-6 py-12 w-full flex-1`}>
@@ -118,8 +164,8 @@ const websiteSchema = {
       )}
       <nav aria-label="Pages légales">
         <ul class="flex flex-wrap gap-x-5 gap-y-2">
-          <li><a class="hover:text-ink underline underline-offset-4 decoration-lineStrong" href="/a-propos/">Méthode</a></li>
-          <li><a class="hover:text-ink underline underline-offset-4 decoration-lineStrong" href="/contact/">Contact</a></li>
+          <li><a class="hover:text-ink underline underline-offset-4 decoration-lineStrong" href="/comparatifs/">Comparatifs</a></li>
+          <li><a class="hover:text-ink underline underline-offset-4 decoration-lineStrong" href="/guides/">Guides</a></li>
           <li><a class="hover:text-ink underline underline-offset-4 decoration-lineStrong" href="/mentions-legales/">Mentions légales</a></li>
           <li><a class="hover:text-ink underline underline-offset-4 decoration-lineStrong" href="/confidentialite/">Confidentialité</a></li>
         </ul>

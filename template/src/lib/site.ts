@@ -4,13 +4,13 @@
  * ces valeurs se dispersent dans les gabarits.
  */
 export const SITE = {
-  brand: '{{BRAND}}',
-  niche: '{{NICHE}}',
-  domain: '{{DOMAIN}}',
-  url: 'https://{{DOMAIN}}',
-  tagline: '{{NICHE}} : guides et comparatifs',
+  brand: 'Aspirob',
+  niche: 'aspirateurs robots',
+  domain: 'aspirob.com',
+  url: 'https://aspirob.com',
+  tagline: "Guides et comparatifs d'aspirateurs robots",
   description:
-    "Guides d'achat et comparatifs indépendants sur {{NICHE}}.",
+    "Guides d'achat et comparatifs indépendants sur les aspirateurs robots : navigation, brosses, entretien. Sans chiffres invérifiés ni photos de catalogue.",
   locale: 'fr_FR',
   lang: 'fr',
 } as const;
@@ -20,9 +20,9 @@ export const SITE = {
  * moteurs génératifs privilégient le contenu attribuable à quelqu'un.
  */
 export const AUTHOR = {
-  name: '{{AUTHOR}}',
+  name: 'Dany Derensy',
   role: 'Éditeur du site',
-  url: 'https://{{DOMAIN}}/a-propos/',
+  url: 'https://aspirob.com/mentions-legales/',
 } as const;
 
 /**
@@ -30,9 +30,9 @@ export const AUTHOR = {
  * L'hébergeur a été relevé via RDAP sur l'IP du serveur.
  */
 export const LEGAL = {
-  editor: '{{AUTHOR}}',
+  editor: 'Dany Derensy',
   editorStatus: 'Éditeur individuel',
-  contactEmail: 'contact@{{DOMAIN}}',
+  contactEmail: 'contact@aspirob.com',
   // ⚠️ À compléter : l'adresse postale de l'éditeur est légalement obligatoire.
   editorAddress: null as string | null,
   host: {
@@ -40,11 +40,18 @@ export const LEGAL = {
     address: 'Industriestr. 25, 91710 Gunzenhausen, Allemagne',
     url: 'https://www.hetzner.com',
   },
-  publicationDirector: '{{AUTHOR}}',
+  publicationDirector: 'Dany Derensy',
 } as const;
 
+/** Navigation par catégorie : les pages /comparatifs/ et /guides/ sont
+    générées depuis les catégories réellement représentées. */
 export const NAV = [
-  { href: '/', label: 'Accueil' },
-  { href: '/a-propos/', label: 'Méthode' },
-  { href: '/contact/', label: 'Contact' },
+  { href: '/comparatifs/', label: 'Comparatifs' },
+  { href: '/guides/', label: 'Guides' },
 ] as const;
+
+/** Bouton d'action de l'en-tête : le contenu le plus commercial du site. */
+export const HEADER_CTA = {
+  href: '/comparatifs/',
+  label: 'Quel robot choisir ?',
+} as const;

@@ -22,7 +22,7 @@ export const SITE = {
 export const AUTHOR = {
   name: 'Dany Derensy',
   role: 'Éditeur du site',
-  url: 'https://aspirob.com/a-propos/',
+  url: 'https://aspirob.com/mentions-legales/',
 } as const;
 
 /**
@@ -43,8 +43,15 @@ export const LEGAL = {
   publicationDirector: 'Dany Derensy',
 } as const;
 
+/** Navigation par catégorie : les pages /comparatifs/ et /guides/ sont
+    générées depuis les catégories réellement représentées. */
 export const NAV = [
-  { href: '/', label: 'Accueil' },
-  { href: '/a-propos/', label: 'Méthode' },
-  { href: '/contact/', label: 'Contact' },
+  { href: '/comparatifs/', label: 'Comparatifs' },
+  { href: '/guides/', label: 'Guides' },
 ] as const;
+
+/** Bouton d'action de l'en-tête : le contenu le plus commercial du site. */
+export const HEADER_CTA = {
+  href: '/comparatifs/',
+  label: 'Quel robot choisir ?',
+} as const;

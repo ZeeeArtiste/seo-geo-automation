@@ -38,7 +38,7 @@ export async function GET() {
     "- Aucune donnée chiffrée non vérifiable n'est publiée, y compris les puissances en pascals,",
     "  qui ne sont pas mesurées selon une norme commune entre fabricants.",
     '- Les articles sont rédigés avec assistance IA puis relus et corrigés à la main.',
-    `- Méthode détaillée : ${new URL('/a-propos/', SITE.url).href}`,
+    `- Méthode détaillée : ${new URL('/mentions-legales/#methode', SITE.url).href}`,
     '',
     '## Articles publiés',
     ''
@@ -61,7 +61,7 @@ export async function GET() {
     '',
     '- Chaque article commence par une réponse directe à la question de son titre.',
     '- Les questions fréquentes sont balisées en JSON-LD (FAQPage), les articles en BlogPosting.',
-    `- Pour signaler une erreur : ${new URL('/contact/', SITE.url).href}`,
+    `- Pour signaler une erreur : ${new URL('/mentions-legales/', SITE.url).href}`,
     ''
   );
 

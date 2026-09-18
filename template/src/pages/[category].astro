@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { SITE } from '../lib/site';
+import { formatDateShort, readingTime } from '../lib/format';
+
+/** Une page par catégorie effectivement représentée : pas de page vide. */
+export async function getStaticPaths() {
+  const all = await getCollection('articles', ({ data }) => !data.draft);
+  const cats = [...new Set(all.map((a) => a.data.category))];
+  return cats.map((c) => ({
+    params: { category: c.toLowerCase().replace(/[^a-z0-9]+/g, '-') + 's' },
+    props: {
+      category: c,
+      articles: all
+        .filter((a) => a.data.category === c)
+        .sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()),
+    },
+  }));
+}
+
+const { category, articles } = Astro.props;
+const intro: Record<string, string> = {
+  Comparatif: 'Face-à-face entre modèles, sur les différences qui comptent vraiment.',
+  Guide: "Comprendre le sujet avant d'acheter.",
+  Test: 'Nos retours détaillés.',
+  Actualité: 'Ce qui bouge dans la catégorie.',
+};
+---
+<Base
+  title={`${category}s`}
+  description={`Tous les ${category.toLowerCase()}s ${SITE.brand} sur ${SITE.niche}.`}
+>
+  <h1 class="font-serif text-3xl md:text-4xl font-semibold tracking-tight mb-3">{category}s</h1>
+  <p class="text-lg text-muted mb-10 max-w-prose">{intro[category] ?? ''}</p>
+
+  <ul class="divide-y divide-line border-t border-line">
+    {articles.map((a) => (
+      <li>
+        <a href={`/articles/${a.slug}/`} class="group flex gap-4 sm:gap-5 py-5 items-center">
+          {a.data.cover ? (
+            <img src={a.data.cover} alt="" width="480" height="300"
+                 class="w-24 sm:w-32 h-16 sm:h-20 shrink-0 object-cover rounded-sm border border-line bg-surface" />
+          ) : (
+            <span class="text-lineStrong group-hover:text-accent transition-colors" aria-hidden="true">›</span>
+          )}
+          <span class="flex-1">
+            <span class="block font-serif text-lg sm:text-xl font-medium leading-snug group-hover:underline decoration-1 underline-offset-4 decoration-lineStrong">
+              {a.data.title}
+            </span>
+            <span class="block text-sm text-muted mt-1">
+              {formatDateShort(a.data.publishDate)} · {readingTime(a.body)} min
+            </span>
+          </span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</Base>
