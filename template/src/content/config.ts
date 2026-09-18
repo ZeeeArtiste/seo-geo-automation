@@ -5,7 +5,6 @@ const articles = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    slug: z.string(),
     publishDate: z.string(),
     directAnswer: z.string(),
     faq: z.array(z.object({

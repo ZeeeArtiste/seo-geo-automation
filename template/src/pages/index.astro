@@ -16,7 +16,7 @@ const articles = (await getCollection('articles')).sort(
   <ul class="space-y-8">
     {articles.map(article => (
       <li class="border-b border-[#E4E0D6] pb-8">
-        <a href={`/articles/${article.data.slug}/`} class="group block">
+        <a href={`/articles/${article.slug}/`} class="group block">
           <h2 class="font-serif text-2xl font-medium group-hover:underline decoration-1 underline-offset-4">
             {article.data.title}
           </h2>
