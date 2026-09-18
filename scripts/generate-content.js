@@ -118,7 +118,6 @@ async function main() {
     const frontmatter = `---
 title: "${titleObj.title.replace(/"/g, '\\"')}"
 description: "${article.metaDescription.replace(/"/g, '\\"')}"
-slug: "${slug}"
 publishDate: "${new Date().toISOString().split('T')[0]}"
 directAnswer: "${article.directAnswer.replace(/"/g, '\\"').replace(/\n/g, ' ')}"
 faq: ${JSON.stringify(article.faq)}

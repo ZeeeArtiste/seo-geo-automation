@@ -7,11 +7,11 @@ const articles = (await getCollection('articles')).sort(
 );
 ---
 <Base
-  title="Guides et comparatifs — {{NICHE}}"
-  description="Guides d'achat et comparatifs indépendants sur {{NICHE}}."
+  title="Guides et comparatifs — aspirateurs robots"
+  description="Guides d'achat et comparatifs indépendants sur aspirateurs robots."
 >
-  <h1 class="font-serif text-4xl font-semibold tracking-tight mb-3">{{BRAND}}</h1>
-  <p class="text-lg text-[#54534C] mb-12">Guides d'achat et comparatifs sur {{NICHE}}.</p>
+  <h1 class="font-serif text-4xl font-semibold tracking-tight mb-3">CleanTop</h1>
+  <p class="text-lg text-[#54534C] mb-12">Guides d'achat et comparatifs sur aspirateurs robots.</p>
 
   <ul class="space-y-8">
     {articles.map(article => (
