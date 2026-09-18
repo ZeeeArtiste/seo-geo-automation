@@ -19,6 +19,12 @@ En tournant à 360°, il effectue plusieurs centaines de mesures par seconde. Le
 
 Le LiDAR seul ne suffit pas. Le robot utilise un algorithme appelé **SLAM** (*Simultaneous Localization and Mapping*) qui fait deux choses en même temps :
 
+<figure class="diagram">
+  <img src="/diagrams/lidar-cartographie.svg" alt="À gauche, le laser rotatif mesure la distance aux murs et aux meubles dans toutes les directions ; le contour obtenu est la carte. À droite, cette carte permet de nettoyer en bandes parallèles en contournant les meubles." width="820" height="380" loading="lazy" decoding="async" />
+  <figcaption>Du relevé laser à la trajectoire : ce que le robot mesure, puis ce qu'il en fait.</figcaption>
+</figure>
+
+
 - **Se localiser** : savoir où il se trouve dans la pièce
 - **Cartographier** : enregistrer la disposition des murs et des meubles
 

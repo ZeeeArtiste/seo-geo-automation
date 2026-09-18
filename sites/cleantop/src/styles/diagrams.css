@@ -1,0 +1,31 @@
+/* Schémas explicatifs insérés dans les articles.
+   Ils occupent toute la largeur de la colonne de texte et débordent
+   légèrement sur les écrans larges, pour respirer sans casser la mesure. */
+figure.diagram {
+  margin: 2.75rem 0;
+}
+
+figure.diagram img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #fff;
+  border: 1px solid #e4e0d6;
+  border-radius: 2px;
+}
+
+figure.diagram figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: #6b6a63;
+}
+
+@media (min-width: 900px) {
+  /* Léger débord symétrique : le schéma gagne en lisibilité sans que le
+     texte, lui, dépasse la mesure confortable de 45-90 caractères. */
+  figure.diagram {
+    margin-left: -3rem;
+    margin-right: -3rem;
+  }
+}

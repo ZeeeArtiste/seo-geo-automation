@@ -69,6 +69,7 @@ const breadcrumbSchema = {
   title={data.title}
   description={data.description}
   ogType="article"
+  ogImage={`/og-${article.slug}.png`}
   jsonLd={[articleSchema, breadcrumbSchema, faqSchema]}
 >
   <nav aria-label="Fil d'Ariane" class="mb-8 text-sm text-[#6B6A63]">

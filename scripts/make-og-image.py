@@ -81,16 +81,26 @@ def main():
     d.rectangle([0, 0, 10, H], fill=ACCENT)          # filet vertical de marque
 
     f_brand = load(sans, 30, 600)
-    f_title = load(serif, 74, 600)
     f_dom = load(sans, 26, 400)
+
+    # Auto-ajustement : un titre d'article est bien plus long qu'une accroche
+    # de site. On réduit le corps jusqu'à tenir en 4 lignes maximum.
+    size, lines = 74, None
+    while size >= 40:
+        f_title = load(serif, size, 600)
+        lines = wrap(d, a.tagline, f_title, W - 2 * M)
+        if len(lines) <= (3 if size > 56 else 4):
+            break
+        size -= 6
+    leading = int(size * 1.24)
 
     d.text((M, M), a.brand.upper(), font=f_brand, fill=ACCENT)
 
-    lines = wrap(d, a.tagline, f_title, W - 2 * M)[:3]
-    y = M + 96
+    block_h = leading * len(lines)
+    y = max(M + 92, (H - block_h) // 2 - 6)
     for ln in lines:
         d.text((M, y), ln, font=f_title, fill=INK)
-        y += 92
+        y += leading
 
     d.line([(M, H - M - 62), (W - M, H - M - 62)], fill=RULE, width=2)
     d.text((M, H - M - 40), a.domain, font=f_dom, fill=MUTED)

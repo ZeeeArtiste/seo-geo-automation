@@ -27,6 +27,12 @@ Le capteur rotatif forme une bosse caractéristique sur le dessus du robot, ce q
 
 La navigation par caméra — souvent appelée vSLAM (Visual Simultaneous Localization And Mapping) — utilise une ou plusieurs caméras pour capturer des images et les comparer en temps réel. Le robot repère des « points d'ancrage » visuels (un cadre sur un mur, le motif d'un tapis) et reconstitue sa position dans l'espace en les corrélant.
 
+<figure class="diagram">
+  <img src="/diagrams/navigation.svg" alt="Les deux robots vus de côté. Le LiDAR balaie un plan horizontal à hauteur de son capteur : un câble posé à plat passe dessous et n'est pas détecté. La caméra regarde vers l'avant et le bas, reconnaît le câble et l'évite." width="820" height="430" loading="lazy" decoding="async" />
+  <figcaption>Le LiDAR mesure la géométrie, la caméra reconnaît les objets. Leurs angles morts ne sont pas les mêmes.</figcaption>
+</figure>
+
+
 ### Les avantages concrets de la navigation par caméra
 
 - **Profil plus bas** : sans tourelle LiDAR, le robot peut être conçu pour passer sous des meubles très proches du sol.

@@ -17,6 +17,12 @@ Les aspirateurs robots qui s'en sortent vraiment avec les poils de chat sont ceu
 
 Les poils de chat sont fins, longs et chargés d'électricité statique. Ils s'enroulent autour des axes des brosses latérales, s'accumulent dans les roulements et colmatent les filtres beaucoup plus vite que la poussière ordinaire. Le problème n'est pas seulement esthétique : un robot dont la brosse est entortillée de poils perd une part importante de son efficacité d'aspiration, puisque la brosse ne touche plus vraiment le sol.
 
+<figure class="diagram">
+  <img src="/diagrams/brosse.svg" alt="Les deux types de brosse principale vus de côté. Sur une brosse à soies, les poils s'enroulent autour du rouleau et forment des manchons serrés qu'il faut découper. Sur une brosse en lamelles de caoutchouc, rien n'accroche : les poils glissent vers l'aspiration." width="820" height="556" loading="lazy" decoding="async" />
+  <figcaption>C'est le type de brosse, et lui seul, qui décide si vous passerez du temps à démêler.</figcaption>
+</figure>
+
+
 Trois critères techniques font vraiment la différence :
 
 - **Type de brosse principale** : les brosses en caoutchouc nervuré (type « flexi » ou « rubber blade ») accumulent beaucoup moins de poils que les brosses à soies classiques.
