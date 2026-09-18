@@ -130,6 +130,13 @@ Chaque site généré vit dans `sites/<brand>/` — un projet Astro autonome.
 
 ## ⚠️ Points d'attention avant de scaler
 
+0. **Garde-fou `draft`** : quand Claude n'a pas de donnée réelle vérifiée, il insère des marqueurs
+   `[À VÉRIFIER: ...]` plutôt que d'inventer des chiffres. Sans garde-fou, **ces marqueurs se
+   retrouvent rendus tels quels sur la page publique**. `generate-content.js` met donc
+   automatiquement `draft: true` sur tout article qui en contient : l'article n'est ni listé, ni
+   rendu, ni présent dans le sitemap. Pour le publier, remplacez chaque marqueur par la donnée
+   réelle puis passez `draft: false`.
+
 1. **Contenu dupliqué / faible valeur** : générer 50 sites avec le même squelette et juste le nom du produit qui change est le profil-type sanctionné par le *Google Helpful Content Update*. Le script varie structure, angle et données réelles par article (voir `generate-content.js`), mais la vraie protection reste : de la donnée réelle (prix, specs, comparatifs) et une relecture humaine avant publication.
 2. **Divulgation obligatoire des liens affiliés** : légalement obligatoire (FTC aux US, DGCCRF en France, ARPP). Le composant `AffiliateDisclosure.astro` l'ajoute automatiquement sur chaque page — ne pas le retirer.
 3. **Réseaux d'affiliation** : la plupart (Amazon Associates en tête) interdisent explicitement les sites "auto-générés sans valeur ajoutée" dans leurs CGU et ferment les comptes qui en abusent. Lire les CGU du programme choisi avant de scaler.

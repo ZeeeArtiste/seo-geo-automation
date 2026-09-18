@@ -110,16 +110,30 @@ async function main() {
   const articlesDir = path.join(path.resolve(siteDir), 'src', 'content', 'articles');
   await fs.ensureDir(articlesDir);
 
+  let draftCount = 0;
   for (const [i, titleObj] of titles.entries()) {
     console.log(`[${i + 1}/${titles.length}] Génération: ${titleObj.title}`);
     const article = await generateArticle(niche, titleObj, affiliateLinks);
     const slug = titleObj.slug || slugify(titleObj.title, { lower: true, strict: true });
+
+    // Un article contenant des marqueurs [À VÉRIFIER] embarque des données non
+    // vérifiées. Sans garde-fou, ces marqueurs finissent rendus tels quels sur la
+    // page publique. On le publie donc en draft : invisible sur le site et absent
+    // du sitemap jusqu'à relecture humaine.
+    const rawText = `${article.bodyMarkdown ?? ''} ${JSON.stringify(article.faq ?? [])}`;
+    const markers = (rawText.match(/\[À VÉRIFIER/g) ?? []).length;
+    const isDraft = markers > 0;
+    if (isDraft) {
+      draftCount++;
+      console.log(`    ↳ ${markers} marqueur(s) [À VÉRIFIER] → publié en draft (non visible)`);
+    }
 
     const frontmatter = `---
 title: "${titleObj.title.replace(/"/g, '\\"')}"
 description: "${article.metaDescription.replace(/"/g, '\\"')}"
 publishDate: "${new Date().toISOString().split('T')[0]}"
 directAnswer: "${article.directAnswer.replace(/"/g, '\\"').replace(/\n/g, ' ')}"
+draft: ${isDraft}
 faq: ${JSON.stringify(article.faq)}
 ---
 
@@ -129,7 +143,15 @@ ${article.bodyMarkdown}
   }
 
   console.log(`\n✅ ${titles.length} articles générés dans ${articlesDir}\n`);
-  console.log('⚠️  Relisez le contenu avant publication — vérifiez les [À VÉRIFIER] et la véracité des affirmations.\n');
+  if (draftCount > 0) {
+    console.log(
+      `⚠️  ${draftCount}/${titles.length} article(s) mis en draft car ils contiennent des données\n` +
+      `   non vérifiées. Ils ne sont NI listés, NI rendus, NI dans le sitemap.\n` +
+      `   Pour les publier : vérifiez chaque [À VÉRIFIER], remplacez-le par la donnée\n` +
+      `   réelle, puis passez draft: false dans le frontmatter.\n`
+    );
+  }
+  console.log('⚠️  Relisez le contenu avant publication — vérifiez la véracité des affirmations.\n');
   console.log('Prochaine étape:');
   console.log(`  node scripts/build-deploy.js --site ${siteDir}\n`);
 }

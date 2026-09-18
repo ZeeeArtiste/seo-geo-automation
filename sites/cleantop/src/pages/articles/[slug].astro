@@ -4,7 +4,8 @@ import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const articles = await getCollection('articles');
+  // Un draft ne produit aucune page : donc absent du site ET du sitemap.
+  const articles = await getCollection('articles', ({ data }) => !data.draft);
   return articles.map(article => ({
     params: { slug: article.slug },
     props: { article },
