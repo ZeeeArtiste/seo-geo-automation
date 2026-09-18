@@ -307,3 +307,15 @@ figure.diagram figcaption {
   border-left-color: #2563eb;
   font-weight: 500;
 }
+
+/* ── Fiche produit schématique ─────────────────────────────────────── */
+figure.fiche {
+  margin: 1.5rem 0;
+}
+
+figure.fiche img {
+  display: block;
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+}

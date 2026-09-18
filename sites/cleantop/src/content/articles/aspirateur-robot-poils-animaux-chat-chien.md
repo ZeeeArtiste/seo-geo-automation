@@ -35,6 +35,11 @@ Trois critères techniques font vraiment la différence :
 ## Les 5 modèles qui gèrent les poils de chat sans s'emmêler
 
 ### 1. Roborock Q5 Max+
+
+<figure class="fiche">
+  <img src="/fiches/roborock-q5-max-plus.svg" alt="Schéma du Roborock Q5 Max+ : brosse en caoutchouc, station de vidage sur la version +." width="640" height="190" loading="lazy" decoding="async" />
+</figure>
+
 Sa brosse principale en caoutchouc « DuoRoller » réduit significativement l'accumulation de poils. Le modèle propose une station de vidage automatique sur la version +, ce qui espace nettement les manipulations en période de mue. Bon rapport performance/entretien pour les foyers avec un ou deux chats. [Voir le Roborock Q5 Max+](https://www.amazon.fr/dp/B0DV9VKZXD?tag=aspirob0d-21)
 
 <div class="verdict">
@@ -44,6 +49,11 @@ Sa brosse principale en caoutchouc « DuoRoller » réduit significativement l'a
 
 
 ### 2. iRobot Roomba Combo j9+
+
+<figure class="fiche">
+  <img src="/fiches/roomba-combo-j9-plus.svg" alt="Schéma du Roomba Combo j9+ : système de coupe intégré sur la brosse, filtre à haute efficacité." width="640" height="190" loading="lazy" decoding="async" />
+</figure>
+
 L'un des rares à embarquer un **système de coupe intégré** sur l'axe de la brosse, ce qui élimine le besoin de démêler manuellement après chaque session. Le filtre à haute efficacité retient les particules fines liées aux poils. C'est le haut de la gamme en termes de prix, mais c'est aussi le modèle qui demande le moins d'intervention manuelle — un arbitrage qui se défend si vous avez plusieurs animaux. [Voir le Roomba Combo j9+](https://www.amazon.fr/dp/B0C415HQPX?tag=aspirob0d-21)
 
 <div class="verdict">
@@ -53,6 +63,11 @@ L'un des rares à embarquer un **système de coupe intégré** sur l'axe de la b
 
 
 ### 3. Dreame L10s Ultra
+
+<figure class="fiche">
+  <img src="/fiches/dreame-l10s-ultra.svg" alt="Schéma du Dreame L10s Ultra : double brosse en caoutchouc, station tout-en-un." width="640" height="190" loading="lazy" decoding="async" />
+</figure>
+
 Double brosse en caoutchouc et station tout-en-un (vidage, lavage, séchage). La configuration sans soies limite l'emmêlement, et le logiciel de cartographie permet de délimiter manuellement les zones à fort dépôt de poils pour y repasser plus souvent. [Voir le Dreame L10s Ultra](https://www.amazon.fr/dp/B0B8X43GQH?tag=aspirob0d-21)
 
 <div class="verdict">
@@ -62,6 +77,11 @@ Double brosse en caoutchouc et station tout-en-un (vidage, lavage, séchage). La
 
 
 ### 4. Ecovacs Deebot T20 Omni
+
+<figure class="fiche">
+  <img src="/fiches/ecovacs-deebot-t20-omni.svg" alt="Schéma de l'Ecovacs Deebot T20 Omni : peigne anti-enchevêtrement sur la brosse principale." width="640" height="190" loading="lazy" decoding="async" />
+</figure>
+
 Intègre un **peigne anti-enchevêtrement** sur la brosse principale. Ce peigne est l'élément qui compte pour les races à poils mi-longs (Maine Coon, Sibérien), celles qui produisent les enchevêtrements les plus denses autour de l'axe. [Voir l'Ecovacs Deebot T20 Omni](https://www.amazon.fr/dp/B0C2VH6X31?tag=aspirob0d-21)
 
 <div class="verdict">
@@ -71,6 +91,11 @@ Intègre un **peigne anti-enchevêtrement** sur la brosse principale. Ce peigne 
 
 
 ### 5. Shark IQ Robot avec autovidage (RV1000SEU)
+
+<figure class="fiche">
+  <img src="/fiches/shark-iq-rv1000seu.svg" alt="Schéma du Shark IQ Robot RV1000SEU : brosse auto-nettoyante, bac de grande capacité." width="640" height="190" loading="lazy" decoding="async" />
+</figure>
+
 Moins connu en France que les marques citées ci-dessus, il offre une brosse auto-nettoyante qui retire activement les poils pendant le fonctionnement. Son bac de grande capacité est un avantage concret pour les foyers avec plusieurs animaux. C'est la référence européenne de la gamme : si vous trouvez des tests du « IQ Robot XL », ils portent sur la déclinaison américaine, aux caractéristiques légèrement différentes. [Voir le Shark IQ Robot](https://www.amazon.fr/dp/B08ZSRD318?tag=aspirob0d-21)
 
 <div class="verdict">

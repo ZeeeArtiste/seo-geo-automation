@@ -37,6 +37,11 @@ du tableau ci-dessus.
 
 ### Roomba j9+ : l'expert de la moquette et des poils d'animaux
 
+<figure class="fiche">
+  <img src="/fiches/roomba-j9-plus.svg" alt="Schéma du Roomba j9+ : navigation par caméra, pas de lavage des sols, station de vidage et remplissage." width="640" height="190" loading="lazy" decoding="async" />
+</figure>
+
+
 <figure class="diagram">
   <img src="/diagrams/station.svg" alt="Coupe schématique d'une station de base. Une station simple ne contient qu'un sac à poussière. Une tout-en-un y ajoute un réservoir d'eau propre, le lavage de la serpillière et son séchage à air chaud." width="820" height="430" loading="lazy" decoding="async" />
   <figcaption>La station est le vrai point de divergence entre ces deux robots — et chaque module est un point d'usure de plus.</figcaption>
@@ -50,6 +55,11 @@ La navigation par caméra fonctionne bien dans la plupart des intérieurs, mais 
 Ce qu'il ne fait pas bien : laver les sols. La fonction serpillière est anecdotique — elle humidifie légèrement, elle ne nettoie pas vraiment.
 
 ### Roborock S8 Pro Ultra : le couteau suisse des sols durs
+
+<figure class="fiche">
+  <img src="/fiches/roborock-s8-pro-ultra.svg" alt="Schéma du Roborock S8 Pro Ultra : tourelle LiDAR, lavage par serpillière oscillante, station tout-en-un." width="640" height="190" loading="lazy" decoding="async" />
+</figure>
+
 
 Le [Roborock S8 Pro Ultra](https://www.amazon.fr/dp/B0BSL98D73?tag=aspirob0d-21) joue dans une autre catégorie dès qu'il s'agit de sols durs (carrelage, parquet, vinyle). Sa serpillière oscillante avec pression active retire les taches légères sèches de façon convaincante — pas parfaite, mais nettement au-dessus de la concurrence dans cette gamme. La station est son vrai argument : elle lave et sèche la serpillière automatiquement, ce qui évite les mauvaises odeurs et les moisissures, un problème réel sur les modèles concurrents moins équipés.
 
