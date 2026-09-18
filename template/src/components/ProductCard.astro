@@ -1,0 +1,50 @@
+---
+/**
+ * Fiche produit groupée : schéma, description, points forts / à savoir et
+ * appel à l'action dans un seul bloc. Empilés séparément, ces éléments ne
+ * disaient pas qu'ils parlaient du même produit.
+ */
+interface Props {
+  product: {
+    name: string; summary: string; schematic?: string; url?: string;
+    pros: string[]; cons: string[];
+  };
+  index?: number;
+}
+const { product: p, index } = Astro.props;
+---
+<article class="produit">
+  <div class="produit-tete">
+    {index !== undefined && <span class="produit-num" aria-hidden="true">{index}</span>}
+    <h3 id={p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}>{p.name}</h3>
+  </div>
+
+  <div class="produit-corps">
+    {p.schematic && (
+      <div class="produit-schema">
+        <img src={p.schematic} alt={`Schéma du ${p.name}`} width="640" height="190" loading="lazy" decoding="async" />
+      </div>
+    )}
+
+    <div class="produit-texte">
+      <p class="produit-resume">{p.summary}</p>
+
+      {(p.pros.length > 0 || p.cons.length > 0) && (
+        <div class="verdict">
+          {p.pros.length > 0 && (
+            <div><h4>Points forts</h4><ul class="plus">{p.pros.map((x) => <li>{x}</li>)}</ul></div>
+          )}
+          {p.cons.length > 0 && (
+            <div><h4>À savoir</h4><ul class="minus">{p.cons.map((x) => <li>{x}</li>)}</ul></div>
+          )}
+        </div>
+      )}
+
+      {p.url && (
+        <p class="produit-cta">
+          <a href={p.url} rel="sponsored nofollow noopener" target="_blank">Voir le {p.name}</a>
+        </p>
+      )}
+    </div>
+  </div>
+</article>

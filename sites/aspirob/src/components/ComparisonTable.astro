@@ -1,0 +1,38 @@
+---
+/**
+ * Tableau comparatif construit depuis les données produits.
+ * Les colonnes sont l'union des attributs déclarés : un produit sans une
+ * caractéristique affiche « — » plutôt qu'une valeur inventée.
+ */
+interface Props {
+  products: { name: string; url?: string; attrs: Record<string, string> }[];
+  caption?: string;
+}
+const { products, caption } = Astro.props;
+const columns = [...new Set(products.flatMap((p) => Object.keys(p.attrs)))];
+---
+{products.length > 1 && columns.length > 0 && (
+  <div class="tableau-wrap">
+    <table class="tableau-comparatif">
+      {caption && <caption>{caption}</caption>}
+      <thead>
+        <tr>
+          <th scope="col">Modèle</th>
+          {columns.map((c) => <th scope="col">{c}</th>)}
+        </tr>
+      </thead>
+      <tbody>
+        {products.map((p) => (
+          <tr>
+            <th scope="row">
+              {p.url
+                ? <a href={p.url} rel="sponsored nofollow noopener" target="_blank">{p.name}</a>
+                : p.name}
+            </th>
+            {columns.map((c) => <td>{p.attrs[c] ?? '—'}</td>)}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+)}

@@ -81,8 +81,10 @@ RÈGLES D'ÉCRITURE (important, à respecter strictement) :
    Si tu n'as pas de données réelles vérifiées (prix, specs precises), utilise des exemples marqués
    [À VÉRIFIER: prix/specs] plutôt que d'inventer des chiffres précis présentés comme certains.
 4. Termine par une section FAQ de 4-5 questions/réponses courtes et directes.
-5. Intègre les liens affiliés fournis SEULEMENT s'ils sont pertinents pour cet article, en Markdown,
-   de façon naturelle dans le texte (pas de liste de liens forcée).
+5. N'insère AUCUN lien affilié dans bodyMarkdown. Les produits sont renvoyés séparément
+   dans le champ "products" ci-dessous : le site en fait des fiches et un tableau comparatif.
+   Ne rédige pas non plus de sous-sections "### 1. Modèle" décrivant chaque produit —
+   elles feraient doublon avec ces fiches.
 6. Ton: expert mais accessible, pas de superlatifs marketing creux ("incroyable", "révolutionnaire").
 7. Longueur: 700-1000 mots.
 
@@ -92,9 +94,27 @@ Réponds UNIQUEMENT en JSON avec cette structure exacte:
 {
   "metaDescription": "150-160 caractères pour la balise meta description",
   "directAnswer": "le paragraphe de réponse directe (identique au premier paragraphe de l'article)",
-  "bodyMarkdown": "le corps de l'article en Markdown, SANS la FAQ",
+  "bodyMarkdown": "le corps de l'article en Markdown, SANS la FAQ et SANS fiches produit",
+  "products": [
+    {
+      "name": "nom exact du produit, tel qu'il figure dans la liste de liens fournie",
+      "summary": "2 phrases sur ce qui distingue ce modèle",
+      "pros": ["2 points forts maximum"],
+      "cons": ["1 réserve honnête, ou [] si aucune ne peut être étayée"],
+      "attrs": { "Critère": "valeur courte" }
+    }
+  ],
   "faq": [{"question": "...", "answer": "..."}]
-}`
+}
+
+CONTRAINTES SUR "products" :
+- UNIQUEMENT des produits de la liste de liens affiliés fournie. Liste vide si aucun lien n'est fourni.
+- "attrs" ne contient QUE des caractéristiques structurelles vérifiables (type de brosse,
+  technologie de navigation, modules de la station, lavage oui/non). JAMAIS de prix, de
+  puissance en pascals, d'autonomie en minutes ni de note : ces valeurs ne sont pas
+  vérifiables et ne doivent pas être inventées.
+- Utilise les MÊMES clés d'attributs pour tous les produits d'un article : elles deviennent
+  les colonnes d'un tableau comparatif.`
     }]
   });
 
@@ -137,11 +157,36 @@ async function main() {
     // RÉELLEMENT présent. Claude reçoit pour consigne de n'intégrer les liens que
     // s'ils sont pertinents : il peut donc n'en placer aucun. Annoncer des liens
     // affiliés inexistants serait une affirmation fausse.
-    const usedAffiliate = affiliateLinks.some(
-      (l) => l.url && article.bodyMarkdown?.includes(l.url)
-    );
+    // On rattache chaque produit renvoyé à son lien affilié, par correspondance
+    // de nom. Un produit que Claude aurait inventé — donc absent de la liste
+    // fournie — est écarté plutôt que publié sans lien.
+    const norm = (x) => x.toLowerCase().replace(/[^a-z0-9]+/g, '');
+    const products = (article.products ?? [])
+      .map((p) => {
+        const link = affiliateLinks.find(
+          (l) => norm(l.productName).includes(norm(p.name)) || norm(p.name).includes(norm(l.productName))
+        );
+        if (!link) return null;
+        return {
+          name: p.name,
+          summary: p.summary ?? '',
+          url: link.url,
+          pros: (p.pros ?? []).slice(0, 3),
+          cons: (p.cons ?? []).slice(0, 2),
+          attrs: p.attrs ?? {},
+        };
+      })
+      .filter(Boolean);
+
+    const dropped = (article.products ?? []).length - products.length;
+    if (dropped > 0) {
+      console.log(`    ↳ ${dropped} produit(s) écarté(s) : aucun lien affilié correspondant`);
+    }
+
+    // La divulgation ne s'affiche que si un lien affilié est RÉELLEMENT présent.
+    const usedAffiliate = products.length > 0;
     if (affiliateLinks.length > 0 && !usedAffiliate) {
-      console.log(`    ↳ aucun lien affilié retenu → pas de divulgation sur cet article`);
+      console.log(`    ↳ aucun produit retenu → pas de divulgation sur cet article`);
     }
     if (isDraft) {
       draftCount++;
@@ -155,6 +200,7 @@ publishDate: "${new Date().toISOString().split('T')[0]}"
 directAnswer: "${article.directAnswer.replace(/"/g, '\\"').replace(/\n/g, ' ')}"
 draft: ${isDraft}
 affiliate: ${usedAffiliate}
+products: ${JSON.stringify(products)}
 faq: ${JSON.stringify(article.faq)}
 ---
 

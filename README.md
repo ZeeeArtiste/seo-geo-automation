@@ -158,6 +158,34 @@ node scripts/build-deploy.js --site sites/cleantop
 
 Chaque site généré vit dans `sites/<brand>/` — un projet Astro autonome.
 
+### Fiches produit et tableau comparatif
+
+Les produits d'un article vivent dans le **frontmatter**, pas dans le corps Markdown :
+
+```yaml
+products:
+  - name: "Roborock S8 Pro Ultra"
+    summary: "..."
+    schematic: "/fiches/roborock-s8-pro-ultra.svg"   # optionnel
+    url: "https://www.amazon.fr/dp/...?tag=..."
+    pros: ["..."]
+    cons: ["..."]
+    attrs: { "Navigation": "LiDAR", "Lavage des sols": "Serpillière" }
+```
+
+`generate-content.js` les produit automatiquement à partir des liens affiliés fournis, et
+`[slug].astro` en tire **à la fois** les fiches groupées et le tableau comparatif — les colonnes
+du tableau sont l'union des clés `attrs`. Un produit renvoyé par le modèle sans lien affilié
+correspondant est écarté : on ne publie pas de fiche pour un produit inventé.
+
+Les `attrs` ne doivent contenir que des caractéristiques **structurelles** (type de brosse,
+navigation, modules de la station). Prix, pascals, autonomie et notes en sont exclus par la
+consigne donnée au modèle : ces valeurs ne sont pas vérifiables.
+
+Les schémas produit (`/fiches/*.svg`) sont propres à la niche : voir
+`scripts/diagrams/fiches-produit.py`, à réécrire pour chaque nouveau site. Sans schéma, la
+fiche se rend quand même, en texte seul.
+
 ## ⚠️ Points d'attention avant de scaler
 
 0. **Garde-fou `draft`** : quand Claude n'a pas de donnée réelle vérifiée, il insère des marqueurs

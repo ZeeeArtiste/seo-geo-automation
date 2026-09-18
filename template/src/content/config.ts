@@ -26,6 +26,23 @@ const articles = defineCollection({
     // Vignette affichée en page d'accueil. Optionnelle : sans elle, l'entrée
     // reste purement typographique plutôt que d'afficher une image cassée.
     cover: z.string().optional(),
+    // Produits présentés dans l'article. Structurés plutôt qu'écrits dans le
+    // corps Markdown : c'est ce qui permet au pipeline de les régénérer, et
+    // aux gabarits d'en tirer à la fois les fiches et le tableau comparatif.
+    products: z
+      .array(
+        z.object({
+          name: z.string(),
+          summary: z.string(),
+          schematic: z.string().optional(),
+          url: z.string().optional(),
+          pros: z.array(z.string()).default([]),
+          cons: z.array(z.string()).default([]),
+          // Colonnes du tableau comparatif : { "Navigation": "LiDAR", ... }
+          attrs: z.record(z.string()).default({}),
+        })
+      )
+      .default([]),
     faq: z.array(
       z.object({
         question: z.string(),

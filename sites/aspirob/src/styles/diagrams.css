@@ -334,3 +334,139 @@ figure.fiche img {
   max-width: 640px;
   height: auto;
 }
+
+/* ── Fiche produit groupée ─────────────────────────────────────────────
+   Schéma, résumé, points forts et appel à l'action dans un seul bloc :
+   empilés séparément, ces éléments ne disaient pas qu'ils parlaient du
+   même produit. */
+.produits { display: grid; gap: 1.25rem; }
+
+.produit {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.produit-tete {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f7f8fa;
+}
+
+.produit-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.55rem;
+  height: 1.55rem;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.produit-tete h3 {
+  margin: 0;
+  font-size: 1.14rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #0f172a;
+  scroll-margin-top: 5.5rem;
+}
+
+.produit-corps { padding: 1.25rem; }
+
+@media (min-width: 720px) {
+  .produit-corps {
+    display: grid;
+    grid-template-columns: 15rem minmax(0, 1fr);
+    gap: 1.4rem;
+    align-items: start;
+  }
+}
+
+.produit-schema img { display: block; width: 100%; height: auto; }
+
+.produit-resume {
+  margin: 0 0 0.9rem;
+  line-height: 1.65;
+  color: #1e293b;
+}
+
+.produit .verdict { margin: 0 0 1rem; }
+
+.produit-cta { margin: 0; }
+
+.produit-cta a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 0.6em 1.15em;
+  background: #2563eb;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.produit-cta a:hover { background: #1d4ed8; }
+.produit-cta a::after { content: '→'; font-weight: 400; }
+
+/* ── Tableau comparatif ────────────────────────────────────────────── */
+.tableau-wrap { overflow-x: auto; margin-bottom: 1.5rem; }
+
+.tableau-comparatif {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  min-width: 34rem;
+}
+
+.tableau-comparatif caption {
+  caption-side: bottom;
+  padding-top: 0.6rem;
+  font-size: 0.8rem;
+  color: #64748b;
+  text-align: left;
+}
+
+.tableau-comparatif th,
+.tableau-comparatif td {
+  border: 1px solid #e2e8f0;
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.tableau-comparatif thead th {
+  background: #f7f8fa;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.tableau-comparatif tbody th {
+  font-weight: 600;
+  color: #0f172a;
+  background: #fff;
+}
+
+.tableau-comparatif tbody th a {
+  color: #2563eb;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: #bfdbfe;
+}
+
+.tableau-comparatif tbody tr:hover td { background: #f7f8fa; }
