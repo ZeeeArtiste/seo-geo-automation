@@ -7,7 +7,7 @@
     "pipeline": "node scripts/run-pipeline.js"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.32.0",
+    "@anthropic-ai/sdk": "^0.126.0",
     "dotenv": "^16.4.5",
     "fs-extra": "^11.2.0",
     "minimist": "^1.2.8",
