@@ -15,6 +15,12 @@
  *   node scripts/make-affiliate-links.js --from urls.txt        # une URL par ligne
  *   node scripts/make-affiliate-links.js --url "..." --name "Roborock S8 Pro Ultra"
  *   node scripts/make-affiliate-links.js ... --out config/affiliate-links.json
+ *   node scripts/make-affiliate-links.js --domain www.amazon.co.uk --url "..."
+ *
+ * ⚠️  Le tag et la boutique doivent correspondre. Les locales .co.uk, .fr, .de, .it
+ * et .es partagent le suffixe -21 : la boutique n'est donc PAS déductible du tag,
+ * elle vient de AMAZON_ASSOCIATE_DOMAIN ou de --domain. Un tag .co.uk posé sur un
+ * lien amazon.fr ne génère aucune commission.
  *
  * ⚠️  Les liens raccourcis (amzn.to, amzn.eu) ne contiennent PAS l'ASIN : le script
  * les signale et les ignore. Ouvre-les dans le navigateur et copie l'URL longue.
@@ -30,7 +36,10 @@ const args = minimist(process.argv.slice(2), {
 
 const tag = args.tag || process.env.AMAZON_ASSOCIATE_TAG;
 const outPath = args.out || 'config/affiliate-links.json';
-const domain = args.domain || 'www.amazon.fr';
+// La boutique n'est PAS déductible du tag : plusieurs locales européennes
+// partagent le suffixe -21 (.co.uk, .fr, .de, .it, .es). Elle doit donc être
+// déclarée explicitement, sinon on produit des liens qui ne créditent rien.
+const domain = args.domain || process.env.AMAZON_ASSOCIATE_DOMAIN;
 
 const asArray = (v) => (v === undefined ? [] : Array.isArray(v) ? v : [v]);
 
@@ -38,6 +47,19 @@ if (!tag) {
   console.error(
     'Tag Partenaires manquant. Renseignez AMAZON_ASSOCIATE_TAG dans .env, ou passez --tag monsite-21.'
   );
+  process.exit(1);
+}
+if (!domain) {
+  console.error(
+    'Boutique Amazon non précisée. Renseignez AMAZON_ASSOCIATE_DOMAIN dans .env\n' +
+      '(ex: www.amazon.co.uk, www.amazon.fr) ou passez --domain.\n\n' +
+      "Elle n'est pas déductible du tag : .co.uk, .fr, .de, .it et .es utilisent tous\n" +
+      'le suffixe -21. Un tag associé à une autre boutique ne génère aucune commission.'
+  );
+  process.exit(1);
+}
+if (!/^www\.amazon\.[a-z.]{2,6}$/.test(domain)) {
+  console.error(`Domaine "${domain}" inattendu — format attendu: www.amazon.fr, www.amazon.co.uk…`);
   process.exit(1);
 }
 if (!/^[A-Za-z0-9._-]{3,30}-\d{2}$/.test(tag)) {
@@ -146,7 +168,8 @@ async function main() {
   await fs.ensureDir(path.dirname(full));
   await fs.writeJson(full, payload, { spaces: 2 });
 
-  console.log(`\n✅ ${unique.length} lien(s) écrit(s) dans ${outPath} (tag: ${tag})\n`);
+  console.log(`\n✅ ${unique.length} lien(s) écrit(s) dans ${outPath}`);
+  console.log(`   Boutique : ${domain}   Tag : ${tag}\n`);
   unique.forEach((e) => {
     console.log(`   ${e.asin}  ${e.productName}${e.nameGuessed ? '  ⚠️ nom deviné' : ''}`);
   });
