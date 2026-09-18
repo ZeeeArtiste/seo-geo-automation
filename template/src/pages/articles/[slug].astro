@@ -1,0 +1,58 @@
+---
+import Base from '../../layouts/Base.astro';
+import AffiliateDisclosure from '../../components/AffiliateDisclosure.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles');
+  return articles.map(article => ({
+    params: { slug: article.data.slug },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await article.render();
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": article.data.faq.map(item => ({
+    "@type": "Question",
+    "name": item.question,
+    "acceptedAnswer": { "@type": "Answer", "text": item.answer },
+  })),
+};
+---
+<Base title={article.data.title} description={article.data.description} jsonLd={[faqSchema]}>
+  <article>
+    <h1 class="font-serif text-3xl md:text-4xl font-semibold tracking-tight mb-6">
+      {article.data.title}
+    </h1>
+
+    <!-- Réponse directe : ce paragraphe est ce que les moteurs génératifs (ChatGPT, Perplexity) citent -->
+    <p class="text-lg leading-relaxed text-[#1C1D22] mb-8 font-medium">
+      {article.data.directAnswer}
+    </p>
+
+    <AffiliateDisclosure />
+
+    <div class="prose prose-lg max-w-none prose-headings:font-serif prose-headings:font-semibold prose-a:text-[#8A5A2B] prose-a:underline prose-a:underline-offset-2">
+      <Content />
+    </div>
+
+    {article.data.faq.length > 0 && (
+      <section class="mt-12 pt-8 border-t border-[#E4E0D6]">
+        <h2 class="font-serif text-2xl font-semibold mb-6">Questions fréquentes</h2>
+        <dl class="space-y-6">
+          {article.data.faq.map(item => (
+            <div>
+              <dt class="font-medium text-lg">{item.question}</dt>
+              <dd class="text-[#54534C] mt-1">{item.answer}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+    )}
+  </article>
+</Base>

@@ -1,0 +1,16 @@
+{
+  "name": "seo-geo-automation",
+  "version": "1.0.0",
+  "description": "Pipeline d'automatisation pour sites SEO/GEO d'affiliation",
+  "type": "module",
+  "scripts": {
+    "pipeline": "node scripts/run-pipeline.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.0",
+    "dotenv": "^16.4.5",
+    "fs-extra": "^11.2.0",
+    "minimist": "^1.2.8",
+    "slugify": "^1.6.6"
+  }
+}

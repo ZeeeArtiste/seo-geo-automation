@@ -1,0 +1,12 @@
+[
+  {
+    "productName": "Aspirateur robot Modèle X",
+    "url": "https://exemple-affilie.com/produit-x?tag=VOTRE_ID_AFFILIE",
+    "network": "amazon"
+  },
+  {
+    "productName": "Aspirateur robot Modèle Y",
+    "url": "https://exemple-affilie.com/produit-y?tag=VOTRE_ID_AFFILIE",
+    "network": "amazon"
+  }
+]

@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const articles = (await getCollection('articles')).sort(
+  (a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
+);
+---
+<Base
+  title="Guides et comparatifs — {{NICHE}}"
+  description="Guides d'achat et comparatifs indépendants sur {{NICHE}}."
+>
+  <h1 class="font-serif text-4xl font-semibold tracking-tight mb-3">{{BRAND}}</h1>
+  <p class="text-lg text-[#54534C] mb-12">Guides d'achat et comparatifs sur {{NICHE}}.</p>
+
+  <ul class="space-y-8">
+    {articles.map(article => (
+      <li class="border-b border-[#E4E0D6] pb-8">
+        <a href={`/articles/${article.data.slug}/`} class="group block">
+          <h2 class="font-serif text-2xl font-medium group-hover:underline decoration-1 underline-offset-4">
+            {article.data.title}
+          </h2>
+          <p class="text-[#54534C] mt-2">{article.data.description}</p>
+        </a>
+      </li>
+    ))}
+  </ul>
+</Base>
