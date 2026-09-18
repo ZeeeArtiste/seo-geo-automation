@@ -92,3 +92,4 @@ Chaque site généré vit dans `sites/<brand>/` — un projet Astro autonome.
 Voir `template/` — layout de base avec JSON-LD (Product, FAQPage, Organization), `llms.txt`, `robots.txt` autorisant explicitement GPTBot/PerplexityBot/ClaudeBot/Google-Extended.
 # seo-geo-automation
 # seo-geo-automation
+# seo-geo-automation
