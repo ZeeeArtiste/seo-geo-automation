@@ -105,6 +105,31 @@ node scripts/configure-dns.js --domain aspirob.com --proxied # derrière le CDN 
 ⚠️ N'activez `--proxied` **qu'après** avoir obtenu le certificat : le challenge HTTP-01 de
 certbot a besoin d'un accès direct au serveur.
 
+### HTTPS et renouvellement
+
+`deploy-vps.js` vérifie que le domaine résout **avant** d'appeler certbot. Un domaine qui ne
+résout pas ferait échouer la validation et consommerait le quota Let's Encrypt (5 échecs par nom
+et par heure) : le script reste alors en HTTP et indique quoi faire. Si seul l'apex résout, il
+demande le certificat pour l'apex seul plutôt que d'échouer à cause de `www`. Une résolution vers
+une autre IP (cas normal derrière le proxy Cloudflare) produit un simple avertissement.
+`--force-ssl` passe outre la vérification.
+
+Le renouvellement est global : `certbot.timer` couvre **tous** les certificats de la machine, sans
+configuration par domaine. Côté surveillance, Let's Encrypt ayant cessé d'envoyer les emails
+d'expiration le 4 juin 2025, `scripts/check-cert.sh` les remplace : sans argument il découvre tous
+les certificats présents, et vérifie à la fois le certificat sur disque **et** celui réellement
+servi par nginx — un renouvellement réussi suivi d'un `reload` échoué laisserait sinon nginx servir
+l'ancien certificat sans que rien ne l'indique.
+
+```bash
+./scripts/check-cert.sh                 # tous les certificats
+./scripts/check-cert.sh --domain x.com  # un seul
+journalctl -t cert-check                # historique des vérifications
+```
+
+Installation du timer hebdomadaire : voir `scripts/cert-check.service` et
+`scripts/cert-check.timer` (à copier dans `/etc/systemd/system/`).
+
 ⚠️ **L'achat est non remboursable dès qu'il réussit.** `register-domain.js` ne débite jamais sans
 `--confirm` explicite — pas d'achat "silencieux" dans le pipeline automatique par défaut.
 
