@@ -1,7 +1,7 @@
 [Unit]
-Description=Vérification de l'expiration du certificat TLS (aspirob.com)
+Description=Vérification de l'expiration des certificats TLS (tous domaines)
 Documentation=https://letsencrypt.org/2025/01/22/ending-expiration-emails/
 
 [Service]
 Type=oneshot
-ExecStart=/root/seo-geo-automation/scripts/check-cert.sh --domain aspirob.com --warn-days 21
+ExecStart=/root/seo-geo-automation/scripts/check-cert.sh --warn-days 21
