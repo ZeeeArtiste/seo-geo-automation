@@ -2,6 +2,8 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
+import fs from 'node:fs';
+import path from 'node:path';
 
 const SITE = 'https://aspirob.com';
 
@@ -42,8 +44,46 @@ function rehypeExternalLinks() {
   return (tree) => walk(tree, null);
 }
 
+/**
+ * Dates de dernière modification du sitemap.
+ *
+ * Elles étaient absentes : `sitemap()` était appelé sans `serialize`, alors que
+ * les dates existent déjà dans le frontmatter. On pousse `updatedDate` si
+ * l'article a été révisé, sinon `publishDate`.
+ *
+ * Les pages statiques n'en reçoivent AUCUNE, volontairement : y mettre la date
+ * de build donnerait à toutes la même date à chaque déploiement, un signal que
+ * les moteurs apprennent vite à ignorer.
+ */
+// `astro:content` est un module virtuel du runtime, indisponible ici : on lit
+// donc le frontmatter directement sur le disque.
+const ARTICLES = path.resolve('./src/content/articles');
+const articleDates = new Map(
+  fs
+    .readdirSync(ARTICLES)
+    .filter((f) => f.endsWith('.md'))
+    .map((f) => {
+      const fm = fs.readFileSync(path.join(ARTICLES, f), 'utf-8').split('---')[1] ?? '';
+      const get = (k) => fm.match(new RegExp(`^${k}:\\s*"?([\\d-]+)"?\\s*$`, 'm'))?.[1];
+      if (/^draft:\s*true/m.test(fm)) return null;
+      const date = get('updatedDate') ?? get('publishDate');
+      return date ? [`/articles/${f.replace(/\.md$/, '')}/`, date] : null;
+    })
+    .filter(Boolean)
+);
+
 export default defineConfig({
   site: SITE,
   markdown: { rehypePlugins: [rehypeExternalLinks] },
-  integrations: [tailwind(), sitemap(), mdx()],
+  integrations: [
+    tailwind(),
+    sitemap({
+      serialize(item) {
+        const date = articleDates.get(new URL(item.url).pathname);
+        if (date) item.lastmod = new Date(date).toISOString();
+        return item;
+      },
+    }),
+    mdx(),
+  ],
 });

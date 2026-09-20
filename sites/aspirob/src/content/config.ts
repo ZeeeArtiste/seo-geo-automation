@@ -25,6 +25,10 @@ const articles = defineCollection({
     // Étiquette éditoriale affichée et utilisée pour le regroupement en page
     // d'accueil.
     category: z.enum(['Comparatif', 'Guide', 'Test', 'Actualité']).default('Guide'),
+    // Regroupement THÉMATIQUE, distinct de `category` qui décrit le format.
+    // Sans lui, « À lire aussi » rapprochait deux comparatifs sans rapport de
+    // sujet — l'article LiDAR pointait vers l'article poils de chat.
+    cluster: z.string().optional(),
     // Un seul article mis en avant en page d'accueil.
     featured: z.boolean().default(false),
     // Vignette affichée en page d'accueil. Optionnelle : sans elle, l'entrée

@@ -35,15 +35,38 @@ const hasAffiliate = (
   await getCollection('articles', ({ data }) => !data.draft && data.affiliate)
 ).length > 0;
 
+// Organization n'existait que NICHÉE comme `publisher` : l'entité de marque
+// n'était jamais déclarée en propre. On la pose comme bloc racine, avec un
+// @id que les autres schémas référencent au lieu de la redupliquer.
+const orgId = `${SITE.url}/#organization`;
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': orgId,
+  name: SITE.brand,
+  url: SITE.url,
+  description: SITE.description,
+  logo: {
+    '@type': 'ImageObject',
+    url: new URL('/apple-touch-icon.png', SITE.url).href,
+    width: 180,
+    height: 180,
+  },
+  // sameAs reste à renseigner : aucun profil social n'existe aujourd'hui, et
+  // en inventer un casserait la résolution d'entité plutôt que de l'aider.
+};
+
 // Schéma WebSite : permet à Google d'associer le nom du site au domaine.
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
+  '@id': `${SITE.url}/#website`,
   name: SITE.brand,
   url: SITE.url,
   inLanguage: SITE.lang,
   description: SITE.description,
-  publisher: { '@type': 'Organization', name: SITE.brand, url: SITE.url },
+  publisher: { '@id': orgId },
 };
 ---
 <!doctype html>
@@ -74,6 +97,7 @@ const websiteSchema = {
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogImageUrl} />
 
+  <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
   <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
   {jsonLd.map((schema) => (
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />

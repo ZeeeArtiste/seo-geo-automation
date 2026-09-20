@@ -21,14 +21,11 @@ figure.diagram figcaption {
   color: #64748b;
 }
 
-@media (min-width: 900px) {
-  /* Léger débord symétrique : le schéma gagne en lisibilité sans que le
-     texte, lui, dépasse la mesure confortable de 45-90 caractères. */
-  figure.diagram {
-    margin-left: -3rem;
-    margin-right: -3rem;
-  }
-}
+/* Le débord symétrique a été retiré : il avait été calculé pour une colonne
+   de lecture centrée, avant l'ajout du sommaire en colonne latérale. À partir
+   de 1024 px la grille déplace la colonne de texte, et la marge négative
+   poussait le schéma hors du viewport. Les schémas occupent désormais
+   exactement la largeur de la colonne, ce qui ne peut pas déborder. */
 
 /* ── Appels à l'action ────────────────────────────────────────────────
    Le plugin rehype ne pose `data-cta` que sur un lien affilié SEUL dans son

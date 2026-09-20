@@ -1,0 +1,614 @@
+{
+  "home_desktop": {
+    "scrollWidth": 1920,
+    "clientWidth": 1920,
+    "hasHorizontalOverflow": false,
+    "overflowingElements": [],
+    "headerStyle": {
+      "position": "sticky",
+      "top": "0px",
+      "zIndex": "40"
+    },
+    "url": "https://aspirob.com",
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "headerAfterScroll": {
+      "top": 0,
+      "bottom": 65,
+      "visible": true
+    }
+  },
+  "article_desktop": {
+    "scrollWidth": 1920,
+    "clientWidth": 1920,
+    "hasHorizontalOverflow": false,
+    "overflowingElements": [],
+    "headerStyle": {
+      "position": "sticky",
+      "top": "0px",
+      "zIndex": "40"
+    },
+    "url": "https://aspirob.com/articles/aspirateur-robot-poils-animaux-chat-chien/",
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "headerAfterScroll": {
+      "top": 0,
+      "bottom": 65,
+      "visible": true
+    }
+  },
+  "home_laptop": {
+    "scrollWidth": 1366,
+    "clientWidth": 1366,
+    "hasHorizontalOverflow": false,
+    "overflowingElements": [],
+    "headerStyle": {
+      "position": "sticky",
+      "top": "0px",
+      "zIndex": "40"
+    },
+    "url": "https://aspirob.com",
+    "viewport": {
+      "width": 1366,
+      "height": 768
+    }
+  },
+  "article_laptop": {
+    "scrollWidth": 1366,
+    "clientWidth": 1366,
+    "hasHorizontalOverflow": false,
+    "overflowingElements": [],
+    "headerStyle": {
+      "position": "sticky",
+      "top": "0px",
+      "zIndex": "40"
+    },
+    "url": "https://aspirob.com/articles/aspirateur-robot-poils-animaux-chat-chien/",
+    "viewport": {
+      "width": 1366,
+      "height": 768
+    }
+  },
+  "home_tablet": {
+    "scrollWidth": 1024,
+    "clientWidth": 1024,
+    "hasHorizontalOverflow": false,
+    "overflowingElements": [],
+    "headerStyle": {
+      "position": "sticky",
+      "top": "0px",
+      "zIndex": "40"
+    },
+    "url": "https://aspirob.com",
+    "viewport": {
+      "width": 1024,
+      "height": 1024
+    }
+  },
+  "article_tablet": {
+    "scrollWidth": 1048,
+    "clientWidth": 1024,
+    "hasHorizontalOverflow": true,
+    "overflowingElements": [
+      {
+        "tag": "FIGURE",
+        "cls": "diagram",
+        "right": 1048,
+        "width": 792,
+        "text": "C'est le type de brosse, et lui seul, qui décide s"
+      },
+      {
+        "tag": "IMG",
+        "cls": "",
+        "right": 1048,
+        "width": 792,
+        "text": ""
+      },
+      {
+        "tag": "FIGCAPTION",
+        "cls": "",
+        "right": 1048,
+        "width": 792,
+        "text": "C'est le type de brosse, et lui seul, qui décide s"
+      }
+    ],
+    "headerStyle": {
+      "position": "sticky",
+      "top": "0px",
+      "zIndex": "40"
+    },
+    "url": "https://aspirob.com/articles/aspirateur-robot-poils-animaux-chat-chien/",
+    "viewport": {
+      "width": 1024,
+      "height": 1024
+    }
+  },
+  "home_mobile": {
+    "scrollWidth": 375,
+    "clientWidth": 375,
+    "hasHorizontalOverflow": false,
+    "overflowingElements": [],
+    "headerStyle": {
+      "position": "sticky",
+      "top": "0px",
+      "zIndex": "40"
+    },
+    "url": "https://aspirob.com",
+    "viewport": {
+      "width": 375,
+      "height": 812
+    },
+    "headerAfterScroll": {
+      "top": 0,
+      "bottom": 110,
+      "visible": true
+    }
+  },
+  "article_mobile": {
+    "scrollWidth": 375,
+    "clientWidth": 375,
+    "hasHorizontalOverflow": false,
+    "overflowingElements": [
+      {
+        "tag": "TABLE",
+        "cls": "tableau-comparatif",
+        "right": 621,
+        "width": 597,
+        "text": "Comparatif des caractéristiques structurelles — au"
+      },
+      {
+        "tag": "CAPTION",
+        "cls": "",
+        "right": 621,
+        "width": 597,
+        "text": "Comparatif des caractéristiques structurelles — au"
+      },
+      {
+        "tag": "THEAD",
+        "cls": "",
+        "right": 621,
+        "width": 596,
+        "text": "ModèleBrosse principaleStationAnti-emmêlement"
+      },
+      {
+        "tag": "TR",
+        "cls": "",
+        "right": 621,
+        "width": 596,
+        "text": "ModèleBrosse principaleStationAnti-emmêlement"
+      },
+      {
+        "tag": "TH",
+        "cls": "",
+        "right": 452,
+        "width": 116,
+        "text": "Station"
+      },
+      {
+        "tag": "TH",
+        "cls": "",
+        "right": 621,
+        "width": 169,
+        "text": "Anti-emmêlement"
+      },
+      {
+        "tag": "TBODY",
+        "cls": "",
+        "right": 621,
+        "width": 596,
+        "text": "Roborock Q5 Max+Caoutchouc DuoRollerVidage (versio"
+      },
+      {
+        "tag": "TR",
+        "cls": "",
+        "right": 621,
+        "width": 596,
+        "text": "Roborock Q5 Max+Caoutchouc DuoRollerVidage (versio"
+      },
+      {
+        "tag": "TD",
+        "cls": "",
+        "right": 452,
+        "width": 116,
+        "text": "Vidage (version +)"
+      },
+      {
+        "tag": "TD",
+        "cls": "",
+        "right": 621,
+        "width": 169,
+        "text": "Caoutchouc"
+      },
+      {
+        "tag": "TR",
+        "cls": "",
+        "right": 621,
+        "width": 596,
+        "text": "iRobot Roomba Combo j9+Système de coupe intégréVid"
+      },
+      {
+        "tag": "TD",
+        "cls": "",
+        "right": 452,
+        "width": 116,
+        "text": "Vidage + remplissage"
+      },
+      {
+        "tag": "TD",
+        "cls": "",
+        "right": 621,
+        "width": 169,
+        "text": "Coupe active"
+      },
+      {
+        "tag": "TR",
+        "cls": "",
+        "right": 621,
+        "width": 596,
+        "text": "Dreame L10s UltraDouble, en caoutchoucVidage, lava"
+      },
+      {
+        "tag": "TD",
+        "cls": "",
+        "right": 452,
+        "width": 116,
+        "text": "Vidage, lavage, séchage"
+      }
+    ],
+    "headerStyle": {
+      "position": "sticky",
+      "top": "0px",
+      "zIndex": "40"
+    },
+    "url": "https://aspirob.com/articles/aspirateur-robot-poils-animaux-chat-chien/",
+    "viewport": {
+      "width": 375,
+      "height": 812
+    },
+    "headerAfterScroll": {
+      "top": 0,
+      "bottom": 110,
+      "visible": true
+    }
+  },
+  "article_toc_tablet1024": [
+    {
+      "tag": "NAV",
+      "id": "",
+      "cls": "hidden sm:block",
+      "position": "static",
+      "display": "block",
+      "float": "none",
+      "left": 160,
+      "top": 22,
+      "width": 158
+    },
+    {
+      "tag": "NAV",
+      "id": "",
+      "cls": "sm:hidden border-t border-line",
+      "position": "static",
+      "display": "none",
+      "float": "none",
+      "left": 0,
+      "top": 0,
+      "width": 0
+    },
+    {
+      "tag": "ASIDE",
+      "id": "",
+      "cls": "hidden lg:block",
+      "position": "static",
+      "display": "block",
+      "float": "none",
+      "left": 24,
+      "top": 113,
+      "width": 240
+    },
+    {
+      "tag": "NAV",
+      "id": "",
+      "cls": "sommaire-rail",
+      "position": "sticky",
+      "display": "block",
+      "float": "none",
+      "left": 24,
+      "top": 113,
+      "width": 240
+    },
+    {
+      "tag": "P",
+      "id": "somm-rail",
+      "cls": "sommaire-titre",
+      "position": "static",
+      "display": "block",
+      "float": "none",
+      "left": 39,
+      "top": 113,
+      "width": 225
+    },
+    {
+      "tag": "NAV",
+      "id": "",
+      "cls": "mb-8 text-sm text-muted",
+      "position": "static",
+      "display": "block",
+      "float": "none",
+      "left": 304,
+      "top": 113,
+      "width": 696
+    },
+    {
+      "tag": "ASIDE",
+      "id": "",
+      "cls": "essentiel",
+      "position": "static",
+      "display": "block",
+      "float": "none",
+      "left": 304,
+      "top": 865,
+      "width": 696
+    },
+    {
+      "tag": "NAV",
+      "id": "",
+      "cls": "sommaire",
+      "position": "static",
+      "display": "block",
+      "float": "none",
+      "left": 0,
+      "top": 0,
+      "width": 0
+    },
+    {
+      "tag": "P",
+      "id": "somm-inline",
+      "cls": "sommaire-titre",
+      "position": "static",
+      "display": "block",
+      "float": "none",
+      "left": 0,
+      "top": 0,
+      "width": 0
+    },
+    {
+      "tag": "ASIDE",
+      "id": "",
+      "cls": "mt-14 border border-line rounded-md bg-surface p-6",
+      "position": "static",
+      "display": "block",
+      "float": "none",
+      "left": 304,
+      "top": 7436,
+      "width": 696
+    }
+  ],
+  "article_toc_just_below_1024": [
+    {
+      "tag": "NAV",
+      "id": "",
+      "cls": "hidden sm:block",
+      "position": "static",
+      "display": "block",
+      "float": "none",
+      "left": 160,
+      "top": 22,
+      "width": 158
+    },
+    {
+      "tag": "NAV",
+      "id": "",
+      "cls": "sm:hidden border-t border-line",
+      "position": "static",
+      "display": "none",
+      "float": "none",
+      "left": 0,
+      "top": 0,
+      "width": 0
+    },
+    {
+      "tag": "ASIDE",
+      "id": "",
+      "cls": "hidden lg:block",
+      "position": "static",
+      "display": "none",
+      "float": "none",
+      "left": 0,
+      "top": 0,
+      "width": 0
+    },
+    {
+      "tag": "NAV",
+      "id": "",
+      "cls": "sommaire-rail",
+      "position": "sticky",
+      "display": "block",
+      "float": "none",
+      "left": 0,
+      "top": 0,
+      "width": 0
+    },
+    {
+      "tag": "P",
+      "id": "somm-rail",
+      "cls": "sommaire-titre",
+      "position": "static",
+      "display": "block",
+      "float": "none",
+      "left": 0,
+      "top": 0,
+      "width": 0
+    },
+    {
+      "tag": "NAV",
+      "id": "",
+      "cls": "mb-8 text-sm text-muted",
+      "position": "static",
+      "display": "block",
+      "float": "none",
+      "left": 24,
+      "top": 113,
+      "width": 768
+    },
+    {
+      "tag": "ASIDE",
+      "id": "",
+      "cls": "essentiel",
+      "position": "static",
+      "display": "block",
+      "float": "none",
+      "left": 24,
+      "top": 913,
+      "width": 768
+    },
+    {
+      "tag": "NAV",
+      "id": "",
+      "cls": "sommaire",
+      "position": "static",
+      "display": "block",
+      "float": "none",
+      "left": 24,
+      "top": 1123,
+      "width": 768
+    },
+    {
+      "tag": "P",
+      "id": "somm-inline",
+      "cls": "sommaire-titre",
+      "position": "static",
+      "display": "block",
+      "float": "none",
+      "left": 46,
+      "top": 1142,
+      "width": 724
+    },
+    {
+      "tag": "ASIDE",
+      "id": "",
+      "cls": "mt-14 border border-line rounded-md bg-surface p-6",
+      "position": "static",
+      "display": "block",
+      "float": "none",
+      "left": 24,
+      "top": 7370,
+      "width": 768
+    }
+  ],
+  "article_toc_laptop": [
+    {
+      "tag": "NAV",
+      "id": "",
+      "cls": "hidden sm:block",
+      "position": "static",
+      "display": "block",
+      "float": "none",
+      "left": 267,
+      "top": 22,
+      "width": 158
+    },
+    {
+      "tag": "NAV",
+      "id": "",
+      "cls": "sm:hidden border-t border-line",
+      "position": "static",
+      "display": "none",
+      "float": "none",
+      "left": 0,
+      "top": 0,
+      "width": 0
+    },
+    {
+      "tag": "ASIDE",
+      "id": "",
+      "cls": "hidden lg:block",
+      "position": "static",
+      "display": "block",
+      "float": "none",
+      "left": 131,
+      "top": 113,
+      "width": 240
+    },
+    {
+      "tag": "NAV",
+      "id": "",
+      "cls": "sommaire-rail",
+      "position": "sticky",
+      "display": "block",
+      "float": "none",
+      "left": 131,
+      "top": 113,
+      "width": 240
+    },
+    {
+      "tag": "P",
+      "id": "somm-rail",
+      "cls": "sommaire-titre",
+      "position": "static",
+      "display": "block",
+      "float": "none",
+      "left": 146,
+      "top": 113,
+      "width": 225
+    },
+    {
+      "tag": "NAV",
+      "id": "",
+      "cls": "mb-8 text-sm text-muted",
+      "position": "static",
+      "display": "block",
+      "float": "none",
+      "left": 427,
+      "top": 113,
+      "width": 768
+    },
+    {
+      "tag": "ASIDE",
+      "id": "",
+      "cls": "essentiel",
+      "position": "static",
+      "display": "block",
+      "float": "none",
+      "left": 427,
+      "top": 913,
+      "width": 768
+    },
+    {
+      "tag": "NAV",
+      "id": "",
+      "cls": "sommaire",
+      "position": "static",
+      "display": "block",
+      "float": "none",
+      "left": 0,
+      "top": 0,
+      "width": 0
+    },
+    {
+      "tag": "P",
+      "id": "somm-inline",
+      "cls": "sommaire-titre",
+      "position": "static",
+      "display": "block",
+      "float": "none",
+      "left": 0,
+      "top": 0,
+      "width": 0
+    },
+    {
+      "tag": "ASIDE",
+      "id": "",
+      "cls": "mt-14 border border-line rounded-md bg-surface p-6",
+      "position": "static",
+      "display": "block",
+      "float": "none",
+      "left": 427,
+      "top": 7183,
+      "width": 768
+    }
+  ]
+}

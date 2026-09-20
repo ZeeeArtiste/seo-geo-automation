@@ -58,13 +58,31 @@ function run(cmd, opts = {}) {
 }
 
 function nginxConfig() {
-  return `server {
+  // Nom dérivé du domaine : plusieurs sites partagent le même contexte http,
+  // deux maps homonymes provoqueraient un échec au rechargement de nginx.
+  const mapVar = 'cacheControl';
+  return `# Durée de cache par type de ressource. Les fichiers d'Astro portent un hash
+# de contenu dans leur nom et peuvent être mis en cache indéfiniment ; le HTML
+# doit être revalidé, sinon une correction publiée reste invisible.
+map $uri $${mapVar} {
+    default                                 "public, max-age=0, must-revalidate";
+    ~^/_astro/                              "public, max-age=31536000, immutable";
+    ~*\\.(webp|jpg|jpeg|png|svg|ico|woff2)$  "public, max-age=2592000";
+}
+
+server {
     listen 80;
     listen [::]:80;
     server_name ${domain} www.${domain};
 
     root ${webRoot};
     index index.html;
+
+    # Sans cette directive, nginx envoie « Content-Type: text/html » sans
+    # charset. Les navigateurs s'en sortent grâce au <meta>, mais tout
+    # récupérateur machine qui se fie à l'en-tête retombe sur ISO-8859-1 et
+    # lit « approches opposÃ©es » — y compris les crawlers IA.
+    charset utf-8;
 
     location / {
         try_files $uri $uri/ $uri.html =404;
@@ -73,7 +91,27 @@ function nginxConfig() {
     gzip on;
     gzip_types text/plain text/css application/javascript application/json image/svg+xml application/xml text/xml;
 
+    # ── En-têtes de sécurité ─────────────────────────────────────────────
+    # Seul X-Content-Type-Options était posé. Pas de Content-Security-Policy
+    # ici : le site embarque des scripts inline (suivi de lecture du sommaire)
+    # qu'une CSP stricte casserait — à ajouter avec un nonce si besoin.
     add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Permissions-Policy "geolocation=(), microphone=(), camera=(), interest-cohort=()" always;
+    # HSTS : n'a d'effet qu'en HTTPS, donc inoffensif tant que certbot n'est
+    # pas passé. Sans preload, pour rester réversible.
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+
+    # Durée de cache calculée par le map ci-dessus. Volontairement ici et non
+    # dans des blocs location : un add_header placé dans un location ANNULE
+    # tous ceux hérités du serveur — les en-têtes de sécurité disparaîtraient
+    # des pages HTML sans le moindre avertissement de nginx.
+    add_header Cache-Control $cacheControl always;
+
+    # Page 404 du site plutôt que celle de nginx, qui expose sa version.
+    error_page 404 /404.html;
+    server_tokens off;
 }
 `;
 }
@@ -198,6 +236,24 @@ async function main() {
     run(
       `certbot --nginx ${domainFlags} ${emailFlag} --agree-tos --non-interactive --redirect`
     );
+    // www répondait 200 avec un contenu identique : seule la balise canonical
+    // évitait la duplication. On ajoute la redirection dans le bloc 443 que
+    // certbot vient de créer — après son passage, pour ne pas lui compliquer
+    // le repérage des blocs server.
+    const conf = await fs.readFile(nginxAvailable, 'utf-8');
+    if (!conf.includes('# redirection www')) {
+      const patched = conf.replace(
+        /(listen 443 ssl;[^\n]*\n)/,
+        `$1\n    # redirection www vers le domaine nu\n    if ($host = www.${domain}) {\n        return 301 https://${domain}$request_uri;\n    }\n`
+      );
+      if (patched !== conf) {
+        await fs.writeFile(nginxAvailable, patched, 'utf-8');
+        run('nginx -t');
+        run('systemctl reload nginx');
+        console.log(`   www.${domain} redirige désormais vers ${domain}`);
+      }
+    }
+
     console.log(`\n✅ HTTPS activé : https://${domain}`);
   } catch (e) {
     console.error(

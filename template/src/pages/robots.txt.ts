@@ -8,7 +8,18 @@
  */
 import { SITE } from '../lib/site';
 
-const AI_CRAWLERS = ['GPTBot', 'ChatGPT-User', 'PerplexityBot', 'ClaudeBot', 'Google-Extended'];
+/**
+ * Deux familles distinctes, souvent confondues :
+ *  - entraînement / grounding : GPTBot, ClaudeBot, Google-Extended
+ *  - CITATION en recherche : OAI-SearchBot, Claude-SearchBot, PerplexityBot,
+ *    Googlebot (qui gouverne AI Overviews), Bingbot
+ * Ne nommer que les premiers laissait les seconds dépendre du groupe « * » :
+ * aucun blocage aujourd'hui, mais ils hériteraient du premier Disallow ajouté.
+ */
+const AI_CRAWLERS = [
+  'GPTBot', 'ChatGPT-User', 'ClaudeBot', 'Google-Extended',
+  'OAI-SearchBot', 'Claude-SearchBot', 'PerplexityBot', 'Googlebot', 'Bingbot',
+];
 
 export async function GET() {
   const lines = ['User-agent: *', 'Allow: /', ''];

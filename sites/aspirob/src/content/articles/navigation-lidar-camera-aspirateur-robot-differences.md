@@ -3,8 +3,10 @@ title: "Navigation LiDAR vs caméra : comment votre aspirateur robot 'voit' votr
 seoTitle: "LiDAR ou caméra : quelle navigation choisir ?"
 description: "LiDAR ou caméra : comprendre comment votre aspirateur robot cartographie votre maison pour choisir la technologie adaptée à votre intérieur."
 publishDate: "2026-09-18"
+updatedDate: "2026-09-20"
 directAnswer: "Un aspirateur robot cartographie votre logement par LiDAR, un laser rotatif, ou par caméra associée à des algorithmes de vision. Le LiDAR mesure la géométrie avec précision et fonctionne dans le noir ; la caméra reconnaît visuellement les objets au sol mais dépend de la lumière ambiante."
 cover: "/photos/navigation-lidar-camera-aspirateur-robot-differences.webp"
+cluster: "navigation"
 category: "Guide"
 faq: [{"question":"Un robot LiDAR fonctionne-t-il vraiment dans le noir complet ?","answer":"Oui. Le laser infrarouge émet sa propre lumière et ne dépend pas de l'éclairage ambiant. La cartographie et la navigation restent identiques la nuit. En revanche, si le robot est aussi équipé d'une caméra pour la détection d'obstacles, cette partie-là peut être moins efficace sans lumière."},{"question":"La « bosse » du LiDAR pose-t-elle vraiment problème sous les meubles ?","answer":"Cela dépend de votre mobilier. Mesurez le dégagement sous vos canapés et vos lits, puis comparez-le à la hauteur totale indiquée sur la fiche du modèle : si le dégagement est inférieur, le robot ne pourra pas y entrer. Les robots à caméra, dépourvus de capteur rotatif, sont généralement plus plats."},{"question":"Le vSLAM est-il aussi précis que le LiDAR pour créer les plans de l'appartement ?","answer":"Non, pas encore au même niveau. Les cartes vSLAM sont fonctionnelles mais moins précises métriquement. Cela se traduit parfois par de petites zones oubliées ou des lignes de nettoyage légèrement irrégulières, surtout dans les grandes pièces."},{"question":"Un robot peut-il reconnaître les excréments d'animaux avec seulement le LiDAR ?","answer":"Non. La détection d'excréments (ou de câbles fins) nécessite une caméra couplée à un modèle d'intelligence artificielle entraîné sur ces objets. Le LiDAR seul ne perçoit que les obstacles suffisamment hauts pour intercepter son plan de balayage horizontal."},{"question":"Les cartes créées par le robot sont-elles sauvegardées si je le redémarre ?","answer":"Oui, sur la quasi-totalité des modèles récents (LiDAR ou caméra), la carte est stockée dans la mémoire interne du robot et/ou dans l'application cloud. Un redémarrage ne l'efface pas. En revanche, déplacer la base de recharge peut perturber la localisation."}]
 ---
@@ -23,7 +25,7 @@ Le LiDAR (Light Detection And Ranging) fonctionne comme un radar, mais avec de l
 
 ### Les limites du LiDAR
 
-Le capteur rotatif forme une bosse caractéristique sur le dessus du robot, ce qui augmente sa hauteur totale et le rend nettement plus épais qu'un robot à caméra. Cela peut poser problème sous certains meubles bas : mesurez le dégagement sous vos canapés et vos lits, puis comparez-le à la hauteur indiquée sur la fiche du modèle. Par ailleurs, le LiDAR ne « voit » qu'en 2D horizontal : il ne détecte pas un câble posé à plat sur le sol ou un chaussette, car l'obstacle est trop bas pour être dans le plan de balayage laser.
+Le capteur rotatif forme une bosse caractéristique sur le dessus du robot, ce qui augmente sa hauteur totale et le rend nettement plus épais qu'un robot à caméra. Cela peut poser problème sous certains meubles bas : mesurez le dégagement sous vos canapés et vos lits, puis comparez-le à la hauteur indiquée sur la fiche du modèle. Par ailleurs, le LiDAR ne « voit » qu'en 2D horizontal : il ne détecte pas un câble posé à plat sur le sol ou une chaussette, car l'obstacle est trop bas pour être dans le plan de balayage laser.
 
 ## Que voit réellement une caméra ?
 

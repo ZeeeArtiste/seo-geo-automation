@@ -1,0 +1,231 @@
+{
+  "product_card_candidates": [
+    {
+      "tag": "DIV",
+      "cls": "produits",
+      "text": "1 Roborock Q5 Max+       Sa brosse principale en caoutchouc "
+    },
+    {
+      "tag": "ARTICLE",
+      "cls": "produit",
+      "text": "1 Roborock Q5 Max+       Sa brosse principale en caoutchouc "
+    },
+    {
+      "tag": "DIV",
+      "cls": "produit-tete",
+      "text": "1 Roborock Q5 Max+"
+    },
+    {
+      "tag": "SPAN",
+      "cls": "produit-num",
+      "text": "1"
+    },
+    {
+      "tag": "DIV",
+      "cls": "produit-corps",
+      "text": "Sa brosse principale en caoutchouc « DuoRoller » réduit sign"
+    },
+    {
+      "tag": "DIV",
+      "cls": "produit-schema",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "cls": "produit-texte",
+      "text": "Sa brosse principale en caoutchouc « DuoRoller » réduit sign"
+    },
+    {
+      "tag": "P",
+      "cls": "produit-resume",
+      "text": "Sa brosse principale en caoutchouc « DuoRoller » réduit sign"
+    },
+    {
+      "tag": "P",
+      "cls": "produit-cta",
+      "text": "Voir le Roborock Q5 Max+"
+    },
+    {
+      "tag": "ARTICLE",
+      "cls": "produit",
+      "text": "2 iRobot Roomba Combo j9+       L'un des rares à embarquer u"
+    },
+    {
+      "tag": "DIV",
+      "cls": "produit-tete",
+      "text": "2 iRobot Roomba Combo j9+"
+    },
+    {
+      "tag": "SPAN",
+      "cls": "produit-num",
+      "text": "2"
+    },
+    {
+      "tag": "DIV",
+      "cls": "produit-corps",
+      "text": "L'un des rares à embarquer un système de coupe intégré sur l"
+    },
+    {
+      "tag": "DIV",
+      "cls": "produit-schema",
+      "text": ""
+    },
+    {
+      "tag": "DIV",
+      "cls": "produit-texte",
+      "text": "L'un des rares à embarquer un système de coupe intégré sur l"
+    },
+    {
+      "tag": "P",
+      "cls": "produit-resume",
+      "text": "L'un des rares à embarquer un système de coupe intégré sur l"
+    },
+    {
+      "tag": "P",
+      "cls": "produit-cta",
+      "text": "Voir le iRobot Roomba Combo j9+"
+    },
+    {
+      "tag": "ARTICLE",
+      "cls": "produit",
+      "text": "3 Dreame L10s Ultra       Double brosse en caoutchouc et sta"
+    },
+    {
+      "tag": "DIV",
+      "cls": "produit-tete",
+      "text": "3 Dreame L10s Ultra"
+    },
+    {
+      "tag": "SPAN",
+      "cls": "produit-num",
+      "text": "3"
+    }
+  ],
+  "cta_buttons_1440": [
+    {
+      "tag": "A",
+      "cls": "",
+      "text": "Que faut-il vérifier avant d’acheter ?",
+      "width": 239,
+      "height": 51,
+      "href": "https://aspirob.com/articles/aspirateur-robot-poils-animaux-chat-chien/#que-faut-il-v%C3%A9rifier-avant-dacheter"
+    },
+    {
+      "tag": "A",
+      "cls": "",
+      "text": "Que faut-il vérifier avant d’acheter ?",
+      "width": 0,
+      "height": 0,
+      "href": "https://aspirob.com/articles/aspirateur-robot-poils-animaux-chat-chien/#que-faut-il-v%C3%A9rifier-avant-dacheter"
+    },
+    {
+      "tag": "A",
+      "cls": "",
+      "text": "Voir le Roborock Q5 Max+",
+      "width": 253,
+      "height": 41,
+      "href": "https://www.amazon.fr/dp/B0DV9VKZXD?tag=aspirob0d-21"
+    },
+    {
+      "tag": "A",
+      "cls": "",
+      "text": "Voir le iRobot Roomba Combo j9+",
+      "width": 312,
+      "height": 41,
+      "href": "https://www.amazon.fr/dp/B0C415HQPX?tag=aspirob0d-21"
+    },
+    {
+      "tag": "A",
+      "cls": "",
+      "text": "Voir le Dreame L10s Ultra",
+      "width": 249,
+      "height": 41,
+      "href": "https://www.amazon.fr/dp/B0B8X43GQH?tag=aspirob0d-21"
+    },
+    {
+      "tag": "A",
+      "cls": "",
+      "text": "Voir le Ecovacs Deebot T20 Omni",
+      "width": 307,
+      "height": 41,
+      "href": "https://www.amazon.fr/dp/B0C2VH6X31?tag=aspirob0d-21"
+    },
+    {
+      "tag": "A",
+      "cls": "",
+      "text": "Voir le Shark IQ Robot avec autovidage (",
+      "width": 457,
+      "height": 41,
+      "href": "https://www.amazon.fr/dp/B08ZSRD318?tag=aspirob0d-21"
+    }
+  ],
+  "cta_buttons_mobile": [
+    {
+      "tag": "A",
+      "cls": "",
+      "text": "Que faut-il vérifier avant d’acheter ?",
+      "width": 0,
+      "height": 0
+    },
+    {
+      "tag": "A",
+      "cls": "",
+      "text": "Que faut-il vérifier avant d’acheter ?",
+      "width": 197,
+      "height": 44
+    },
+    {
+      "tag": "A",
+      "cls": "",
+      "text": "Voir le Roborock Q5 Max+",
+      "width": 253,
+      "height": 41
+    },
+    {
+      "tag": "A",
+      "cls": "",
+      "text": "Voir le iRobot Roomba Combo j9+",
+      "width": 285,
+      "height": 64
+    },
+    {
+      "tag": "A",
+      "cls": "",
+      "text": "Voir le Dreame L10s Ultra",
+      "width": 249,
+      "height": 41
+    },
+    {
+      "tag": "A",
+      "cls": "",
+      "text": "Voir le Ecovacs Deebot T20 Omni",
+      "width": 285,
+      "height": 64
+    },
+    {
+      "tag": "A",
+      "cls": "",
+      "text": "Voir le Shark IQ Robot avec autovidage (",
+      "width": 285,
+      "height": 64
+    }
+  ],
+  "table_wrapper_mobile": {
+    "wrapperTag": "DIV",
+    "wrapperCls": "tableau-wrap",
+    "overflowX": "auto",
+    "wrapperWidth": 327,
+    "tableWidth": 597
+  },
+  "home_mobile_atf": {
+    "h1text": "Guides et comparatifs d'aspirateurs robots",
+    "h1visible": true,
+    "h1top": 158,
+    "viewportHeight": 812
+  },
+  "home_desktop_atf": {
+    "h1text": "Guides et comparatifs d'aspirateurs robots",
+    "h1visible": true,
+    "h1top": 113
+  }
+}
