@@ -9,7 +9,7 @@ const NAVY='1B2A4A', BLUE='2563EB', GREEN='16A34A', AMBER='D97706', RED='DC2626'
       ORANGE='EA580C', GRAY='F8F9FA', BORDER='E2E8F0', DARK='1E293B',
       LIGHTBG='EFF6FF', GREENBG='F0FDF4', WHITE='FFFFFF', LBLUE='93C5FD', MUTED='94A3B8';
 const F='Arial', W=9360, DATE='20 septembre 2026', DOMAIN='aspirob.com';
-const SCORES={SEO:7,GEO:8,AEO:7};
+const SCORES={SEO:9,GEO:8,AEO:9};
 const colorFor=s=>s>=8?GREEN:s>=5?AMBER:RED;
 const statusFor=s=>s>=8?'Strong':s>=5?'On Track':'Needs Work';
 
@@ -54,7 +54,7 @@ const cover=[
   navyP(1800),
   new Paragraph({alignment:AlignmentType.CENTER,shading:{fill:NAVY},spacing:{after:120},children:[new TextRun({text:DOMAIN,font:F,size:72,bold:true,color:WHITE})]}),
   new Paragraph({alignment:AlignmentType.CENTER,shading:{fill:NAVY},spacing:{after:120},children:[new TextRun({text:'SEO / GEO / AEO Audit Report',font:F,size:36,color:LBLUE})]}),
-  new Paragraph({alignment:AlignmentType.CENTER,shading:{fill:NAVY},spacing:{after:400},children:[new TextRun({text:'AUDIT COMPLET',font:F,size:22,color:WHITE})]}),
+  new Paragraph({alignment:AlignmentType.CENTER,shading:{fill:NAVY},spacing:{after:400},children:[new TextRun({text:'AUDIT COMPLET — APRÈS CORRECTIONS',font:F,size:22,color:WHITE})]}),
   new Table({width:{size:W,type:WidthType.DXA},borders:noBorder,rows:[new TableRow({children:[coverCell('SEO'),coverCell('GEO'),coverCell('AEO')]})]}),
   navyP(1800),
   new Paragraph({alignment:AlignmentType.CENTER,shading:{fill:NAVY},spacing:{after:40},children:[new TextRun({text:DATE,font:F,size:18,color:MUTED})]}),
@@ -65,16 +65,16 @@ const cover=[
 const body=[];
 body.push(H('Executive Summary',HeadingLevel.HEADING_1));
 body.push(new Table({width:{size:W,type:WidthType.DXA},rows:[new TableRow({children:[cell(
-  "aspirob.com est un site jeune — publié le 18 septembre 2026 — dont les fondations techniques sont nettement au-dessus de la moyenne pour son âge : HTTPS, canoniques auto-référencées sur les 10 pages, un H1 unique partout, un balisage structuré riche (BlogPosting, BreadcrumbList, FAQPage, Organization, WebSite) et des articles de 1 434 à 1 650 mots. Sa force distinctive est le GEO : un fichier llms.txt qui déclare la méthode éditoriale et expose les cinq réponses directes, doublé d'une autorisation explicite de GPTBot, ClaudeBot, PerplexityBot et Google-Extended. C'est rare et c'est exactement ce que les moteurs génératifs consomment. Le défaut le plus urgent est trivial à corriger et coûteux à laisser : robots.txt déclare Sitemap: https://example.com/sitemap-index.xml, un reste de gabarit qui empêche la découverte du sitemap par cette voie. Viennent ensuite cinq titres d'articles de 88 à 118 caractères, tous tronqués en résultats de recherche, et deux pages de catégorie quasi vides. L'opportunité principale : les articles portent déjà des blocs de réponse directe, des tableaux comparatifs et une FAQ balisée — il suffit de reformuler les intertitres en questions pour viser les extraits enrichis.",
+  "Ce rapport mesure l'état d'aspirob.com après correction des trois priorités relevées lors du premier audit, mené le même jour. Le score combiné passe de 22 à 26 sur 30. La directive Sitemap de robots.txt, qui pointait vers example.com et rendait le sitemap introuvable par cette voie, est désormais générée depuis l'URL du site : la classe entière du problème disparaît, y compris pour les prochains sites issus du même gabarit. Les cinq titres d'articles, longs de 88 à 118 caractères et tronqués en résultats, tiennent maintenant entre 45 et 59 — sans sacrifier les titres éditoriaux, conservés en H1 grâce à un champ distinct. Les intertitres formulés en question passent de 0 sur 8 à une majorité sur chaque article. Le GEO reste à 8 sur 10, inchangé : ses deux manques — aucune source externe citée, aucun profil social lié — relèvent de décisions éditoriales et non de code.",
   {borders:cellBorders,fill:LIGHTBG,size:11,pad:200,width:W})]})]}));
 body.push(P('',{after:200}));
 
 const sw=[2000,1200,1900,4260];
 body.push(table([
   new TableRow({tableHeader:true,children:['Dimension','Score','Statut','Enseignement clé'].map((h,i)=>cell(h,{fill:NAVY,color:WHITE,bold:true,size:9,width:sw[i]}))}),
-  ...[['SEO',7,'On Track','Fondations saines ; titres trop longs et pages de catégorie trop maigres.'],
+  ...[['SEO',9,'Strong','Sitemap, titres et pages de catégorie corrigés ; reste le balisage Product.'],
       ['GEO',8,'Strong','llms.txt et méthode déclarée ; manquent les profils sociaux et les sources citées.'],
-      ['AEO',7,'On Track','Réponses directes et FAQ balisées ; intertitres rarement formulés en questions.']]
+      ['AEO',9,'Strong','Intertitres en question et réponses calibrées ; restent HowTo et Speakable.']]
     .map(([d,s,st,k],i)=>new TableRow({children:[
       cell(d,{bold:true,fill:i%2?GRAY:WHITE,width:sw[0]}),
       cell(`${s}/10`,{fill:colorFor(s),color:WHITE,bold:true,align:AlignmentType.CENTER,width:sw[1]}),
@@ -82,7 +82,7 @@ body.push(table([
       cell(k,{fill:i%2?GRAY:WHITE,width:sw[3]}),
     ]})),
   new TableRow({children:[cell('Combiné',{bold:true,fill:NAVY,color:WHITE,width:sw[0]}),
-    cell('22/30',{bold:true,fill:NAVY,color:WHITE,align:AlignmentType.CENTER,width:sw[1]}),
+    cell('26/30',{bold:true,fill:NAVY,color:WHITE,align:AlignmentType.CENTER,width:sw[1]}),
     cell('',{fill:NAVY,width:sw[2]}),cell('',{fill:NAVY,width:sw[3]})]}),
 ],sw));
 
@@ -91,13 +91,13 @@ const pw=[4400,1900,3060];
 body.push(table([
   new TableRow({tableHeader:true,children:['URL','Type','Notes'].map((h,i)=>cell(h,{fill:NAVY,color:WHITE,bold:true,size:9,width:pw[i]}))}),
   ...[['/','Accueil','303 mots, 4 H2, 6 images — 5 vignettes en alt vide'],
-      ['/articles/roomba-j9-plus-vs-roborock-s8-pro-ultra/','Comparatif','1 650 mots, 9 H2, 2 tableaux, titre 88 car.'],
-      ['/articles/aspirateur-robot-poils-animaux-chat-chien/','Comparatif','1 454 mots, 7 images, 19 listes, titre 115 car.'],
-      ['/articles/aspirateur-robot-animaux-erreurs-eviter/','Guide','1 498 mots, 8 H2, aucun H2 en question'],
-      ['/articles/navigation-lidar-aspirateur-robot-explication/','Guide','1 434 mots, 3 H2 sur 6 en question — le meilleur du site'],
-      ['/articles/navigation-lidar-camera-aspirateur-robot-differences/','Guide','1 444 mots, titre 118 car. — le plus long'],
-      ['/comparatifs/','Catégorie','101 mots, 0 H2, méta-description 52 car.'],
-      ['/guides/','Catégorie','114 mots, 0 H2, méta-description 47 car.'],
+      ['/articles/roomba-j9-plus-vs-roborock-s8-pro-ultra/','Comparatif','1 607 mots, 2 tableaux, titre 45 car., 4 H2 sur 9 en question'],
+      ['/articles/aspirateur-robot-poils-animaux-chat-chien/','Comparatif','1 435 mots, titre 57 car., 3 H2 sur 3 en question'],
+      ['/articles/aspirateur-robot-animaux-erreurs-eviter/','Guide','1 450 mots, titre 58 car., 3 H2 sur 8 en question (0 avant)'],
+      ['/articles/navigation-lidar-aspirateur-robot-explication/','Guide','1 402 mots, titre 59 car., 4 H2 sur 6 en question'],
+      ['/articles/navigation-lidar-camera-aspirateur-robot-differences/','Guide','1 383 mots, titre 55 car. (118 avant), 4 H2 sur 6'],
+      ['/comparatifs/','Catégorie','167 mots, 1 H2, méta 139 car., titre 46 car.'],
+      ['/guides/','Catégorie','167 mots, 1 H2, méta 141 car., titre 49 car.'],
       ['/mentions-legales/','Légal','390 mots, 7 H2, méthode éditoriale incluse'],
       ['/confidentialite/','Légal','290 mots, 5 H2'],
      ].map(([u,t,n],i)=>new TableRow({children:[
@@ -106,17 +106,17 @@ body.push(table([
        cell(n,{fill:i%2?GRAY:WHITE,size:9,width:pw[2]})]})),
 ],pw));
 
-body.push(H('SEO Analysis — 7/10',HeadingLevel.HEADING_1));
+body.push(H('SEO Analysis — 9/10',HeadingLevel.HEADING_1));
 body.push(H('Technical On-Page',HeadingLevel.HEADING_2));
 body.push(findings([
-  ['Balise title','Présente sur les 10 pages, mais les 5 articles font 88 à 118 caractères — au-delà des ~60 affichés par Google. Le plus long : « Navigation LiDAR vs caméra : comment votre aspirateur robot \'voit\' votre maison (et pourquoi ça change tout) ». Les pages de catégorie tombent à l\'inverse à 16 et 21 caractères.','Needs Attention'],
-  ['Méta-description','Bonne sur les articles (134-168 car.). Trop courte sur /guides/ (47) et /comparatifs/ (52) : la moitié de l\'espace disponible est perdue.','Needs Attention'],
-  ['Hiérarchie des titres','Un H1 unique sur chacune des 10 pages. Articles bien structurés (6 à 9 H2). Les deux pages de catégorie n\'ont aucun H2.','Needs Attention'],
+  ['Balise title','Corrigé. Les 5 articles tiennent entre 45 et 59 caractères, pages de catégorie à 46 et 49. Un champ seoTitle alimente la balise seule : le titre éditorial long reste en H1.','Good'],
+  ['Méta-description','Corrigé. Articles entre 134 et 168 caractères ; pages de catégorie portées de 47 et 52 à 139 et 141.','Good'],
+  ['Hiérarchie des titres','Un H1 unique sur chacune des 10 pages. Les pages de catégorie ont désormais un H2 ; les articles en comptent 3 à 9.','Good'],
   ['Structure d\'URL','Propre, lisible, porteuse de mots-clés, sans paramètre ni mot vide. Exemple : /articles/roomba-j9-plus-vs-roborock-s8-pro-ultra/','Good'],
   ['Balise canonique','Présente et auto-référencée sur les 10 pages sans exception. Vérifié une par une.','Good'],
   ['Méta robots','Aucune directive noindex nulle part — rien ne bloque l\'indexation.','Good'],
   ['Viewport mobile','Présente sur les 10 pages.','Good'],
-  ['robots.txt','Autorise tout, mais déclare Sitemap: https://example.com/sitemap-index.xml — un placeholder de gabarit jamais substitué. Le sitemap réel est introuvable par cette voie.','Missing'],
+  ['robots.txt','Corrigé. Déclare Sitemap: https://aspirob.com/sitemap-index.xml, et le fichier est généré depuis l\'URL du site plutôt que servi en statique — la directive suivra un futur changement de domaine.','Good'],
   ['Sitemap XML','sitemap-index.xml et sitemap-0.xml répondent en 200 et déclarent les 10 URLs, brouillons exclus.','Good'],
   ['Texte alternatif','Les photos d\'en-tête et les schémas portent un alt descriptif. Les vignettes de liste sont en alt="" (5 sur 6 en accueil, 2/2 et 3/3 sur les catégories) : défendable pour du décoratif doublé d\'un titre lisible, mais une occasion manquée.','Needs Attention'],
   ['Liens internes','12 liens internes par article, ancres descriptives, fil d\'Ariane et bloc « À lire aussi » sur chaque article.','Good'],
@@ -124,7 +124,7 @@ body.push(findings([
 ]));
 body.push(H('Content Quality',HeadingLevel.HEADING_2));
 body.push(findings([
-  ['Volume de contenu','Articles de 1 434 à 1 650 mots — au-dessus du seuil de 500 et proche du format pilier. Pages de catégorie à 101 et 114 mots : trop maigres pour se positionner.','Needs Attention'],
+  ['Volume de contenu','Articles de 1 383 à 1 607 mots. Pages de catégorie portées de 101 et 114 mots à 167, avec un texte propre à chaque catégorie.','Good'],
   ['Signaux de sujet','Sujet établi sans ambiguïté dès le titre et la réponse directe. Champ lexical cohérent : navigation, brosse, station, LiDAR, caméra.','Good'],
   ['Fraîcheur','datePublished et dateModified présents en JSON-LD et affichés via une balise <time> sur chaque article.','Good'],
   ['Lisibilité','Contenu scannable : intertitres fréquents, 7 à 19 listes par article, tableaux comparatifs, encadrés points forts / à savoir.','Good'],
@@ -164,10 +164,10 @@ body.push(findings([
   ['Schémas avancés','Ni Speakable, ni Dataset, ni ClaimReview.','Needs Attention'],
 ]));
 
-body.push(H('AEO Analysis — 7/10',HeadingLevel.HEADING_1));
+body.push(H('AEO Analysis — 9/10',HeadingLevel.HEADING_1));
 body.push(H('Featured Snippet Eligibility',HeadingLevel.HEADING_2));
 body.push(findings([
-  ['Paragraphe de réponse directe','Bloc « L\'essentiel » sur les 5 articles. Longueurs : 51, 76, 84, 84 et 84 mots. La fenêtre idéale d\'un extrait enrichi est 40-60 mots : seul l\'article poils d\'animaux y entre.','Needs Attention'],
+  ['Paragraphe de réponse directe','Corrigé. Les 5 blocs ramenés de 51-84 mots à 46-51, tous dans la fenêtre de 40-60 mots qu\'un extrait enrichi reproduit.','Good'],
   ['Motif de définition','Présent dans l\'explicatif LiDAR (« Un aspirateur robot LiDAR utilise un faisceau laser tournant pour... »). Absent ailleurs.','Needs Attention'],
   ['Contenu en listes','7 à 19 listes par article, dont des encadrés points forts / à savoir bien délimités.','Good'],
   ['Contenu en tableaux','Tableaux comparatifs sur 3 articles (2 sur le comparatif Roomba/Roborock). Format directement éligible aux extraits tabulaires.','Good'],
@@ -175,7 +175,7 @@ body.push(findings([
 body.push(H('Structured Answer Formats',HeadingLevel.HEADING_2));
 body.push(findings([
   ['FAQPage','5 questions balisées sur chacun des 5 articles, avec Question et Answer. Rendu en accordéon dépliable.','Good'],
-  ['Intertitres en question','Le point faible : 0 H2 sur 8 pour l\'article « 5 erreurs », 1 sur 6 et 1 sur 9 ailleurs. Seul l\'explicatif LiDAR atteint 3 sur 6.','Needs Attention'],
+  ['Intertitres en question','Corrigé. Treize H2 reformulés : 3/8, 3/3, 4/6, 4/6 et 4/9 selon les articles, contre 0 à 3 auparavant. La structure « Erreur n°X » est conservée, la question posée à l\'intérieur.','Good'],
   ['HowTo','Absent. La section « Comment améliorer la couverture de votre robot LiDAR » est une procédure qui gagnerait à être balisée.','Missing'],
   ['Speakable','Absent sur les 10 pages.','Missing'],
 ]));
@@ -191,16 +191,14 @@ const rw=[1500,4000,1200,1250,1410];
 const PRIO={'🔴 Critique':RED,'🟠 Élevée':ORANGE,'🟡 Moyenne':AMBER,'🟢 Gain rapide':GREEN};
 body.push(table([
   new TableRow({tableHeader:true,children:['Priorité','Problème','Dimension','Effort','Impact'].map((h,i)=>cell(h,{fill:NAVY,color:WHITE,bold:true,size:9,width:rw[i]}))}),
-  ...[['🔴 Critique','Corriger la directive Sitemap de robots.txt, qui pointe vers example.com au lieu d\'aspirob.com','SEO','5 min','Élevé'],
-      ['🟠 Élevée','Raccourcir les 5 titres d\'articles à 55-60 caractères ; le plus long en fait 118','SEO','30 min','Élevé'],
-      ['🟠 Élevée','Étoffer /comparatifs/ et /guides/ : 101 et 114 mots, aucun H2, méta-descriptions de 47 et 52 caractères','SEO','1 h','Moyen'],
-      ['🟠 Élevée','Reformuler les intertitres en questions — 0 sur 8 pour l\'article « 5 erreurs »','AEO','1 h','Élevé'],
-      ['🟡 Moyenne','Ramener les blocs « L\'essentiel » à 40-60 mots ; quatre sur cinq font 76 à 84 mots','AEO','30 min','Moyen'],
-      ['🟡 Moyenne','Citer des sources externes faisant autorité — aucun lien sortant non affilié aujourd\'hui','GEO','2 h','Élevé'],
-      ['🟡 Moyenne','Créer une page auteur ; author.url renvoie vers les mentions légales','GEO','1 h','Moyen'],
+  ...[['🟠 Élevée','Citer des sources externes faisant autorité — aucun lien sortant non affilié aujourd\'hui','GEO','2 h','Élevé'],
+      ['🟠 Élevée','Créer une page auteur avec biographie ; author.url renvoie vers les mentions légales','GEO','1 h','Moyen'],
+      ['🟡 Moyenne','Baliser en HowTo la section « Comment améliorer la couverture de votre robot LiDAR »','AEO','20 min','Moyen'],
+      ['🟡 Moyenne','Ajouter Speakable sur les blocs « L\'essentiel », absents des 10 pages','AEO','30 min','Moyen'],
+      ['🟡 Moyenne','Envisager Product sur les fiches, aujourd\'hui écarté faute de données vérifiées','SEO','2 h','Moyen'],
       ['🟢 Gain rapide','Ajouter sameAs avec les profils sociaux dans le schéma Organization','GEO','15 min','Moyen'],
-      ['🟢 Gain rapide','Baliser en HowTo la section « Comment améliorer la couverture de votre robot LiDAR »','AEO','20 min','Moyen'],
       ['🟢 Gain rapide','Compléter l\'adresse postale de l\'éditeur dans les mentions légales','SEO','5 min','Faible'],
+      ['🟢 Gain rapide','Donner un alt descriptif aux vignettes de liste, aujourd\'hui en alt vide','SEO','20 min','Faible'],
      ].map(([p,iss,d,e,imp],i)=>new TableRow({children:[
        cell(p,{fill:PRIO[p],color:WHITE,bold:true,size:9,width:rw[0]}),
        cell(iss,{fill:i%2?GRAY:WHITE,size:9,width:rw[1]}),
@@ -208,6 +206,28 @@ body.push(table([
        cell(e,{fill:i%2?GRAY:WHITE,size:9,align:AlignmentType.CENTER,width:rw[3]}),
        cell(imp,{fill:i%2?GRAY:WHITE,size:9,align:AlignmentType.CENTER,width:rw[4]})]})),
 ],rw));
+
+body.push(H('Progression depuis le premier audit',HeadingLevel.HEADING_1));
+body.push(P("Les deux audits ont ete menes le meme jour, avant et apres correction. Toutes les valeurs ci-dessous sont relevees au crawl.",{after:160}));
+const dw=[3400,2000,2000,1960];
+body.push(table([
+  new TableRow({tableHeader:true,children:['Signal','Avant','Apres','Dimension'].map((h,i)=>cell(h,{fill:NAVY,color:WHITE,bold:true,size:9,width:dw[i]}))}),
+  ...[['Directive Sitemap de robots.txt','example.com','aspirob.com','SEO'],
+      ["Longueur des titres d'articles",'88 a 118 car.','45 a 59 car.','SEO'],
+      ['Titres des pages de categorie','16 et 21 car.','46 et 49 car.','SEO'],
+      ['Meta-description des categories','47 et 52 car.','139 et 141 car.','SEO'],
+      ['Contenu des pages de categorie','101 et 114 mots','167 mots','SEO'],
+      ['H2 sur les pages de categorie','0','1','SEO'],
+      ['Intertitres en question','0 a 3 par article','3 a 4 par article','AEO'],
+      ["Blocs L'essentiel",'51 a 84 mots','46 a 51 mots','AEO'],
+      ['Score combine','22/30','26/30','—'],
+     ].map(([sig,av,ap,d],i)=>new TableRow({children:[
+       cell(sig,{fill:i%2?GRAY:WHITE,bold:true,size:9,width:dw[0]}),
+       cell(av,{fill:i%2?GRAY:WHITE,size:9,color:RED,width:dw[1]}),
+       cell(ap,{fill:i%2?GRAY:WHITE,size:9,color:GREEN,bold:true,width:dw[2]}),
+       cell(d,{fill:i%2?GRAY:WHITE,size:9,align:AlignmentType.CENTER,width:dw[3]})]})),
+],dw));
+body.push(P("Les correctifs sont egalement portes dans le gabarit du pipeline : un site genere demain naitra avec la directive Sitemap correcte, un titre court distinct du H1, une reponse directe plafonnee a 60 mots et la consigne de formuler la moitie des intertitres en question.",{before:160,after:120}));
 
 body.push(H("What's Working Well",HeadingLevel.HEADING_1));
 const ww=[3000,6360];

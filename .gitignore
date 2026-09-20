@@ -14,3 +14,7 @@ sites/*
 # liens affiliés placés un par un) et n'est donc PAS reproductible en relançant
 # generate-content.js. Le dépôt en est la seule sauvegarde — le VPS n'en a aucune.
 !sites/aspirob/
+
+# Rapports d'audit générés : reproductibles via scripts/, inutile de les versionner
+seo-audits/*.docx
+seo-audits/*.pdf
