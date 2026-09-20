@@ -1,8 +1,9 @@
 ---
 title: "Comment fonctionne la navigation LiDAR : pourquoi votre robot aspire (ou rate) les mêmes zones"
+seoTitle: "Navigation LiDAR : pourquoi des zones sont ratées"
 description: "Comprendre la navigation LiDAR des aspirateurs robots : comment ça marche, pourquoi certaines zones sont ratées et comment y remédier."
 publishDate: "2026-09-18"
-directAnswer: "Un aspirateur robot LiDAR utilise un faisceau laser tournant pour mesurer en temps réel la distance aux obstacles et construire une carte précise de votre logement. C'est cette carte qui lui permet de planifier des trajectoires en lignes parallèles plutôt que de se déplacer au hasard. Si votre robot rate toujours les mêmes zones, c'est presque toujours lié à un angle mort du capteur, une carte corrompue ou un obstacle que le LiDAR ne détecte pas."
+directAnswer: "Un aspirateur robot LiDAR mesure la distance aux obstacles avec un laser tournant et en construit une carte, ce qui lui permet de nettoyer en bandes parallèles plutôt qu'au hasard. S'il rate toujours les mêmes zones, la cause est presque toujours un angle mort du capteur ou une carte devenue obsolète."
 cover: "/photos/navigation-lidar-aspirateur-robot-explication.webp"
 category: "Guide"
 faq: [{"question":"Mon robot LiDAR fonctionne-t-il dans le noir complet ?","answer":"Oui. Le LiDAR utilise son propre faisceau laser infrarouge et ne dépend pas de la lumière ambiante. Il peut nettoyer dans l'obscurité totale sans perte de précision, contrairement aux robots à navigation par caméra."},{"question":"Pourquoi mon robot tourne-t-il en rond au lieu de faire des lignes droites ?","answer":"Cela arrive généralement quand la carte est corrompue ou quand le robot ne parvient pas à se localiser (capteur LiDAR sale ou bloqué). Nettoyez le module rotatif avec un chiffon sec et supprimez la carte pour en créer une nouvelle."},{"question":"Le LiDAR détecte-t-il les obstacles au sol comme les câbles ?","answer":"Non, le LiDAR scanne en plan horizontal et ne voit pas les objets plats posés au sol. Les câbles, chaussettes ou petits jouets sont détectés uniquement par les capteurs anti-chute ou les capteurs tactiles en façade — avec une fiabilité variable selon les modèles."},{"question":"Combien de temps faut-il pour que le robot construise une carte complète ?","answer":"Pour un appartement de 60 à 80 m², comptez généralement une à deux sessions complètes, soit 1 à 3 heures. La carte se précise ensuite à chaque passage. Certains modèles affichent une carte exploitable dès la première session."},{"question":"La présence d'animaux ou d'enfants qui bougent perturbe-t-elle la navigation LiDAR ?","answer":"Ponctuellement oui : le robot peut détecter un animal comme un obstacle et le contourner. Mais cela ne corrompt pas la carte enregistrée, car le SLAM distingue les obstacles fixes (murs, meubles) des obstacles mobiles détectés en temps réel."}]
@@ -10,7 +11,7 @@ faq: [{"question":"Mon robot LiDAR fonctionne-t-il dans le noir complet ?","answ
 
 Un aspirateur robot LiDAR utilise un faisceau laser tournant pour mesurer en temps réel la distance aux obstacles et construire une carte précise de votre logement. C'est cette carte qui lui permet de planifier des trajectoires en lignes parallèles plutôt que de se déplacer au hasard. Si votre robot rate toujours les mêmes zones, c'est presque toujours lié à un angle mort du capteur, une carte corrompue ou un obstacle que le LiDAR ne détecte pas.
 
-## Ce qu'est vraiment le LiDAR dans un aspirateur robot
+## Qu'est-ce que le LiDAR dans un aspirateur robot ?
 
 Le terme LiDAR signifie *Light Detection And Ranging*. Dans un aspirateur robot, il s'agit généralement d'un petit module rotatif positionné sur le dessus de l'appareil — la fameuse bosse caractéristique. Ce module émet des impulsions laser (infrarouge, invisible à l'œil) et mesure le temps que met chaque impulsion à revenir après avoir rebondi sur un obstacle.
 

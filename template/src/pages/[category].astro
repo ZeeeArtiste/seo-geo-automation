@@ -20,19 +20,39 @@ export async function getStaticPaths() {
 }
 
 const { category, articles } = Astro.props;
-const intro: Record<string, string> = {
-  Comparatif: 'Face-à-face entre modèles, sur les différences qui comptent vraiment.',
-  Guide: "Comprendre le sujet avant d'acheter.",
-  Test: 'Nos retours détaillés.',
-  Actualité: 'Ce qui bouge dans la catégorie.',
+
+/**
+ * Chaque catégorie porte son propre texte : une page listant trois liens sous
+ * une phrase générique n'a rien à dire à un moteur de recherche. La méta-
+ * description vise la fenêtre de 150-160 caractères réellement affichée.
+ */
+const COPY: Record<string, { lede: string; body: string; meta: string; h2: string }> = {
+  Comparatif: {
+    lede: 'Face-à-face entre modèles, sur les différences qui comptent vraiment.',
+    body: "Nos comparatifs opposent deux appareils sur ce qui les sépare structurellement — la technologie de navigation, le type de brosse principale, les modules de la station — plutôt que sur des fiches techniques que personne ne peut vérifier. Vous n'y trouverez ni note sur dix ni prix : les tarifs varient trop vite pour rester justes, et nous ne testons pas les produits.",
+    meta: "Comparatifs d'aspirateurs robots : navigation, brosses et stations comparées sur les différences structurelles, sans prix ni note inventée.",
+    h2: 'Tous nos comparatifs',
+  },
+  Guide: {
+    lede: "Comprendre le sujet avant d'acheter.",
+    body: "Nos guides expliquent le fonctionnement des aspirateurs robots : comment un laser cartographie une pièce, pourquoi certaines zones sont systématiquement ratées, ce qui distingue une brosse en caoutchouc d'une brosse à soies. Ce sont les critères qui restent valables d'une génération de produits à la suivante, contrairement aux caractéristiques commerciales.",
+    meta: "Guides sur les aspirateurs robots : navigation LiDAR, caméra, types de brosse et erreurs d'installation expliqués simplement avant d'acheter.",
+    h2: 'Tous nos guides',
+  },
+  Test: { lede: 'Nos retours détaillés.', body: '', meta: 'Nos retours détaillés.', h2: 'Tous nos tests' },
+  Actualité: { lede: 'Ce qui bouge dans la catégorie.', body: '', meta: 'Ce qui bouge dans la catégorie.', h2: 'Toute l\'actualité' },
 };
+const copy = COPY[category] ?? { lede: '', body: '', meta: `${category}s ${SITE.brand}.`, h2: `Tous nos ${category.toLowerCase()}s` };
 ---
 <Base
   title={`${category}s`}
-  description={`Tous les ${category.toLowerCase()}s ${SITE.brand} sur ${SITE.niche}.`}
+  description={copy.meta}
 >
   <h1 class="font-serif text-3xl md:text-4xl font-semibold tracking-tight mb-3">{category}s</h1>
-  <p class="text-lg text-muted mb-10 max-w-prose">{intro[category] ?? ''}</p>
+  <p class="text-lg text-muted mb-5 max-w-prose">{copy.lede}</p>
+  {copy.body && <p class="text-body leading-relaxed mb-10 max-w-prose">{copy.body}</p>}
+
+  <h2 class="text-xs font-medium tracking-[0.14em] uppercase text-accent mb-5">{copy.h2}</h2>
 
   <ul class="divide-y divide-line border-t border-line">
     {articles.map((a) => (

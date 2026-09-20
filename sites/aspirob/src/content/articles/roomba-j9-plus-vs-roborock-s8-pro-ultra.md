@@ -1,8 +1,9 @@
 ---
 title: "Roomba j9+ vs Roborock S8 Pro Ultra : deux approches opposées du haut de gamme"
+seoTitle: "Roomba j9+ vs Roborock S8 Pro Ultra"
 description: "Roomba j9+ ou Roborock S8 Pro Ultra : lavage des sols, station de base, navigation. Comprendre ce qui sépare vraiment ces deux robots avant de choisir."
 publishDate: "2026-09-18"
-directAnswer: "Si vous devez choisir entre les deux : le Roborock S8 Pro Ultra est plus polyvalent et offre un meilleur rapport fonctionnalités/prix, notamment grâce à sa station tout-en-un qui lave, sèche et se remplit automatiquement. Le Roomba j9+ reste pertinent si vous avez principalement des poils d'animaux et que vous faites confiance à l'écosystème iRobot pour la cartographie. Ni l'un ni l'autre ne se justifie réellement si votre intérieur fait moins de 80 m² ou si vous n'avez pas de sols durs à laver."
+directAnswer: "Le Roborock S8 Pro Ultra est le plus polyvalent des deux : il lave les sols durs et sa station tout-en-un rince et sèche la serpillière. Le Roomba j9+ garde l'avantage sur les textiles et les poils d'animaux, avec moins de pièces mobiles donc moins d'entretien."
 draft: false
 affiliate: true
 cover: "/photos/roomba-j9-plus-vs-roborock-s8-pro-ultra.webp"
@@ -44,7 +45,7 @@ Si vous devez choisir entre les deux : le Roborock S8 Pro Ultra est plus polyval
 
 ---
 
-## Les specs essentielles en un coup d'œil
+## Quelles différences entre les deux modèles ?
 
 | Critère | Roomba j9+ | Roborock S8 Pro Ultra |
 |---|---|---|
@@ -60,7 +61,7 @@ du tableau ci-dessus.
 
 ---
 
-## Ce que fait réellement chaque robot
+## Que fait réellement chaque robot ?
 
 ### Roomba j9+ : l'expert de la moquette et des poils d'animaux
 
@@ -104,7 +105,7 @@ Ses limites : la station est volumineuse (comptez un espace dédié de 30×40 cm
 
 ---
 
-## Le coût réel ne s'arrête pas au prix d'achat
+## Quel est le coût réel, au-delà du prix d'achat ?
 
 Deux postes sont systématiquement sous-estimés au moment de l'achat.
 

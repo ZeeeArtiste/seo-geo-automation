@@ -74,9 +74,13 @@ async function generateArticle(niche, titleObj, affiliateLinks) {
 Titre: "${titleObj.title}" (angle: ${titleObj.angle})
 
 RÈGLES D'ÉCRITURE (important, à respecter strictement) :
-1. Commence par un paragraphe de 2-3 phrases qui répond DIRECTEMENT à la question implicite du titre —
-   c'est ce paragraphe que les IA génératives (ChatGPT, Perplexity) citeront. Pas d'introduction vague.
-2. Structure avec des H2/H3 clairs (Markdown ##/###).
+1. Commence par un paragraphe de 40 à 60 MOTS qui répond DIRECTEMENT à la question implicite du
+   titre. C'est ce paragraphe que les IA génératives citent et que Google reprend en extrait
+   enrichi — au-delà de 60 mots il est tronqué. Pas d'introduction vague.
+2. Structure avec des H2/H3 clairs (Markdown ##/###). Formule AU MOINS LA MOITIÉ des H2 sous
+   forme de question, telle qu'un lecteur la taperait dans un moteur : « Que voit réellement un
+   LiDAR ? » plutôt que « Ce que le LiDAR voit ». C'est ce qui rend la section éligible aux
+   extraits enrichis et aux réponses vocales.
 3. Contenu concret et factuel — évite les généralités creuses ("il existe de nombreuses options sur le marché").
    Si tu n'as pas de données réelles vérifiées (prix, specs precises), utilise des exemples marqués
    [À VÉRIFIER: prix/specs] plutôt que d'inventer des chiffres précis présentés comme certains.
@@ -93,7 +97,8 @@ ${linksContext}
 Réponds UNIQUEMENT en JSON avec cette structure exacte:
 {
   "metaDescription": "150-160 caractères pour la balise meta description",
-  "directAnswer": "le paragraphe de réponse directe (identique au premier paragraphe de l'article)",
+  "seoTitle": "titre COURT pour la balise <title> : 45 caractères MAXIMUM, mots-clés en tête. Le titre éditorial long reste en H1 ; celui-ci doit tenir dans les ~60 caractères affichés par Google, suffixe de marque compris.",
+  "directAnswer": "le paragraphe de réponse directe, 40 à 60 mots (identique au premier paragraphe de l'article)",
   "bodyMarkdown": "le corps de l'article en Markdown, SANS la FAQ et SANS fiches produit",
   "products": [
     {
@@ -227,6 +232,7 @@ async function main() {
 
     const frontmatter = `---
 title: "${titleObj.title.replace(/"/g, '\\"')}"
+seoTitle: "${(article.seoTitle ?? titleObj.title).slice(0, 60).replace(/"/g, '\\"')}"
 description: "${article.metaDescription.replace(/"/g, '\\"')}"
 publishDate: "${new Date().toISOString().split('T')[0]}"
 directAnswer: "${article.directAnswer.replace(/"/g, '\\"').replace(/\n/g, ' ')}"

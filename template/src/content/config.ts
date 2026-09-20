@@ -4,6 +4,10 @@ const articles = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
+    // Titre court réservé à la balise <title>. Google n'affiche qu'environ
+    // 60 caractères : un titre éditorial plus riche reste en H1, celui-ci
+    // tient dans la fenêtre du résultat de recherche.
+    seoTitle: z.string().optional(),
     description: z.string(),
     publishDate: z.string(),
     // Date de dernière révision. Les moteurs génératifs et Google privilégient

@@ -80,7 +80,7 @@ const breadcrumbSchema = {
 };
 ---
 <Base
-  title={data.title}
+  title={data.seoTitle ?? data.title}
   description={data.description}
   ogType="article"
   ogImage={`/og-${article.slug}.png`}
