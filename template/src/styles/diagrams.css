@@ -34,6 +34,12 @@ figure.diagram figcaption {
 .prose a[data-cta] {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  /* 48 px : cible tactile recommandée. Sans ce minimum, un libellé court
+     tenant sur une ligne produisait un bouton de 41 px, et deux cartes
+     voisines n'avaient pas la même hauteur de bouton selon la longueur
+     du nom de produit. */
+  min-height: 48px;
   gap: 0.45em;
   padding: 0.6em 1.15em;
   background: #2563eb;
@@ -403,6 +409,12 @@ figure.fiche img {
 .produit-cta a {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  /* 48 px : cible tactile recommandée. Sans ce minimum, un libellé court
+     tenant sur une ligne produisait un bouton de 41 px, et deux cartes
+     voisines n'avaient pas la même hauteur de bouton selon la longueur
+     du nom de produit. */
+  min-height: 48px;
   gap: 0.45em;
   padding: 0.6em 1.15em;
   background: #2563eb;
