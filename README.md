@@ -230,6 +230,22 @@ fiche se rend quand même, en texte seul.
    Les noms déduits du slug sont signalés `⚠️ nom deviné` : relisez-les, ils apparaîtront dans
    les articles.
 
+   **Awin (multi-réseaux)** : `make-awin-links.js` génère les liens trackés Awin et les ajoute
+   au même `config/affiliate-links.json`, avec `network: "awin"`.
+
+   ```bash
+   node scripts/make-awin-links.js --advertiser 1234 --name "Darty" \
+     --url "https://www.darty.com/..." --clickref "mon-article"
+   ```
+
+   Le paramètre `clickref` indique **depuis quelle page** le clic est parti. C'est l'avantage
+   d'Awin sur Amazon, où la même information exigerait un identifiant de suivi par article :
+   ici, il suffit d'y mettre le slug. L'URL cible est encodée, sinon ses propres paramètres
+   seraient absorbés par le lien Awin et la destination tronquée.
+
+   ⚠️ Un lien Awin ne rapporte que si vous êtes **validé par l'annonceur** : le compte et
+   l'annonceur s'approuvent séparément.
+
    **Ce que le projet ne peut pas faire** : créer votre compte d'affiliation, ni deviner les ASIN
    des produits que vous voulez recommander.
    Inscrivez-vous au programme (Amazon Associates, Awin…), puis renseignez vos vrais liens dans
