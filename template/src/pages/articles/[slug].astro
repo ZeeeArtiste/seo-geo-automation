@@ -161,7 +161,7 @@ const breadcrumbSchema = {
             <ProductCard product={p} index={data.products.length > 2 ? i + 1 : undefined} />
           ))}
         </div>
-        {data.affiliate && <AffiliateDisclosure />}
+        <AffiliateDisclosure />
       </section>
     )}
 
@@ -180,6 +180,12 @@ const breadcrumbSchema = {
                 prose-blockquote:border-l-accent prose-blockquote:text-body prose-blockquote:font-normal prose-blockquote:not-italic">
       <Content />
     </div>
+
+    <!-- Divulgation pour les articles dont les liens affiliés sont dans le
+         corps du texte plutôt que dans des fiches produit. Elle était
+         auparavant imbriquée dans le bloc fiches : les guides, qui n'en ont
+         pas, affichaient des liens rémunérés SANS divulgation. -->
+    {data.affiliate && data.products.length === 0 && <AffiliateDisclosure />}
 
     {data.faq.length > 0 && (
       <section class="mt-14 pt-8 border-t border-line" aria-labelledby="faq">
