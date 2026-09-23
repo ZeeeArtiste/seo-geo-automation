@@ -27,6 +27,7 @@ products:
       "Anti-emmêlement": "Double système"
       "Navigation": "StarSight 2.0, sans tourelle"
       "Station": "Multifonction 4.0"
+    image: "/produits/roborock-saros-10r.webp"
     price: 749.99
     priceCurrency: "EUR"
     priceSource: "boutique officielle Roborock"
@@ -61,6 +62,7 @@ products:
       "Anti-emmêlement": "Brosse duo HyperStream"
       "Navigation": "LiDAR VersaLift rétractable"
       "Station": "PowerDock 8-en-1"
+    image: "/produits/dreame-l50s-pro-ultra.webp"
     price: 749
     priceCurrency: "EUR"
     priceSource: "boutique officielle Dreame"
@@ -95,10 +97,12 @@ products:
       "Anti-emmêlement": "Double système"
       "Navigation": "LiDAR PreciSense"
       "Station": "Vidage sur la version +"
+    image: "/produits/roborock-q7-l5-plus.webp"
     price: 389.99
     priceCurrency: "EUR"
     priceSource: "boutique officielle Roborock"
     priceCheckedAt: "2026-09-23"
+sources: [{"title": "Ecovacs DEEBOT X9 PRO OMNI Review", "publisher": "RTINGS", "url": "https://www.rtings.com/robot-vacuum/reviews/ecovacs/deebot-x9-pro-omni-robot-vacuum", "about": "Ecovacs Deebot X9 Pro Omni", "checkedAt": "2026-09-23", "note": "Laboratoire indépendant, protocole de test standardisé et publié."}, {"title": "Roborock Saros 10R Review", "publisher": "RTINGS", "url": "https://www.rtings.com/robot-vacuum/reviews/roborock/saros-10r", "about": "Roborock Saros 10R", "checkedAt": "2026-09-23", "note": "Laboratoire indépendant, protocole de test standardisé et publié, mesures reproductibles d'un modèle à l'autre."}, {"title": "Comparatif Aspirateurs robots", "publisher": "Que Choisir", "url": "https://www.quechoisir.org/comparatif-aspirateur-robot-n387/", "checkedAt": "2026-09-23", "note": "Association de consommateurs : essais en laboratoire, sans publicité ni lien commercial avec les marques testées."}]
 faq: [{"question":"Quelle est la vraie différence entre une brosse à soies et une brosse en caoutchouc pour les poils de chat ?","answer":"Les soies classiques s'enroulent autour des poils par friction et les retiennent comme un filet. Le caoutchouc nervuré soulève les poils par déformation physique sans les enrouler, ce qui réduit nettement l'accumulation sur l'axe."},{"question":"Un aspirateur robot peut-il vraiment remplacer un aspirateur classique dans un foyer avec chat ?","answer":"Pour l'entretien quotidien du sol, oui. Pour un nettoyage en profondeur des tapis épais ou des canapés, non. La plupart des propriétaires de chats utilisent le robot en mode automatique quotidien et l'aspirateur classique une fois par semaine."},{"question":"Les allergènes de chat sont-ils vraiment filtrés par ces robots ?","answer":"Partiellement. Un filtre HEPA ou équivalent retient les particules fines (dont les allergènes Fel d 1 portés sur les poils), mais les allergènes présents dans l'air ou sur les tissus ne sont pas captés. Le robot réduit la charge allergénique au sol, pas dans l'ensemble de la pièce."},{"question":"À quelle fréquence faut-il faire tourner le robot avec un chat ?","answer":"Une fois par jour est la fréquence recommandée pour un chat à poils courts, deux fois par jour pour un chat à poils longs en période de mue. La plupart des applications permettent de programmer des passages automatiques sans intervention."},{"question":"Faut-il un budget minimum pour avoir un robot efficace contre les poils de chat ?","answer":"Ce n'est pas tant une question de budget que d'équipement : visez en priorité une brosse principale en caoutchouc plutôt qu'à soies, car c'est elle qui détermine si les poils s'enroulent ou non. La station de vidage automatique, très utile avec un chat, se trouve sur les gammes plus hautes. Filtrez sur ces deux critères avant de regarder les prix."}]
 ---
 

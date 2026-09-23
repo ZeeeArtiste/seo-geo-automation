@@ -1,0 +1,23 @@
+{
+  "roborock-saros-10r": {
+    "file": "/produits/roborock-saros-10r.webp",
+    "product": "Roborock Saros 10R",
+    "credit": "boutique officielle Roborock",
+    "sourceUrl": "https://fr.roborock.com/products/roborock-saros-10r",
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0250/5552/6957/files/Saros10R_-et.png"
+  },
+  "dreame-l50s-pro-ultra": {
+    "file": "/produits/dreame-l50s-pro-ultra.webp",
+    "product": "Dreame L50s Pro Ultra",
+    "credit": "boutique officielle Dreame",
+    "sourceUrl": "https://fr.dreametech.com/products/dreame-l50s-pro-ultra-robot-aspirateur-laveur",
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0669/4387/7400/files/L50s_Pro_Ultra-Dual-Flex-Arm-Technology.jpg"
+  },
+  "roborock-q7-l5-plus": {
+    "file": "/produits/roborock-q7-l5-plus.webp",
+    "product": "Roborock Q7 L5+",
+    "credit": "boutique officielle Roborock",
+    "sourceUrl": "https://fr.roborock.com/products/roborock-q7-l5-plus-robot-aspirateur",
+    "imageUrl": "https://cdn.shopify.com/s/files/1/0250/5552/6957/files/Talc_C_W_Set.png"
+  }
+}

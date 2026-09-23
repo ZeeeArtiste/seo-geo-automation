@@ -555,3 +555,30 @@ figure.fiche img {
 .produit-achat li.est-principal a:hover { color: #fff; text-decoration: underline; }
 .produit-achat li.est-principal a::after { content: ' →'; font-weight: 400; }
 .produit-achat li.est-principal .produit-achat-prix em { color: rgba(255, 255, 255, 0.85); }
+
+/* ── Photo produit ──────────────────────────────────────────────────────
+   Photo officielle du fabricant, créditée. Le fond des visuels de catalogue
+   est blanc : on garde ce blanc plutôt que la teinte des cartes, sinon la
+   découpe du produit apparaît en rectangle plus clair. */
+.produit-photo {
+  margin: 0 0 1rem;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+.produit-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 260px;
+  object-fit: contain;
+}
+
+.produit-photo figcaption {
+  margin-top: 0.4rem;
+  font-size: 0.72rem;
+  color: #64748B;
+  text-align: right;
+}

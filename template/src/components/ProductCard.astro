@@ -6,7 +6,7 @@
  */
 interface Props {
   product: {
-    name: string; summary: string; schematic?: string; url?: string; sourceUrl?: string;
+    name: string; summary: string; image?: string; schematic?: string; url?: string; sourceUrl?: string;
     affiliate?: boolean; pros: string[]; cons: string[];
     price?: number; priceCurrency?: string; priceSource?: string; priceCheckedAt?: string;
   };
@@ -39,11 +39,16 @@ const releveLe = p.priceCheckedAt
   </div>
 
   <div class="produit-corps">
-    {p.schematic && (
+    {p.image ? (
+      <figure class="produit-photo">
+        <img src={p.image} alt={`${p.name}, photo du fabricant`} width="900" height="900" loading="lazy" decoding="async" />
+        {p.priceSource && <figcaption>Photo : {p.priceSource.replace(/^boutique officielle /, '')}</figcaption>}
+      </figure>
+    ) : p.schematic ? (
       <div class="produit-schema">
         <img src={p.schematic} alt={`Schéma du ${p.name}`} width="640" height="190" loading="lazy" decoding="async" />
       </div>
-    )}
+    ) : null}
 
     <div class="produit-texte">
       <p class="produit-resume">{p.summary}</p>

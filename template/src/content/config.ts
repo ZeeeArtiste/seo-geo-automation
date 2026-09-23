@@ -66,6 +66,11 @@ const articles = defineCollection({
         z.object({
           name: z.string(),
           summary: z.string(),
+          // Photo officielle du fabricant, posée par fetch-product-images.py.
+          // Le schéma reste le repli : il a été créé parce que les photos
+          // étaient inaccessibles, ce qui n'est plus vrai pour les marques
+          // dont la reprise est autorisée.
+          image: z.string().optional(),
           schematic: z.string().optional(),
           url: z.string().optional(),
           pros: z.array(z.string()).default([]),
@@ -89,6 +94,26 @@ const articles = defineCollection({
           priceCurrency: z.string().default('EUR'),
           priceSource: z.string().optional(),
           priceCheckedAt: z.string().optional(),
+        })
+      )
+      .default([]),
+    // Tests et mesures publiés ailleurs, cités nommément. C'est la seule forme
+    // de caution que ce site puisse offrir : il ne teste pas, donc il renvoie
+    // vers ceux qui testent, plutôt que de reformuler leurs résultats sans
+    // les nommer.
+    sources: z
+      .array(
+        z.object({
+          title: z.string(),
+          publisher: z.string(),
+          url: z.string(),
+          // Date de PUBLICATION de la source, omise quand on ne la connaît pas :
+          // une date approchée sur une référence la rend moins vérifiable, pas plus.
+          date: z.string().optional(),
+          // Date à laquelle nous l'avons consultée. Elle, on la connaît toujours.
+          checkedAt: z.string().optional(),
+          about: z.string().optional(),
+          note: z.string().optional(),
         })
       )
       .default([]),

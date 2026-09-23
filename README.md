@@ -224,6 +224,7 @@ contenu est bon.
 | `fetch-unsplash.py --auto` | photo d'accueil et d'article, crédits | pas d'illustration |
 | `make-og-image.py --articles` | `og-default.png` **et une image par article** | `og:image` en 404 |
 | `fetch-prices.py --update` | prix relevés, sourcés, datés | pas de prix |
+| `fetch-product-images.py` | photos produit du fabricant | fiches avec leur schéma |
 | `deploy-vps.js` | nginx + HTTPS | pas de mise en ligne |
 
 Deux pièges que ces étapes referment, tous deux passés inaperçus parce qu'ils ne
@@ -235,6 +236,41 @@ cassent rien visiblement :
 - **Le gabarit d'article demande `/og-<slug>.png`.** Sans la boucle `--articles`,
   chaque article partagé affiche une image cassée, alors que l'en-tête la déclare.
   Les images d'articles renommés ou supprimés sont nettoyées au passage.
+
+### Photos produit et avis : ce qui est possible, et ce qui ne l'est pas
+
+**Les images Amazon sont hors de portée**, et ce n'est pas une prudence excessive : le
+Contrat de Participation Amazon Partenaires impose que tout contenu publicitaire produit —
+images, avis, prix, descriptions — provienne uniquement de la PA-API. Les pages `/dp/`
+répondent parfaitement à un client HTTP, ce qui rend l'erreur facile à commettre ; elle se
+paie par la fermeture du compte, donc par la perte de la monétisation ET de l'accès futur à
+la PA-API.
+
+**Les photos, en revanche, sont dans le catalogue du fabricant** — le même `/products.json`
+qui sert aux prix, avec une vingtaine de visuels par produit en 1600×1600.
+`fetch-product-images.py` les récupère, mais **uniquement pour les marques explicitement
+autorisées** dans le `price-stores.json` du site :
+
+```json
+"roborock": { "domain": "fr.roborock.com", "label": "…", "images": true }
+```
+
+Ces images restent la propriété du fabricant. Le drapeau `images` est une décision de
+droits, à prendre marque par marque après lecture des conditions de son press kit — jamais
+par défaut. Un produit sans photo autorisée garde son schéma.
+
+**Les avis ne sont pas récupérables**, pour trois raisons indépendantes : le texte d'un avis
+appartient à son auteur, la PA-API elle-même n'en donne pas le contenu, et surtout le site
+affirme ne pas tester les produits. Y coller des avis qu'on n'a pas collectés casse cette
+promesse ; en inventer est un délit caractérisé depuis la directive Omnibus.
+
+Ce que ce manque appelle vraiment, c'est de la **corroboration externe** : le champ
+`sources` porte des tests publiés ailleurs, cités nommément, avec leur éditeur, leur URL et
+la date de consultation. Ils sont rendus en bas d'article et déclarés en `citation` dans le
+JSON-LD — ce qui donne aux moteurs génératifs la chaîne de provenance sans laquelle ils ne
+citent pas une page. **Ce champ n'est pas généré** : un modèle ne peut pas vérifier qu'une
+source existe, et une référence inventée est pire que pas de référence. Il se remplit à la
+main, après avoir ouvert chaque URL.
 
 ### Les schémas explicatifs
 

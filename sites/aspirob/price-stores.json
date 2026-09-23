@@ -1,5 +1,13 @@
 {
-  "_comment": "Boutiques officielles exposant un catalogue Shopify public (/products.json), propres à CETTE niche. Format : \"cle\": [\"domaine\", \"libelle affiche sous le prix\"].",
-  "roborock": ["fr.roborock.com", "boutique officielle Roborock"],
-  "dreame": ["fr.dreametech.com", "boutique officielle Dreame"]
+  "_comment": "Boutiques officielles exposant un catalogue Shopify public (/products.json). `images: true` autorise la reprise des photos produit de cette marque — à n'activer qu'après avoir lu les conditions de son press kit, c'est une decision de droits, marque par marque.",
+  "roborock": {
+    "domain": "fr.roborock.com",
+    "label": "boutique officielle Roborock",
+    "images": true
+  },
+  "dreame": {
+    "domain": "fr.dreametech.com",
+    "label": "boutique officielle Dreame",
+    "images": true
+  }
 }

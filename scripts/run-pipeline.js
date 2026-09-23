@@ -106,6 +106,11 @@ if (domain) {
 optionalStep('python3', 'fetch-prices.py', ['--site', siteDir, '--update'],
   'pas de prix relevé');
 
+// Après les prix : les deux partent de la même URL de boutique, et les droits
+// sur les images sont déclarés dans le même fichier.
+optionalStep('python3', 'fetch-product-images.py', ['--site', siteDir],
+  'fiches produit sans photo (elles gardent leur schéma)');
+
 if (shouldDeploy && target === 'vps') {
   const deployArgs = ['--site', siteDir, '--domain', domain];
   if (email) deployArgs.push('--email', email);

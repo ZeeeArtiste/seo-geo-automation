@@ -1,0 +1,49 @@
+---
+/**
+ * Sources externes citées par l'article.
+ *
+ * Ce site ne teste pas les produits, et le dit. Le corollaire, c'est qu'il ne
+ * peut pas se porter garant d'une performance : il peut seulement renvoyer
+ * vers ceux qui l'ont mesurée. Un bloc de sources nommées et datées fait deux
+ * choses qu'aucune reformulation ne fait — il donne au lecteur de quoi
+ * vérifier, et il donne aux moteurs génératifs la chaîne de provenance sans
+ * laquelle ils ne citent pas une page.
+ *
+ * Les liens sortent en clair, sans nofollow : ce sont des références
+ * éditoriales, pas des liens rémunérés, et les traiter comme tels serait
+ * mentir dans l'autre sens.
+ */
+interface Props {
+  sources: { title: string; publisher: string; url: string; date?: string; checkedAt?: string; about?: string; note?: string }[];
+}
+const { sources } = Astro.props;
+// Le reste du site date en français ; une date ISO au milieu jure et se lit mal.
+const fr = (d?: string) => (d ? new Date(d).toLocaleDateString('fr-FR') : undefined);
+---
+{sources.length > 0 && (
+  <section class="mt-14 pt-8 border-t border-line" aria-labelledby="sources">
+    <h2 id="sources" class="font-serif text-2xl font-semibold tracking-tight mb-2">
+      Ce que disent les tests publiés
+    </h2>
+    <p class="text-sm text-muted mb-5 max-w-prose">
+      Nous ne testons pas les produits. Ces mesures viennent de laboratoires et de rédactions
+      indépendantes, consultés à la date indiquée.
+    </p>
+    <ul class="divide-y divide-line border-y border-line">
+      {sources.map((s) => (
+        <li class="py-4">
+          <p class="text-xs text-muted">
+            {s.publisher}{s.date && <> · publié le {fr(s.date)}</>}{s.about && <> · {s.about}</>}{s.checkedAt && <> · consulté le {fr(s.checkedAt)}</>}
+          </p>
+          <p class="mt-0.5">
+            <a href={s.url} rel="noopener" target="_blank"
+               class="font-medium text-ink underline underline-offset-2 decoration-lineStrong hover:text-accent hover:decoration-accent">
+              {s.title}
+            </a>
+          </p>
+          {s.note && <p class="text-sm text-body mt-1 leading-relaxed">{s.note}</p>}
+        </li>
+      ))}
+    </ul>
+  </section>
+)}

@@ -50,7 +50,15 @@ def load_stores(path=None, site=None):
               ([pathlib.Path(site) / 'price-stores.json'] if site else []) + [DEFAULT_STORES_FILE]):
         if f.exists():
             raw = json.loads(f.read_text(encoding='utf-8'))
-            return {k: tuple(v) for k, v in raw.items() if not k.startswith('_')}
+            out = {}
+            for k, v in raw.items():
+                if k.startswith('_'):
+                    continue
+                # Deux formes acceptées : la liste historique [domaine, libellé],
+                # et un objet qui porte en plus les droits sur les images. Les
+                # anciens fichiers restent lisibles.
+                out[k] = (v['domain'], v['label']) if isinstance(v, dict) else tuple(v)
+            return out
     return {}
 
 
@@ -173,7 +181,11 @@ def write_prices(path, today):
     publier. Un produit dont le prix n'a pas pu être relevé voit donc ses champs
     supprimés, plutôt que de conserver une valeur périmée."""
     s = path.read_text(encoding='utf-8')
-    m = re.search(r'^products:\n(.*?)(?=^faq:)', s, re.S | re.M)
+    # Le bloc s'arrête à la PREMIÈRE clé de même niveau qui suive, pas
+    # seulement à `faq:`. Avec la seule borne `faq:`, l'ajout ultérieur d'une
+    # clé `sources:` entre les deux faisait écrire les prix après elle, donc
+    # hors du bloc produits, et le frontmatter devenait illisible.
+    m = re.search(r'^products:\n(.*?)(?=^[a-zA-Z_]+:)', s, re.S | re.M)
     if not m:
         return 0, 0
     block = m.group(1)

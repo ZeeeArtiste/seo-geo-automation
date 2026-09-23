@@ -6,6 +6,7 @@ import Sommaire from '../../components/Sommaire.astro';
 import Essentiel from '../../components/Essentiel.astro';
 import FinArticle from '../../components/FinArticle.astro';
 import ProductCard from '../../components/ProductCard.astro';
+import Sources from '../../components/Sources.astro';
 import ComparisonTable from '../../components/ComparisonTable.astro';
 import credits from '../../data/photo-credits.json';
 import { getCollection } from 'astro:content';
@@ -77,6 +78,21 @@ const articleSchema = {
   articleSection: data.category,
   // Une image aide la reprise en résultat enrichi et en citation IA.
   image: [new URL(`/og-${article.slug}.png`, SITE.url).href],
+  // Les sources citées, déclarées comme telles. Un moteur génératif reprend
+  // d'autant plus volontiers une page qu'il peut remonter à ce sur quoi elle
+  // s'appuie ; laisser ces liens dans le seul corps du texte lui demande de
+  // deviner lesquels sont des références et lesquels sont des renvois.
+  ...(data.sources.length > 0
+    ? {
+        citation: data.sources.map((s) => ({
+          '@type': 'CreativeWork',
+          name: s.title,
+          url: s.url,
+          ...(s.publisher ? { publisher: { '@type': 'Organization', name: s.publisher } } : {}),
+          ...(s.date ? { datePublished: s.date } : {}),
+        })),
+      }
+    : {}),
 };
 
 // Un Product n'est éligible au résultat enrichi que s'il porte une offre.
@@ -88,7 +104,7 @@ const productSchemas = data.products
     '@type': 'Product',
     name: p.name,
     description: p.summary,
-    ...(p.schematic ? { image: [new URL(p.schematic, SITE.url).href] } : {}),
+    ...(p.image || p.schematic ? { image: [new URL((p.image ?? p.schematic)!, SITE.url).href] } : {}),
     offers: {
       '@type': 'Offer',
       price: p.price,
@@ -237,6 +253,8 @@ const breadcrumbSchema = {
       </section>
     )}
   </article>
+
+  <Sources sources={data.sources} />
 
   <FinArticle links={suite} />
 
