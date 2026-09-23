@@ -103,7 +103,14 @@ Réponds UNIQUEMENT en JSON avec cette structure exacte:
     "label": "la SITUATION du lecteur que cet article résout, formulée à la première personne et telle qu'il la dirait lui-même : « J'ai un chat ou un chien », « Mon robot rate toujours les mêmes zones ». Pas un titre, pas un mot-clé — une phrase de 4 à 8 mots.",
     "hint": "ce que l'article tranche pour lui, en 4 à 8 mots"
   },
-  "bodyMarkdown": "le corps de l'article en Markdown, SANS la FAQ et SANS fiches produit",
+  "bodyMarkdown": "le corps de l'article en Markdown, SANS la FAQ et SANS fiches produit. Place UNE FOIS le marqueur [SCHEMA] seul sur sa ligne, à l'endroit où le schéma ci-dessous éclaire le mieux le propos.",
+  "diagram": {
+    "kind": "flow | spectrum | branch — voir ci-dessous",
+    "alt": "description textuelle COMPLÈTE du schéma, qui doit suffire à un lecteur qui ne le voit pas",
+    "caption": "une phrase sous le schéma, qui dit ce qu'il faut en retenir",
+    "axis": { "from": "extrémité gauche", "to": "extrémité droite" },
+    "items": [{ "label": "2 à 5 mots", "detail": "précision de 4 à 9 mots, ou omis" }]
+  },
   "products": [
     {
       "name": "nom exact du produit, tel qu'il figure dans la liste de liens fournie",
@@ -115,6 +122,21 @@ Réponds UNIQUEMENT en JSON avec cette structure exacte:
   ],
   "faq": [{"question": "...", "answer": "..."}]
 }
+
+CONTRAINTES SUR "diagram" :
+- Choisis la forme qui correspond à ce que l'article explique réellement :
+  · "flow"     : un enchaînement d'étapes dans l'ordre (2 à 5 étapes) ;
+  · "spectrum" : des positions entre deux extrêmes, pas des valeurs mesurées (2 à 5).
+    Renseigne alors "axis" avec le nom des deux extrémités, sinon l'axe ne dit pas
+    dans quel sens il se lit. Omets "axis" pour les autres formes ;
+  · "branch"   : une décision — le PREMIER item est la question, les suivants les cas (2 à 3 cas).
+- Ce schéma illustre le RAISONNEMENT, pas l'objet : ne décris pas la forme physique
+  d'un produit, ses pièces ou son aspect. Un schéma d'objet serait faux pour la
+  plupart des modèles de la catégorie.
+- Tout ce qu'il affiche doit être écrit dans l'article. N'y mets aucun chiffre que
+  le texte n'affirme pas, et aucune donnée que tu n'as pas pu vérifier.
+- "alt" est obligatoire et doit suffire seul : c'est ce que lisent les lecteurs
+  d'écran, et ce que citent les moteurs génératifs.
 
 CONTRAINTES SUR "products" :
 - UNIQUEMENT des produits de la liste de liens affiliés fournie. Liste vide si aucun lien n'est fourni.
@@ -254,7 +276,11 @@ seoTitle: "${(article.seoTitle ?? titleObj.title).slice(0, 60).replace(/"/g, '\\
 description: "${article.metaDescription.replace(/"/g, '\\"')}"
 publishDate: "${new Date().toISOString().split('T')[0]}"
 directAnswer: "${article.directAnswer.replace(/"/g, '\\"').replace(/\n/g, ' ')}"
-draft: ${isDraft}
+draft: ${isDraft}${
+      article.diagram?.kind && article.diagram?.alt
+        ? `\ndiagram: ${JSON.stringify(article.diagram)}`
+        : ''
+    }
 affiliate: ${usedAffiliate}${
       article.usecase?.label && article.usecase?.hint
         ? `\nusecase: ${JSON.stringify(article.usecase)}`

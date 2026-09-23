@@ -83,6 +83,9 @@ if (affiliateLinks) contentArgs.push('--affiliate-links', affiliateLinks);
 step('generate-content.js', contentArgs);
 
 // ── Habillage ───────────────────────────────────────────────────────────────
+optionalStep('python3', 'diagrams/schema-article.py', ['--site', siteDir],
+  'articles sans schéma explicatif');
+
 optionalStep('python3', 'diagrams/covers.py', ['--site', siteDir],
   'pas de vignette en page d\'accueil');
 

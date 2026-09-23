@@ -219,6 +219,7 @@ contenu est bon.
 | `generate-domains.js` | suggestions de domaine | — |
 | `scaffold-site.js` | le projet Astro, jetons remplacés | rien |
 | `generate-content.js` | articles, produits, `usecase` | site vide |
+| `diagrams/schema-article.py` | schéma explicatif dans le corps | article sans figure |
 | `diagrams/covers.py` | vignette SVG de repli par article | vignette absente |
 | `fetch-unsplash.py --auto` | photo d'accueil et d'article, crédits | pas d'illustration |
 | `make-og-image.py --articles` | `og-default.png` **et une image par article** | `og:image` en 404 |
@@ -234,6 +235,35 @@ cassent rien visiblement :
 - **Le gabarit d'article demande `/og-<slug>.png`.** Sans la boucle `--articles`,
   chaque article partagé affiche une image cassée, alors que l'en-tête la déclare.
   Les images d'articles renommés ou supprimés sont nettoyées au passage.
+
+### Les schémas explicatifs
+
+Les schémas du premier site — coupe de station, types de brosse — dessinent des
+**objets**, donc ne valent que pour leur niche. Ce qui se généralise, c'est la
+**forme du raisonnement**. `schema-article.py` en dessine trois, à partir d'une
+spécification que le générateur pose dans le frontmatter :
+
+| `kind` | Ce qu'il montre | Éléments |
+|---|---|---|
+| `flow` | un enchaînement d'étapes, dans l'ordre | 2 à 5 |
+| `spectrum` | des positions entre deux extrêmes nommés (`axis`) | 2 à 5 |
+| `branch` | une décision : le 1er élément est la question, les suivants les cas | 2 à 3 cas |
+
+```yaml
+diagram: {"kind":"flow","alt":"…description complète…","caption":"…",
+          "items":[{"label":"Réglage médian","detail":"Le point de départ neutre"}]}
+```
+
+Le modèle place un marqueur `[SCHEMA]` dans le corps là où la figure éclaire le
+propos ; sans marqueur, elle est posée après la première section. Le SVG est écrit
+dans `public/diagrams/<slug>.svg` et la `<figure>` insérée dans le Markdown — une
+figure déjà présente n'est jamais remplacée, ce qui protège les schémas écrits à la
+main.
+
+Deux refus délibérés : un schéma dont le `kind` est inconnu, dont le nombre
+d'éléments sort des bornes ou dont l'`alt` manque **n'est pas dessiné**. Un schéma
+incomplet rendu quand même serait un schéma faux. Et le modèle a pour consigne de ne
+jamais y mettre un chiffre que le texte n'affirme pas.
 
 `--auto` sur Unsplash choisit le premier résultat paysage : c'est un premier jet à
 curer, pas un choix éditorial. Il ne remplace jamais une photo déjà en place

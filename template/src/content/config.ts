@@ -36,6 +36,23 @@ const articles = defineCollection({
     usecase: z
       .object({ label: z.string(), hint: z.string() })
       .optional(),
+    // Spécification du schéma explicatif, mise en forme par
+    // scripts/diagrams/schema-article.py. Elle décrit la FORME du raisonnement
+    // — un enchaînement, un axe, un embranchement — parce que c'est la seule
+    // chose qu'on puisse dessiner sans connaître la niche. Le SVG produit est
+    // inséré dans le corps ; ce champ ne sert qu'à le régénérer.
+    diagram: z
+      .object({
+        kind: z.enum(['flow', 'spectrum', 'branch']),
+        title: z.string().optional(),
+        alt: z.string(),
+        caption: z.string().optional(),
+        // Extrémités de l'axe, pour `spectrum` : un axe sans ses deux bouts
+        // ne dit pas dans quel sens il se lit.
+        axis: z.object({ from: z.string(), to: z.string() }).optional(),
+        items: z.array(z.object({ label: z.string(), detail: z.string().optional() })),
+      })
+      .optional(),
     // Un seul article mis en avant en page d'accueil.
     featured: z.boolean().default(false),
     // Vignette affichée en page d'accueil. Optionnelle : sans elle, l'entrée
