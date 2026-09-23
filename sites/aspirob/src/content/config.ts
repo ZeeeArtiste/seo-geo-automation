@@ -48,6 +48,11 @@ const articles = defineCollection({
           cons: z.array(z.string()).default([]),
           // Colonnes du tableau comparatif : { "Navigation": "LiDAR", ... }
           attrs: z.record(z.string()).default({}),
+          // true seulement si `url` est un lien d'affiliation. Un lien vers la
+          // boutique du fabricant n'en est pas un : le marquer « sponsored »
+          // serait faux, et la divulgation qu'il déclenche annoncerait une
+          // rémunération inexistante.
+          affiliate: z.boolean().default(false),
           // Prix RELEVÉ, jamais estimé. Les trois champs vont ensemble : un
           // prix sans sa source ni sa date d'observation n'est pas vérifiable,
           // et c'est précisément ce que ce site s'interdit de publier.

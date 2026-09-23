@@ -69,12 +69,81 @@ def norm(s):
     return re.sub(r'[^a-z0-9]+', '', s.lower())
 
 
+def by_handle(url):
+    """Résout le prix à partir de l'URL du produit.
+
+    C'est la méthode fiable. Le rapprochement par nom achoppe sur les variantes
+    du même modèle — « Q7 L5+ » et « Q7 L5+ Set » contiennent la même clé — et
+    une ambiguïté non résolue prive le lecteur d'un prix qui existe. L'URL de la
+    fiche, elle, désigne un article et un seul."""
+    for store, (domain, _) in STORES.items():
+        m = re.match(rf'https://{re.escape(domain)}/products/([^/?#]+)', url or '')
+        if not m:
+            continue
+        handle = m.group(1)
+        for prod in catalogue(store):
+            if prod['handle'] != handle:
+                continue
+            vs = [v for v in prod['variants'] if v.get('available')]
+            if not vs:
+                return None, store, 'fiche trouvée mais aucune variante disponible'
+            v = min(vs, key=lambda v: float(v['price']))
+            return float(v['price']), store, None
+        return None, store, 'handle absent du catalogue'
+    return None, None, 'URL hors des boutiques connues'
+
+
 def match(name, store):
     """Correspondance exacte sur le nom normalisé. Volontairement stricte :
     un rapprochement approximatif attribuerait le prix d'un autre modèle."""
     key = norm(name)
     hits = [r for r in robots(store) if key in norm(r['title'])]
     return hits
+
+
+PRICE_KEYS = ('price', 'priceCurrency', 'priceSource', 'priceCheckedAt')
+
+
+def write_prices(path, today):
+    """Écrit les prix relevés dans le frontmatter, fiche par fiche.
+
+    Les quatre champs sont posés ou retirés ENSEMBLE : un prix orphelin, sans sa
+    source ni sa date, serait invérifiable — exactement ce que ce site refuse de
+    publier. Un produit dont le prix n'a pas pu être relevé voit donc ses champs
+    supprimés, plutôt que de conserver une valeur périmée."""
+    s = path.read_text(encoding='utf-8')
+    m = re.search(r'^products:\n(.*?)(?=^faq:)', s, re.S | re.M)
+    if not m:
+        return 0, 0
+    block = m.group(1)
+    chunks = re.split(r'(?=^  - name: )', block, flags=re.M)
+    priced = missing = 0
+    out = []
+    for c in chunks:
+        if not c.strip():
+            out.append(c)
+            continue
+        name = (re.search(r'^  - name:\s*"(.+?)"', c, re.M) or [None, '?'])[1]
+        url = (re.search(r'^    url:\s*"(.+?)"', c, re.M) or [None, ''])[1]
+        c = re.sub(rf'^    (?:{"|".join(PRICE_KEYS)}):.*\n', '', c, flags=re.M)
+        price, store, why = by_handle(url)
+        if price is None:
+            missing += 1
+            print(f"  ⚠️  {name[:42]:<44} pas de prix : {why}")
+        else:
+            priced += 1
+            src = STORES[store][1]
+            print(f"  ✅ {name[:42]:<44} {price:.2f} € — {src}")
+            c = c.rstrip('\n') + (
+                f'\n    price: {price:g}'
+                f'\n    priceCurrency: "EUR"'
+                f'\n    priceSource: "{src}"'
+                f'\n    priceCheckedAt: "{today}"\n'
+            )
+        out.append(c)
+    s = s[:m.start(1)] + ''.join(out) + s[m.end(1):]
+    path.write_text(s, encoding='utf-8')
+    return priced, missing
 
 
 def main():
@@ -113,25 +182,13 @@ def main():
     touched = priced = missing = 0
 
     for f in arts:
-        s = f.read_text(encoding='utf-8')
-        m = re.search(r'^products:\n(.*?)^faq:', s, re.S | re.M)
-        if not m:
+        if not re.search(r'^products:\n', f.read_text(encoding='utf-8'), re.M):
             continue
-        names = re.findall(r'^\s+- name:\s*"(.+?)"', m.group(1), re.M)
-        if not names:
-            continue
+        print(f"\n{f.name}")
         touched += 1
-        for n in names:
-            hits = []
-            for st in STORES:
-                hits += match(re.sub(r'^(iRobot|Roborock|Dreame|Ecovacs|Shark)\s+', '', n), st)
-            if len(hits) == 1 and hits[0]['available']:
-                priced += 1
-                print(f"  ✅ {n[:42]:<44} {hits[0]['price']:.2f} € — {STORES[hits[0]['store']][1]}")
-            else:
-                missing += 1
-                why = 'aucune correspondance' if not hits else f'{len(hits)} correspondances ambiguës'
-                print(f"  ⚠️  {n[:42]:<44} pas de prix : {why}")
+        p_, m_ = write_prices(f, today)
+        priced += p_
+        missing += m_
 
     print(f"\n{touched} article(s) avec produits · {priced} prix relevés · {missing} sans prix")
     if missing:

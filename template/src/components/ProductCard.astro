@@ -6,7 +6,7 @@
  */
 interface Props {
   product: {
-    name: string; summary: string; schematic?: string; url?: string;
+    name: string; summary: string; schematic?: string; url?: string; affiliate?: boolean;
     pros: string[]; cons: string[];
     price?: number; priceCurrency?: string; priceSource?: string; priceCheckedAt?: string;
   };
@@ -32,7 +32,7 @@ const { product: p, index } = Astro.props;
 
       {p.price !== undefined && (
         <p class="produit-prix">
-          <strong>{p.price.toLocaleString('fr-FR', { style: 'currency', currency: p.priceCurrency ?? 'EUR', maximumFractionDigits: 0 })}</strong>
+          <strong>{p.price.toLocaleString('fr-FR', { style: 'currency', currency: p.priceCurrency ?? 'EUR', maximumFractionDigits: 2 })}</strong>
           <span>
             relevé le {new Date(p.priceCheckedAt ?? Date.now()).toLocaleDateString('fr-FR')}
             {p.priceSource ? ` sur la ${p.priceSource}` : ''} — il a pu changer depuis
@@ -53,7 +53,12 @@ const { product: p, index } = Astro.props;
 
       {p.url && (
         <p class="produit-cta">
-          <a href={p.url} rel="sponsored nofollow noopener" target="_blank">Voir le {p.name}</a>
+          {/* « sponsored » décrit une contrepartie financière. Sur un lien vers
+              la boutique du fabricant, qui n'en rapporte aucune, l'annoncer
+              serait faux — et Google traite la déclaration comme une donnée. */}
+          <a href={p.url} rel={p.affiliate ? 'sponsored nofollow noopener' : 'noopener'} target="_blank">
+            {p.affiliate ? `Voir ${p.name}` : `Fiche officielle : ${p.name}`}
+          </a>
         </p>
       )}
     </div>

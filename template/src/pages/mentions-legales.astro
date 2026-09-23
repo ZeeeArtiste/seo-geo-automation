@@ -46,11 +46,12 @@ import { SITE, LEGAL } from '../lib/site';
       comme le nôtre.
     </p>
     <p>
-      <strong>Nous n'affichons pas de prix pour l'instant.</strong> Un tarif écrit en dur dans un
-      article est faux quelques jours plus tard : nous renvoyons donc vers la fiche du marchand,
-      qui affiche le prix du jour. C'est une limite technique et non un principe — un prix relevé
-      automatiquement et horodaté serait une observation datée, pas une estimation. Nous
-      l'ajouterons lorsque l'accès à l'API produit du marchand sera ouvert.
+      <strong>Nous n'affichons un prix que si nous pouvons le relever.</strong> Un tarif écrit en
+      dur dans un article est faux quelques jours plus tard. Les prix affichés ici sont relevés
+      automatiquement dans le catalogue public de la boutique officielle du fabricant, et portent
+      leur source et leur date de relevé : ce sont des observations datées, pas des estimations.
+      Quand un fabricant ne publie pas de catalogue exploitable, nous n'affichons aucun prix
+      plutôt qu'une approximation, et le lien renvoie vers sa fiche, qui affiche le tarif du jour.
     </p>
     <p>
       <strong>Nous n'inventons pas de chiffres.</strong> Une donnée qui ne peut pas être vérifiée
@@ -66,11 +67,13 @@ import { SITE, LEGAL } from '../lib/site';
 
     <h2 id="affiliation">Liens affiliés</h2>
     <p>
-      Ce site contient des liens affiliés donnant lieu à une commission en cas d'achat, sans
-      surcoût pour le visiteur. Conformément aux obligations de transparence, ces liens sont
-      signalés sur chaque page qui en contient. Cette rémunération ne détermine pas ce que nous
-      écrivons : aucun article n'est commandé ni relu par une marque, et nous ne recevons pas de
-      produits.
+      Ce site peut contenir des liens affiliés : des liens marchands donnant lieu à une
+      commission en cas d'achat, sans surcoût pour le visiteur. Toute page qui en contient
+      l'indique explicitement, au contact des liens concernés. Les liens qui ne portent pas
+      cette mention pointent vers les boutiques officielles des fabricants et ne nous
+      rapportent rien — ils servent à sourcer une caractéristique ou un prix. Cette
+      rémunération, lorsqu'elle existe, ne détermine pas ce que nous écrivons : aucun article
+      n'est commandé ni relu par une marque, et nous ne recevons pas de produits.
     </p>
 
     <h2>Responsabilité</h2>

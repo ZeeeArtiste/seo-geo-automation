@@ -71,7 +71,7 @@ def c_dock():
     return frame(b, 'Dégagement autour de la station', 'Une station de recharge entourée d’une zone libre en pointillés.')
 
 COVERS = {
-    'roomba-j9-plus-vs-roborock-s8-pro-ultra': c_compare,
+    'roomba-max-775-combo-vs-roborock-saros-10r': c_compare,
     'aspirateur-robot-poils-animaux-chat-chien': c_brush,
     'navigation-lidar-aspirateur-robot-explication': c_lidar,
     'navigation-lidar-camera-aspirateur-robot-differences': c_nav,

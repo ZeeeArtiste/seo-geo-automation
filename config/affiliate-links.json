@@ -1,44 +1,27 @@
 [
   {
-    "productName": "Roborock S8 Pro Ultra",
-    "url": "https://www.amazon.fr/dp/B0BSL98D73?tag=aspirob0d-21",
-    "network": "amazon",
-    "asin": "B0BSL98D73"
+    "productName": "Roborock Saros 10R",
+    "url": "https://fr.roborock.com/products/roborock-saros-10r",
+    "network": "fabricant"
   },
   {
-    "productName": "iRobot Roomba j9+",
-    "url": "https://www.amazon.fr/dp/B0C415NHBM?tag=aspirob0d-21",
-    "network": "amazon",
-    "asin": "B0C415NHBM"
+    "productName": "iRobot Roomba Max 775 Combo",
+    "url": "https://www.irobot.fr/fr_FR/roomba-max-775-combo/X285040.html",
+    "network": "fabricant"
   },
   {
-    "productName": "Roborock Q5 Max+",
-    "url": "https://www.amazon.fr/dp/B0DV9VKZXD?tag=aspirob0d-21",
-    "network": "amazon",
-    "asin": "B0DV9VKZXD"
+    "productName": "Dreame L50s Pro Ultra",
+    "url": "https://fr.dreametech.com/products/dreame-l50s-pro-ultra-robot-aspirateur-laveur",
+    "network": "fabricant"
   },
   {
-    "productName": "iRobot Roomba Combo j9+",
-    "url": "https://www.amazon.fr/dp/B0C415HQPX?tag=aspirob0d-21",
-    "network": "amazon",
-    "asin": "B0C415HQPX"
+    "productName": "Ecovacs Deebot X9 Pro Omni",
+    "url": "https://www.ecovacs.com/fr/shop/deebot-robotic-vacuum-cleaner/deebot-x9-pro-omni",
+    "network": "fabricant"
   },
   {
-    "productName": "Dreame L10s Ultra",
-    "url": "https://www.amazon.fr/dp/B0B8X43GQH?tag=aspirob0d-21",
-    "network": "amazon",
-    "asin": "B0B8X43GQH"
-  },
-  {
-    "productName": "Ecovacs Deebot T20 Omni",
-    "url": "https://www.amazon.fr/dp/B0C2VH6X31?tag=aspirob0d-21",
-    "network": "amazon",
-    "asin": "B0C2VH6X31"
-  },
-  {
-    "productName": "Shark IQ Robot avec autovidage (RV1000SEU)",
-    "url": "https://www.amazon.fr/dp/B08ZSRD318?tag=aspirob0d-21",
-    "network": "amazon",
-    "asin": "B08ZSRD318"
+    "productName": "Roborock Q7 L5+",
+    "url": "https://fr.roborock.com/products/roborock-q7-l5-plus-robot-aspirateur",
+    "network": "fabricant"
   }
 ]

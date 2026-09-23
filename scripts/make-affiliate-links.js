@@ -13,7 +13,7 @@
  *                                        --url "https://amzn.eu/d/..."
  *   node scripts/make-affiliate-links.js --asin B0XXXXXXXX --asin B0YYYYYYYY
  *   node scripts/make-affiliate-links.js --from urls.txt        # une URL par ligne
- *   node scripts/make-affiliate-links.js --url "..." --name "Roborock S8 Pro Ultra"
+ *   node scripts/make-affiliate-links.js --url "..." --name "Roborock Saros 10R"
  *   node scripts/make-affiliate-links.js ... --out config/affiliate-links.json
  *   node scripts/make-affiliate-links.js --domain www.amazon.co.uk --url "..."
  *

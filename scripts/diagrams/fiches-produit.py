@@ -59,41 +59,31 @@ def card(name, attrs, turret, mop, title, desc):
 
 
 FICHES = {
- 'roomba-j9-plus': dict(
-   name='Roomba j9+', turret=False, mop=False,
-   attrs=[('Navigation', 'iRobot OS + caméra'), ('Lavage des sols', 'Non'), ('Station', 'Vidage + remplissage')],
-   title='Schéma du Roomba j9+',
-   desc="Vue de dessus schématique : navigation par caméra (pas de tourelle laser), pas de lavage des sols, station de vidage et remplissage."),
- 'roborock-s8-pro-ultra': dict(
-   name='Roborock S8 Pro Ultra', turret=True, mop=True,
-   attrs=[('Navigation', 'LiDAR + capteurs'), ('Lavage des sols', 'Serpillière oscillante'), ('Station', 'Vidage, lavage, séchage')],
-   title='Schéma du Roborock S8 Pro Ultra',
-   desc="Vue de dessus schématique : tourelle LiDAR, lavage actif par serpillière oscillante, station tout-en-un."),
- 'roborock-q5-max-plus': dict(
-   name='Roborock Q5 Max+', turret=True, mop=False,
-   attrs=[('Brosse principale', 'Caoutchouc DuoRoller'), ('Station', 'Vidage sur la version +')],
-   title='Schéma du Roborock Q5 Max+',
-   desc="Vue de dessus schématique : brosse principale en caoutchouc, station de vidage disponible sur la version +."),
- 'roomba-combo-j9-plus': dict(
-   name='Roomba Combo j9+', turret=False, mop=True,
-   attrs=[('Brosse principale', 'Système de coupe intégré'), ('Filtre', 'Haute efficacité')],
-   title='Schéma du Roomba Combo j9+',
-   desc="Vue de dessus schématique : système de coupe intégré sur l'axe de la brosse, filtre à haute efficacité."),
- 'dreame-l10s-ultra': dict(
-   name='Dreame L10s Ultra', turret=True, mop=True,
-   attrs=[('Brosse principale', 'Double, en caoutchouc'), ('Station', 'Vidage, lavage, séchage')],
-   title='Schéma du Dreame L10s Ultra',
-   desc="Vue de dessus schématique : double brosse en caoutchouc, station tout-en-un."),
- 'ecovacs-deebot-t20-omni': dict(
-   name='Ecovacs Deebot T20 Omni', turret=True, mop=True,
-   attrs=[('Brosse principale', 'Peigne anti-enchevêtrement')],
-   title='Schéma de l’Ecovacs Deebot T20 Omni',
-   desc="Vue de dessus schématique : peigne anti-enchevêtrement sur la brosse principale."),
- 'shark-iq-rv1000seu': dict(
-   name='Shark IQ Robot (RV1000SEU)', turret=False, mop=False,
-   attrs=[('Brosse principale', 'Auto-nettoyante'), ('Bac', 'Grande capacité')],
-   title='Schéma du Shark IQ Robot RV1000SEU',
-   desc="Vue de dessus schématique : brosse auto-nettoyante, bac de grande capacité."),
+ 'roborock-saros-10r': dict(
+   name='Roborock Saros 10R', turret=False, mop=True,
+   attrs=[('Navigation', 'StarSight 2.0, sans tourelle'), ('Hauteur', '7,98 cm'), ('Anti-emmêlement', 'Double système')],
+   title='Schéma du Roborock Saros 10R',
+   desc="Vue de dessus schématique : module de navigation StarSight 2.0 en façade au lieu d'une tourelle rotative, double système anti-enchevêtrements, lavage des sols."),
+ 'roomba-max-775-combo': dict(
+   name='Roomba Max 775 Combo', turret=True, mop=True,
+   attrs=[('Navigation', 'ClearView Pro LiDAR'), ('Brosses', 'Deux, en caoutchouc'), ('Station', 'AutoWash, eau à 75 °C')],
+   title='Schéma du Roomba Max 775 Combo',
+   desc="Vue de dessus schématique : tourelle LiDAR ClearView Pro, deux brosses en caoutchouc anti-emmêlement, rouleau serpillière et base AutoWash."),
+ 'dreame-l50s-pro-ultra': dict(
+   name='Dreame L50s Pro Ultra', turret=True, mop=True,
+   attrs=[('Brosse principale', 'Duo HyperStream'), ('Navigation', 'LiDAR VersaLift rétractable'), ('Station', 'PowerDock 8-en-1')],
+   title='Schéma du Dreame L50s Pro Ultra',
+   desc="Vue de dessus schématique : brosse duo HyperStream anti-nœuds, tourelle LiDAR VersaLift qui se rétracte pour passer sous les meubles, station PowerDock."),
+ 'ecovacs-deebot-x9-pro-omni': dict(
+   name='Ecovacs Deebot X9 Pro Omni', turret=True, mop=True,
+   attrs=[('Anti-emmêlement', 'ZeroTangle 3.0'), ('Serpillière', 'Rouleau OZMO ROLLER'), ('Navigation', 'dToF + RGBD')],
+   title='Schéma de l’Ecovacs Deebot X9 Pro Omni',
+   desc="Vue de dessus schématique : système anti-enchevêtrement ZeroTangle 3.0, serpillière à rouleau auto-nettoyant OZMO ROLLER, navigation dToF."),
+ 'roborock-q7-l5-plus': dict(
+   name='Roborock Q7 L5+', turret=True, mop=True,
+   attrs=[('Anti-emmêlement', 'Double système'), ('Navigation', 'LiDAR PreciSense'), ('Station', 'Vidage sur la version +')],
+   title='Schéma du Roborock Q7 L5+',
+   desc="Vue de dessus schématique : double système anti-enchevêtrements, navigation LiDAR PreciSense, station de vidage sur la version +."),
 }
 
 if __name__ == '__main__':

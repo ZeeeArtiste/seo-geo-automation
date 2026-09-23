@@ -74,6 +74,15 @@ const articleDates = new Map(
 
 export default defineConfig({
   site: SITE,
+
+  // La sélection de produits de ce comparatif a changé de génération, donc son
+  // slug. Supprimer l'ancienne URL sans rien laisser renverrait un 404 aux
+  // liens déjà partagés et aux moteurs qui l'ont indexée : Astro génère ici une
+  // page de redirection statique vers la nouvelle.
+  redirects: {
+    '/articles/roomba-j9-plus-vs-roborock-s8-pro-ultra':
+      '/articles/roomba-max-775-combo-vs-roborock-saros-10r/',
+  },
   markdown: { rehypePlugins: [rehypeExternalLinks] },
   integrations: [
     tailwind(),

@@ -1,12 +1,18 @@
 [
   {
+    "_comment": "network: amazon | awin | … pour un lien RÉMUNÉRÉ. network: fabricant pour un lien vers la boutique officielle, qui ne rapporte rien — il ne sera ni marqué rel=sponsored ni accompagné d'une divulgation de rémunération.",
     "productName": "Aspirateur robot Modèle X",
-    "url": "https://exemple-affilie.com/produit-x?tag=VOTRE_ID_AFFILIE",
+    "url": "https://www.amazon.fr/dp/VOTRE_ASIN?tag=VOTRE_ID_AFFILIE",
     "network": "amazon"
   },
   {
     "productName": "Aspirateur robot Modèle Y",
-    "url": "https://exemple-affilie.com/produit-y?tag=VOTRE_ID_AFFILIE",
-    "network": "amazon"
+    "url": "https://www.awin1.com/cread.php?awinmid=XXXX&awinaffid=VOTRE_ID&clickref=VOTRE_SOUS_ID&ued=URL_PRODUIT",
+    "network": "awin"
+  },
+  {
+    "productName": "Aspirateur robot Modèle Z",
+    "url": "https://boutique-officielle.example.com/products/modele-z",
+    "network": "fabricant"
   }
 ]

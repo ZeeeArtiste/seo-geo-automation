@@ -184,7 +184,11 @@ const breadcrumbSchema = {
             <ProductCard product={p} index={data.products.length > 2 ? i + 1 : undefined} />
           ))}
         </div>
-        <AffiliateDisclosure />
+        {/* Seulement si au moins une fiche porte un lien rémunéré. Des liens
+            vers les boutiques des fabricants ne rapportent rien : annoncer une
+            commission au-dessus d'eux serait une fausse déclaration, aussi
+            fautive que l'omission inverse. */}
+        {data.products.some((p) => p.affiliate) && <AffiliateDisclosure />}
       </section>
     )}
 
@@ -208,7 +212,7 @@ const breadcrumbSchema = {
          corps du texte plutôt que dans des fiches produit. Elle était
          auparavant imbriquée dans le bloc fiches : les guides, qui n'en ont
          pas, affichaient des liens rémunérés SANS divulgation. -->
-    {data.affiliate && data.products.length === 0 && <AffiliateDisclosure />}
+    {data.affiliate && !data.products.some((p) => p.affiliate) && <AffiliateDisclosure />}
 
     {data.faq.length > 0 && (
       <section class="mt-14 pt-8 border-t border-line" aria-labelledby="faq">

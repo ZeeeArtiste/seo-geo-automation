@@ -170,6 +170,12 @@ async function main() {
     // de nom. Un produit que Claude aurait inventé — donc absent de la liste
     // fournie — est écarté plutôt que publié sans lien.
     const norm = (x) => x.toLowerCase().replace(/[^a-z0-9]+/g, '');
+    // Tous les liens fournis ne sont pas rémunérés. Un lien vers la boutique
+    // du fabricant sert à sourcer une caractéristique, pas à gagner une
+    // commission : le marquer « sponsored » et annoncer une rémunération
+    // au-dessus de lui serait une déclaration fausse. On distingue donc les
+    // deux ici, à la source, plutôt que dans le gabarit.
+    const isPaidLink = (l) => l.affiliate !== false && l.network !== 'fabricant';
     const products = (article.products ?? [])
       .map((p) => {
         const link = affiliateLinks.find(
@@ -183,6 +189,7 @@ async function main() {
           pros: (p.pros ?? []).slice(0, 3),
           cons: (p.cons ?? []).slice(0, 2),
           attrs: p.attrs ?? {},
+          affiliate: isPaidLink(link),
         };
       })
       .filter(Boolean);
@@ -220,10 +227,16 @@ async function main() {
       console.log(`    ↳ ${dropped} produit(s) écarté(s) : aucun lien affilié correspondant`);
     }
 
-    // La divulgation ne s'affiche que si un lien affilié est RÉELLEMENT présent.
-    const usedAffiliate = products.length > 0;
+    // La divulgation ne s'affiche que si un lien RÉMUNÉRÉ est réellement
+    // présent — en fiche produit ou dans le corps du texte. Compter les fiches
+    // suffisait tant que tous les liens étaient affiliés ; depuis qu'ils
+    // peuvent pointer vers une boutique de fabricant, il faut vérifier les
+    // deux emplacements, sous peine d'annoncer une commission inexistante.
+    const paidUrls = affiliateLinks.filter(isPaidLink).map((l) => l.url);
+    const bodyHasPaidLink = paidUrls.some((u) => (article.bodyMarkdown ?? '').includes(u));
+    const usedAffiliate = bodyHasPaidLink || products.some((p) => p.affiliate);
     if (affiliateLinks.length > 0 && !usedAffiliate) {
-      console.log(`    ↳ aucun produit retenu → pas de divulgation sur cet article`);
+      console.log(`    ↳ aucun lien rémunéré placé → pas de divulgation sur cet article`);
     }
     if (isDraft) {
       draftCount++;
