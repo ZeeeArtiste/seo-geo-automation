@@ -1,0 +1,198 @@
+{
+  "generatedAt": "2026-09-23",
+  "sites": [
+    {
+      "brand": "Aspirob",
+      "niche": "aspirateurs robots",
+      "url": "https://aspirob.com",
+      "tagline": "Guides et comparatifs d'aspirateurs robots",
+      "description": "Guides d'achat et comparatifs indépendants sur les aspirateurs robots : navigation, brosses, entretien. Sans chiffres invérifiés ni photos de catalogue.",
+      "lang": "fr",
+      "author": "Dany Derensy",
+      "source": "flux",
+      "articles": [
+        {
+          "slug": "aspirateur-robot-animaux-erreurs-eviter",
+          "url": "https://aspirob.com/articles/aspirateur-robot-animaux-erreurs-eviter/",
+          "title": "Aspirateur robot avec animaux : les 5 erreurs qui transforment votre achat en cauchemar",
+          "description": "Animaux et aspirateur robot : évitez les 5 erreurs classiques qui sabotent votre achat. Conseils concrets pour choisir et utiliser votre robot avec des poils d'animaux.",
+          "directAnswer": "Avec des animaux, un aspirateur robot mal choisi ramasse moins de poils qu'un coup de balai et tombe en panne en quelques mois. Cinq erreurs reviennent : le type de brosse, la fréquence de vidage du bac, le sol encombré, le placement de la base et les horaires de passage.",
+          "category": "Guide",
+          "cluster": "animaux",
+          "publishDate": "2026-09-18",
+          "updatedDate": "2026-09-23",
+          "affiliate": true,
+          "cover": "https://aspirob.com/photos/aspirateur-robot-animaux-erreurs-eviter.webp",
+          "products": []
+        },
+        {
+          "slug": "aspirateur-robot-poils-animaux-chat-chien",
+          "url": "https://aspirob.com/articles/aspirateur-robot-poils-animaux-chat-chien/",
+          "title": "Aspirateur robot et poils d'animaux : les 5 modèles qui ne s'emmêlent vraiment pas dans les poils de chat",
+          "description": "Poils de chat partout ? Découvrez les 5 aspirateurs robots qui gèrent vraiment les poils sans s'emmêler : brosse, filtre, bac — tout est comparé.",
+          "directAnswer": "Les aspirateurs robots qui s'en sortent avec les poils de chat sont ceux équipés d'une brosse principale en caoutchouc, sans soies filiformes, et d'un système de démêlage. Sans ces deux caractéristiques, le rouleau s'enroule de poils toutes les deux ou trois utilisations et perd en aspiration.",
+          "category": "Comparatif",
+          "cluster": "animaux",
+          "usecase": {
+            "label": "J'ai un chat ou un chien",
+            "hint": "Le critère qui compte est la brosse."
+          },
+          "publishDate": "2026-09-18",
+          "updatedDate": "2026-09-23",
+          "affiliate": true,
+          "cover": "https://aspirob.com/photos/aspirateur-robot-poils-animaux-chat-chien.webp",
+          "products": [
+            {
+              "name": "Roborock Saros 10R",
+              "url": "https://www.amazon.fr/dp/B0DJ3284BS?tag=aspirob0d-21",
+              "affiliate": true,
+              "price": 749.99,
+              "priceCurrency": "EUR",
+              "priceSource": "boutique officielle Roborock",
+              "priceSourceUrl": "https://fr.roborock.com/products/roborock-saros-10r",
+              "priceCheckedAt": "2026-09-23"
+            },
+            {
+              "name": "iRobot Roomba Max 775 Combo",
+              "url": "https://www.amazon.fr/dp/B0GXWTH75T?tag=aspirob0d-21",
+              "affiliate": true
+            },
+            {
+              "name": "Dreame L50s Pro Ultra",
+              "url": "https://www.amazon.fr/dp/B0GD79DTS7?tag=aspirob0d-21",
+              "affiliate": true,
+              "price": 749,
+              "priceCurrency": "EUR",
+              "priceSource": "boutique officielle Dreame",
+              "priceSourceUrl": "https://fr.dreametech.com/products/dreame-l50s-pro-ultra-robot-aspirateur-laveur",
+              "priceCheckedAt": "2026-09-23"
+            },
+            {
+              "name": "Ecovacs Deebot X9 Pro Omni",
+              "url": "https://www.amazon.fr/dp/B0F1SWS24N?tag=aspirob0d-21",
+              "affiliate": true
+            },
+            {
+              "name": "Roborock Q7 L5+",
+              "url": "https://www.amazon.fr/dp/B0DWK8GJZX?tag=aspirob0d-21",
+              "affiliate": true,
+              "price": 389.99,
+              "priceCurrency": "EUR",
+              "priceSource": "boutique officielle Roborock",
+              "priceSourceUrl": "https://fr.roborock.com/products/roborock-q7-l5-plus-robot-aspirateur",
+              "priceCheckedAt": "2026-09-23"
+            }
+          ]
+        },
+        {
+          "slug": "navigation-lidar-aspirateur-robot-explication",
+          "url": "https://aspirob.com/articles/navigation-lidar-aspirateur-robot-explication/",
+          "title": "Comment fonctionne la navigation LiDAR : pourquoi votre robot aspire (ou rate) les mêmes zones",
+          "description": "Comprendre la navigation LiDAR des aspirateurs robots : comment ça marche, pourquoi certaines zones sont ratées et comment y remédier.",
+          "directAnswer": "Un aspirateur robot LiDAR mesure la distance aux obstacles avec un laser tournant et en construit une carte, ce qui lui permet de nettoyer en bandes parallèles plutôt qu'au hasard. S'il rate toujours les mêmes zones, la cause est presque toujours un angle mort du capteur ou une carte devenue obsolète.",
+          "category": "Guide",
+          "cluster": "navigation",
+          "usecase": {
+            "label": "Mon robot rate toujours les mêmes zones",
+            "hint": "Angles morts et carte obsolète."
+          },
+          "publishDate": "2026-09-18",
+          "updatedDate": "2026-09-23",
+          "affiliate": true,
+          "cover": "https://aspirob.com/photos/navigation-lidar-aspirateur-robot-explication.webp",
+          "products": []
+        },
+        {
+          "slug": "navigation-lidar-camera-aspirateur-robot-differences",
+          "url": "https://aspirob.com/articles/navigation-lidar-camera-aspirateur-robot-differences/",
+          "title": "Navigation LiDAR vs caméra : comment votre aspirateur robot 'voit' votre maison (et pourquoi ça change tout)",
+          "description": "LiDAR ou caméra : comprendre comment votre aspirateur robot cartographie votre maison pour choisir la technologie adaptée à votre intérieur.",
+          "directAnswer": "Un aspirateur robot cartographie votre logement par LiDAR, un laser rotatif, ou par caméra associée à des algorithmes de vision. Le LiDAR mesure la géométrie avec précision et fonctionne dans le noir ; la caméra reconnaît visuellement les objets au sol mais dépend de la lumière ambiante.",
+          "category": "Guide",
+          "cluster": "navigation",
+          "usecase": {
+            "label": "Je ne sais pas quelle navigation choisir",
+            "hint": "LiDAR ou caméra, les deux angles morts."
+          },
+          "publishDate": "2026-09-18",
+          "updatedDate": "2026-09-23",
+          "affiliate": true,
+          "cover": "https://aspirob.com/photos/navigation-lidar-camera-aspirateur-robot-differences.webp",
+          "products": []
+        },
+        {
+          "slug": "roomba-max-775-combo-vs-roborock-saros-10r",
+          "url": "https://aspirob.com/articles/roomba-max-775-combo-vs-roborock-saros-10r/",
+          "title": "Roomba Max 775 Combo vs Roborock Saros 10R : les deux marques ont échangé leurs positions",
+          "description": "Roomba Max 775 Combo ou Roborock Saros 10R : navigation, anti-emmêlement, lavage, station. Ce qui sépare vraiment ces deux robots avant de choisir.",
+          "directAnswer": "Le Roborock Saros 10R tient en 7,98 cm et passe sous les meubles bas, au prix d'une navigation sans tourelle plus récente. Le Roomba Max 775 Combo mise sur un LiDAR classique, deux brosses en caoutchouc et une base qui lave la serpillière à 75 °C. Environ cent euros les séparent.",
+          "category": "Comparatif",
+          "cluster": "sols-et-lavage",
+          "usecase": {
+            "label": "Surtout du carrelage ou du parquet",
+            "hint": "La question du lavage des sols."
+          },
+          "publishDate": "2026-09-18",
+          "updatedDate": "2026-09-23",
+          "affiliate": true,
+          "cover": "https://aspirob.com/photos/roomba-max-775-combo-vs-roborock-saros-10r.webp",
+          "products": [
+            {
+              "name": "iRobot Roomba Max 775 Combo",
+              "url": "https://www.amazon.fr/dp/B0GXWTH75T?tag=aspirob0d-21",
+              "affiliate": true
+            },
+            {
+              "name": "Roborock Saros 10R",
+              "url": "https://www.amazon.fr/dp/B0DJ3284BS?tag=aspirob0d-21",
+              "affiliate": true,
+              "price": 749.99,
+              "priceCurrency": "EUR",
+              "priceSource": "boutique officielle Roborock",
+              "priceSourceUrl": "https://fr.roborock.com/products/roborock-saros-10r",
+              "priceCheckedAt": "2026-09-23"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "date": "2026-09-23",
+      "article": "aspirateur-robot-poils-animaux-chat-chien",
+      "product": "Dreame L50s Pro Ultra",
+      "store": "dreame",
+      "storeLabel": "boutique officielle Dreame",
+      "price": 749,
+      "currency": "EUR",
+      "url": "https://fr.dreametech.com/products/dreame-l50s-pro-ultra-robot-aspirateur-laveur",
+      "brand": "Aspirob",
+      "siteUrl": "https://aspirob.com"
+    },
+    {
+      "date": "2026-09-23",
+      "article": "aspirateur-robot-poils-animaux-chat-chien",
+      "product": "Roborock Q7 L5+",
+      "store": "roborock",
+      "storeLabel": "boutique officielle Roborock",
+      "price": 389.99,
+      "currency": "EUR",
+      "url": "https://fr.roborock.com/products/roborock-q7-l5-plus-robot-aspirateur",
+      "brand": "Aspirob",
+      "siteUrl": "https://aspirob.com"
+    },
+    {
+      "date": "2026-09-23",
+      "article": "roomba-max-775-combo-vs-roborock-saros-10r",
+      "product": "Roborock Saros 10R",
+      "store": "roborock",
+      "storeLabel": "boutique officielle Roborock",
+      "price": 749.99,
+      "currency": "EUR",
+      "url": "https://fr.roborock.com/products/roborock-saros-10r",
+      "brand": "Aspirob",
+      "siteUrl": "https://aspirob.com"
+    }
+  ]
+}

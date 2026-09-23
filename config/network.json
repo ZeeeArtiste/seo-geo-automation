@@ -1,0 +1,10 @@
+{
+  "_comment": "Sites membres du réseau. Le hub lit le flux /index.json de chacun. Ajouter un site ici suffit à le recenser : rien d'autre à toucher. `local` permet de lire un site pas encore déployé, depuis ce dépôt.",
+  "sites": [
+    {
+      "brand": "Aspirob",
+      "feed": "https://aspirob.com/index.json",
+      "local": "sites/aspirob"
+    }
+  ]
+}

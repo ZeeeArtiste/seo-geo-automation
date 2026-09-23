@@ -18,3 +18,8 @@ sites/*
 # Rapports d'audit générés : reproductibles via scripts/, inutile de les versionner
 seo-audits/*.docx
 seo-audits/*.pdf
+
+# Dépendances et sorties du hub
+hub/node_modules/
+hub/dist/
+hub/.astro/

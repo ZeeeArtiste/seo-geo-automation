@@ -1,0 +1,64 @@
+---
+/**
+ * Les prix relevés, produit par produit.
+ *
+ * C'est ce que le hub possède et qu'aucun site de niche ne peut produire :
+ * une série d'observations, parce qu'elle demande une collecte répétée sur
+ * des mois. Chaque ligne renvoie vers l'article qui traite le produit.
+ */
+import Base from '../../layouts/Base.astro';
+import network from '../../data/network.json';
+import { parProduit, euros } from '../../lib/prix';
+
+const produits = parProduit(network.observations ?? []);
+const dates = produits.flatMap((p) => p.serie.map((o) => o.date)).sort();
+const depuis = dates[0];
+const boutiques = [...new Set(produits.map((p) => p.storeLabel))];
+---
+<Base
+  title="Prix relevés"
+  description="Les prix relevés dans les catalogues officiels des fabricants, avec leur date d'observation. Aucun prix estimé."
+>
+  <h1 class="font-serif text-3xl md:text-4xl font-semibold tracking-tight mb-4">Prix relevés</h1>
+  <p class="text-body max-w-prose leading-relaxed mb-8">
+    Chaque valeur est un relevé daté dans le catalogue public d'une boutique officielle de
+    fabricant, pas une estimation ni un prix marchand. Le prix pratiqué par le revendeur vers
+    lequel un article renvoie peut différer.
+    {depuis && <> La collecte a commencé le {depuis}.</>}
+  </p>
+
+  {produits.length === 0 ? (
+    <p class="text-muted">
+      Aucun relevé pour l'instant. La série se constitue à chaque passage du collecteur.
+    </p>
+  ) : (
+    <>
+      <p class="text-xs text-muted mb-4">
+        {produits.length} produit{produits.length > 1 ? 's' : ''} suivi{produits.length > 1 ? 's' : ''}
+        · {boutiques.length} boutique{boutiques.length > 1 ? 's' : ''} · {(network.observations ?? []).length} observation{(network.observations ?? []).length > 1 ? 's' : ''}
+      </p>
+      <ul class="divide-y divide-line border-y border-line">
+        {produits.map((p) => (
+          <li class="py-4 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+            <span class="min-w-0">
+              <a href={`/prix/${p.key}/`} class="font-medium text-ink hover:text-accent transition-colors">{p.product}</a>
+              <span class="block text-xs text-muted mt-0.5">
+                {p.storeLabel} · relevé le {p.dernier.date}
+                {p.serie.length > 1 && <> · {p.serie.length} observations</>}
+              </span>
+            </span>
+            <span class="flex items-baseline gap-3">
+              <strong class="text-lg text-ink">{euros(p.dernier.price, p.currency)}</strong>
+              {p.ecart !== null && p.ecart !== 0 && (
+                <span class={`text-xs ${p.ecart < 0 ? 'text-accent' : 'text-muted'}`}>
+                  {p.ecart > 0 ? '+' : ''}{euros(p.ecart, p.currency)} depuis le {p.premier.date}
+                </span>
+              )}
+              {p.ecart === null && <span class="text-xs text-muted">1re observation</span>}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </>
+  )}
+</Base>

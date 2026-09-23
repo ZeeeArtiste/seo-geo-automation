@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE, LEGAL } from '../lib/site';
+---
+<Base
+  title="Mentions légales"
+  description={`Mentions légales du site ${SITE.brand} : éditeur, directeur de publication et hébergeur.`}
+>
+  <h1 class="font-serif text-3xl md:text-4xl font-semibold tracking-tight mb-8">Mentions légales</h1>
+
+  <div class="prose prose-lg max-w-none
+              prose-headings:font-serif prose-headings:font-semibold prose-headings:tracking-tight
+              prose-h2:text-xl prose-h2:mt-9 prose-h2:mb-2
+              prose-p:text-body prose-p:leading-[1.7]
+              prose-a:text-accent prose-a:underline prose-a:underline-offset-2">
+    <h2>Éditeur du site</h2>
+    <p>
+      {LEGAL.editor}<br />
+      {LEGAL.editorStatus}<br />
+      {LEGAL.editorAddress ? LEGAL.editorAddress : "Adresse communiquée sur demande à l'adresse de contact ci-dessous."}<br />
+      Contact : <a href={`mailto:${LEGAL.contactEmail}`}>{LEGAL.contactEmail}</a>
+    </p>
+
+    <h2>Directeur de la publication</h2>
+    <p>{LEGAL.publicationDirector}</p>
+
+    <h2>Hébergeur</h2>
+    <p>
+      {LEGAL.host.name}<br />
+      {LEGAL.host.address}<br />
+      <a href={LEGAL.host.url} rel="noopener nofollow" target="_blank">{LEGAL.host.url}</a>
+    </p>
+
+    <h2>Propriété intellectuelle</h2>
+    <p>
+      Les textes publiés sur {SITE.url.replace('https://', '')} sont la propriété de l'éditeur.
+      Toute reproduction intégrale sans autorisation est interdite. Les marques et noms de
+      produits cités appartiennent à leurs détenteurs respectifs et ne sont mentionnés qu'à
+      titre informatif ; leur citation n'implique aucun partenariat.
+    </p>
+
+    <h2 id="methode">Méthode éditoriale</h2>
+    <p>
+      Ce site ne publie pas d'articles : il recense ceux des sites du réseau et relève les prix
+      dans les catalogues publics des fabricants. La méthode complète — qui édite quoi, ce qui
+      est relevé, ce qui n'est pas publié — est détaillée sur la
+      <a href="/methode/">page Méthode</a>.
+    </p>
+
+    <h2 id="affiliation">Liens affiliés</h2>
+    <p>
+      Ce site n'affiche <strong>aucun lien rémunéré</strong>. Les sites vers lesquels il renvoie
+      sont édités par la même personne et contiennent, eux, des liens affiliés, signalés sur
+      chaque page concernée. Nous percevons donc une commission si vous achetez après avoir lu
+      un de ces articles, jamais du fait de votre passage ici. Ce lien d'édition est indiqué
+      sur la <a href="/methode/">page Méthode</a> et dans le pied de page.
+    </p>
+
+    <h2>Responsabilité</h2>
+    <p>
+      Les informations publiées sont fournies à titre indicatif et peuvent évoluer, notamment
+      les caractéristiques et la disponibilité des produits cités. Elles ne constituent pas un
+      conseil d'achat personnalisé. Pour signaler une inexactitude, écrivez à
+      <a href={`mailto:${LEGAL.contactEmail}`}>{LEGAL.contactEmail}</a> : nous corrigeons ou
+      retirons le passage, et la date de révision de l'article est mise à jour.
+    </p>
+  </div>
+</Base>

@@ -1,0 +1,557 @@
+/* Schémas explicatifs insérés dans les articles.
+   Ils occupent toute la largeur de la colonne de texte et débordent
+   légèrement sur les écrans larges, pour respirer sans casser la mesure. */
+figure.diagram {
+  margin: 2.75rem 0;
+}
+
+figure.diagram img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 2px;
+}
+
+figure.diagram figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: #64748b;
+}
+
+/* Le débord symétrique a été retiré : il avait été calculé pour une colonne
+   de lecture centrée, avant l'ajout du sommaire en colonne latérale. À partir
+   de 1024 px la grille déplace la colonne de texte, et la marge négative
+   poussait le schéma hors du viewport. Les schémas occupent désormais
+   exactement la largeur de la colonne, ce qui ne peut pas déborder. */
+
+/* ── Appels à l'action ────────────────────────────────────────────────
+   Le plugin rehype ne pose `data-cta` que sur un lien affilié SEUL dans son
+   paragraphe. Un lien affilié au fil du texte reste un lien de texte : un
+   bouton en pleine phrase casse la lecture. */
+.prose a[data-cta] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* 48 px : cible tactile recommandée. Sans ce minimum, un libellé court
+     tenant sur une ligne produisait un bouton de 41 px, et deux cartes
+     voisines n'avaient pas la même hauteur de bouton selon la longueur
+     du nom de produit. */
+  min-height: 48px;
+  gap: 0.45em;
+  padding: 0.6em 1.15em;
+  background: #2563eb;
+  color: #fff;
+  font-size: 0.95em;
+  font-weight: 500;
+  line-height: 1.2;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.prose a[data-cta]:hover { background: #1d4ed8; }
+
+.prose a[data-cta]::after {
+  content: '→';
+  font-weight: 400;
+}
+
+/* Le paragraphe qui ne contient qu'un CTA se resserre sur lui. */
+.prose p:has(> a[data-cta]:only-child) {
+  margin-top: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+/* Lien affilié contextuel : souligné discret, jamais un bouton. */
+.prose a[data-affiliate]:not([data-cta]) {
+  color: #2563eb;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: #bfdbfe;
+}
+
+.prose a[data-affiliate]:not([data-cta]):hover {
+  text-decoration-color: #2563eb;
+}
+
+/* ── Points forts / limites ────────────────────────────────────────── */
+.verdict {
+  display: grid;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+@media (min-width: 640px) {
+  .verdict { grid-template-columns: 1fr 1fr; }
+}
+
+.verdict > div {
+  background: #f7f8fa;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 0.9rem 1.1rem;
+}
+
+.verdict h4 {
+  margin: 0 0 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.verdict ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
+.verdict li {
+  padding-left: 1.35rem;
+  position: relative;
+  margin: 0.3rem 0;
+  color: #1e293b;
+}
+
+.verdict .plus li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #059669;
+  font-weight: 600;
+}
+
+.verdict .minus li::before {
+  content: '!';
+  position: absolute;
+  left: 0.3rem;
+  color: #d97706;
+  font-weight: 700;
+}
+
+/* ── FAQ dépliable ─────────────────────────────────────────────────── */
+.faq-item {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.faq-item summary {
+  cursor: pointer;
+  padding: 0.95rem 1.8rem 0.95rem 0;
+  font-weight: 500;
+  font-size: 1.04rem;
+  color: #0f172a;
+  list-style: none;
+  position: relative;
+}
+
+.faq-item summary::-webkit-details-marker { display: none; }
+
+.faq-item summary::after {
+  content: '+';
+  position: absolute;
+  right: 0.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #64748b;
+  transition: transform 0.18s ease;
+}
+
+.faq-item[open] summary::after {
+  content: '−';
+}
+
+.faq-item summary:hover { color: #2563eb; }
+
+.faq-item .answer {
+  padding: 0 0 1.1rem;
+  color: #475569;
+  line-height: 1.65;
+}
+
+/* ── « L'essentiel » ───────────────────────────────────────────────────
+   La réponse directe, mise en boîte : c'est ce que les moteurs génératifs
+   citent, et ce que le lecteur pressé vient chercher. */
+.essentiel {
+  background: #f7f8fa;
+  border: 1px solid #e2e8f0;
+  border-left: 3px solid #2563eb;
+  border-radius: 6px;
+  padding: 1.1rem 1.3rem;
+  margin-bottom: 2rem;
+}
+
+.essentiel-titre {
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #2563eb;
+}
+
+.essentiel-texte {
+  margin: 0;
+  font-size: 1.06rem;
+  line-height: 1.7;
+  color: #0f172a;
+}
+
+/* ── Sommaire ──────────────────────────────────────────────────────── */
+.sommaire {
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 1.1rem 1.3rem;
+  margin-bottom: 2.25rem;
+}
+
+.sommaire-titre {
+  margin: 0 0 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.sommaire ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: sommaire;
+}
+
+.sommaire li {
+  counter-increment: sommaire;
+  margin: 0.32rem 0;
+  padding-left: 1.7rem;
+  position: relative;
+  line-height: 1.5;
+}
+
+.sommaire li::before {
+  content: counter(sommaire, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0.1rem;
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  color: #cbd5e1;
+  font-weight: 600;
+}
+
+.sommaire a {
+  color: #1e293b;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.sommaire a:hover {
+  color: #2563eb;
+  border-bottom-color: #bfdbfe;
+}
+
+/* L'en-tête collant masquerait la cible d'une ancre sans cette marge. */
+.prose h2,
+.prose h3 {
+  scroll-margin-top: 5.5rem;
+}
+
+/* ── Citation mise en exergue ──────────────────────────────────────── */
+.prose blockquote {
+  border-left: 3px solid #2563eb;
+  background: #f7f8fa;
+  border-radius: 0 6px 6px 0;
+  padding: 1rem 1.3rem;
+  font-size: 1.12em;
+  line-height: 1.6;
+  font-style: normal;
+  color: #0f172a;
+}
+
+.prose blockquote p:first-of-type::before,
+.prose blockquote p:last-of-type::after { content: none; }
+
+/* ── Sommaire en colonne latérale ──────────────────────────────────── */
+.sommaire-rail {
+  position: sticky;
+  top: 6rem;
+  max-height: calc(100vh - 8rem);
+  overflow-y: auto;
+  padding-left: 0.9rem;
+  border-left: 1px solid #e2e8f0;
+}
+
+.sommaire-rail .sommaire-titre {
+  margin: 0 0 0.7rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.sommaire-rail ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sommaire-rail li { margin: 0.1rem 0; }
+
+.sommaire-rail a {
+  display: block;
+  padding: 0.35rem 0 0.35rem 0.7rem;
+  margin-left: -0.9rem;
+  border-left: 2px solid transparent;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: #64748b;
+  text-decoration: none;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.sommaire-rail a:hover { color: #0f172a; }
+
+.sommaire-rail a.is-active {
+  color: #2563eb;
+  border-left-color: #2563eb;
+  font-weight: 500;
+}
+
+/* ── Fiche produit schématique ─────────────────────────────────────── */
+figure.fiche {
+  margin: 1.5rem 0;
+}
+
+figure.fiche img {
+  display: block;
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+}
+
+/* ── Fiche produit groupée ─────────────────────────────────────────────
+   Schéma, résumé, points forts et appel à l'action dans un seul bloc :
+   empilés séparément, ces éléments ne disaient pas qu'ils parlaient du
+   même produit. */
+.produits { display: grid; gap: 1.25rem; }
+
+.produit {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.produit-tete {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid #e2e8f0;
+  background: #f7f8fa;
+}
+
+.produit-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.55rem;
+  height: 1.55rem;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.produit-tete h3 {
+  margin: 0;
+  font-size: 1.14rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #0f172a;
+  scroll-margin-top: 5.5rem;
+}
+
+.produit-corps { padding: 1.25rem; }
+
+@media (min-width: 720px) {
+  .produit-corps {
+    display: grid;
+    grid-template-columns: 15rem minmax(0, 1fr);
+    gap: 1.4rem;
+    align-items: start;
+  }
+}
+
+.produit-schema img { display: block; width: 100%; height: auto; }
+
+.produit-resume {
+  margin: 0 0 0.9rem;
+  line-height: 1.65;
+  color: #1e293b;
+}
+
+.produit .verdict { margin: 0 0 1rem; }
+
+
+/* ── Tableau comparatif ────────────────────────────────────────────── */
+.tableau-wrap { overflow-x: auto; margin-bottom: 1.5rem; }
+
+.tableau-comparatif {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  min-width: 34rem;
+}
+
+.tableau-comparatif caption {
+  caption-side: bottom;
+  padding-top: 0.6rem;
+  font-size: 0.8rem;
+  color: #64748b;
+  text-align: left;
+}
+
+.tableau-comparatif th,
+.tableau-comparatif td {
+  border: 1px solid #e2e8f0;
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.tableau-comparatif thead th {
+  background: #f7f8fa;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #64748b;
+  white-space: nowrap;
+}
+
+.tableau-comparatif tbody th {
+  font-weight: 600;
+  color: #0f172a;
+  background: #fff;
+}
+
+.tableau-comparatif tbody th a {
+  color: #2563eb;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: #bfdbfe;
+}
+
+.tableau-comparatif tbody tr:hover td { background: #f7f8fa; }
+
+/* ── Divulgation d'affiliation ─────────────────────────────────────────
+   Obligatoire (DGCCRF, CGU Amazon Partenaires) mais discrète : une ligne
+   au contact des liens, pas un encadré en tête d'article. */
+.affiliation {
+  margin: 0.9rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: #64748b;
+}
+
+.affiliation a {
+  color: #64748b;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: #cbd5e1;
+}
+
+.affiliation a:hover { color: #2563eb; text-decoration-color: #2563eb; }
+
+/* ── Où acheter ─────────────────────────────────────────────────────────
+   Chaque prix appartient au lien qui le vend. Un tarif relevé chez le
+   fabricant, affiché au-dessus d'un bouton menant vers un autre marchand,
+   laissait croire qu'il était celui de ce marchand. Une ligne par boutique
+   supprime l'ambiguïté, et celle dont le prix n'est pas relevable l'annonce
+   plutôt que d'emprunter celui de la voisine. */
+.produit-achat { margin: 0; }
+
+.produit-achat-titre {
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.produit-achat ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.produit-achat li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem 0.9rem;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.produit-achat li a {
+  font-weight: 500;
+  color: #0f172a;
+  text-decoration: none;
+}
+
+.produit-achat li a:hover { color: #2563eb; }
+
+/* Ligne de référence : elle informe, elle ne mène nulle part. Elle est donc
+   posée en retrait du bouton marchand, sans affordance de lien. */
+.produit-achat li.est-reference {
+  background: #f7f8fa;
+  border-style: dashed;
+}
+
+.produit-achat li.est-reference > span:first-child {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.produit-achat-prix {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.45rem;
+}
+
+.produit-achat-prix strong { font-size: 1.15rem; color: #0f172a; font-weight: 600; }
+.produit-achat-prix small { font-size: 0.72rem; color: #64748b; }
+.produit-achat-prix em { font-size: 0.85rem; color: #64748b; font-style: normal; }
+
+/* La ligne marchande reste l'action principale : contraste, et les 48 px de
+   cible tactile recommandés. */
+.produit-achat li.est-principal {
+  min-height: 48px;
+  align-items: center;
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+.produit-achat li.est-principal a { color: #fff; }
+.produit-achat li.est-principal a:hover { color: #fff; text-decoration: underline; }
+.produit-achat li.est-principal a::after { content: ' →'; font-weight: 400; }
+.produit-achat li.est-principal .produit-achat-prix em { color: rgba(255, 255, 255, 0.85); }

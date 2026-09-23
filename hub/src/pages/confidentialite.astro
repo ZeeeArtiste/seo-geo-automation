@@ -1,0 +1,63 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE, LEGAL } from '../lib/site';
+---
+<Base
+  title="Confidentialité"
+  description={`Politique de confidentialité de ${SITE.brand} : données collectées, cookies et droits RGPD.`}
+>
+  <h1 class="font-serif text-3xl md:text-4xl font-semibold tracking-tight mb-8">
+    Politique de confidentialité
+  </h1>
+
+  <div class="prose prose-lg max-w-none
+              prose-headings:font-serif prose-headings:font-semibold prose-headings:tracking-tight
+              prose-h2:text-xl prose-h2:mt-9 prose-h2:mb-2
+              prose-p:text-body prose-p:leading-[1.7]
+              prose-li:text-body
+              prose-a:text-accent prose-a:underline prose-a:underline-offset-2">
+    <h2>En résumé</h2>
+    <p>
+      Ce site est un site statique. Il ne vous demande aucune information, ne dépose aucun
+      cookie de mesure d'audience et n'utilise aucun service de suivi publicitaire. Les polices
+      de caractères sont hébergées sur notre propre serveur : aucune requête n'est envoyée à un
+      tiers lors de votre visite.
+    </p>
+
+    <h2>Données collectées</h2>
+    <p>
+      Aucune donnée n'est collectée directement par le site. Notre hébergeur
+      ({LEGAL.host.name}) conserve des journaux de connexion techniques, incluant les adresses
+      IP, à des fins de sécurité et de bon fonctionnement du serveur. Ces journaux ne sont pas
+      exploités à des fins d'analyse ni de profilage.
+    </p>
+
+    <h2>Cookies</h2>
+    <p>
+      Le site ne dépose aucun cookie. En revanche, si vous cliquez sur un lien affilié, le site
+      marchand de destination (Amazon) peut déposer ses propres cookies, régis par sa propre
+      politique de confidentialité. Ce dépôt a lieu sur son domaine, après votre clic, et
+      échappe à notre contrôle.
+    </p>
+
+    <h2>Liens affiliés</h2>
+    <p>
+      Les liens affiliés contiennent un identifiant permettant au marchand d'attribuer une
+      éventuelle commission. Cet identifiant ne nous transmet aucune donnée personnelle vous
+      concernant : nous recevons uniquement des statistiques agrégées de ventes, sans identité
+      ni coordonnées d'acheteur.
+    </p>
+
+    <h2>Vos droits</h2>
+    <p>
+      Conformément au RGPD, vous disposez d'un droit d'accès, de rectification, d'effacement et
+      d'opposition sur les données vous concernant. Comme nous ne collectons aucune donnée
+      personnelle, ces demandes concerneront en pratique les journaux de l'hébergeur. Pour toute
+      question : <a href={`mailto:${LEGAL.contactEmail}`}>{LEGAL.contactEmail}</a>.
+    </p>
+    <p>
+      Vous pouvez également introduire une réclamation auprès de la
+      <a href="https://www.cnil.fr" rel="noopener nofollow" target="_blank">CNIL</a>.
+    </p>
+  </div>
+</Base>

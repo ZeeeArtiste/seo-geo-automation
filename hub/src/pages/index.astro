@@ -1,0 +1,146 @@
+---
+/**
+ * Accueil : la recherche.
+ *
+ * Toute la valeur du hub tient dans le fait de chercher une SITUATION
+ * — « mon café est trop amer », « j'ai un chat » — et de tomber sur la
+ * réponse directe de l'article qui la traite, quel que soit le site du réseau
+ * qui l'a publiée. Aucun site de niche ne peut le faire : il ne connaît que
+ * ses propres pages.
+ *
+ * L'index est embarqué dans la page : quelques dizaines d'articles pèsent
+ * quelques kilo-octets, et une recherche côté client répond instantanément
+ * sans serveur ni dépendance.
+ */
+import Base from '../layouts/Base.astro';
+import { SITE } from '../lib/site';
+import network from '../data/network.json';
+
+const articles = network.sites.flatMap((s: any) =>
+  s.articles.map((a: any) => ({ ...a, brand: s.brand, niche: s.niche }))
+);
+
+// Ce qui est cherché : titre, description, réponse directe, situation, niche.
+// Le corps de l'article n'est pas ici, et n'a pas à y être — le hub renvoie
+// vers la page, il ne la republie pas.
+const index = articles.map((a: any) => ({
+  t: a.title, d: a.description, r: a.directAnswer,
+  u: a.url, b: a.brand, n: a.niche, c: a.category,
+  s: a.usecase?.label ?? '', h: a.usecase?.hint ?? '',
+  m: a.updatedDate,
+}));
+
+const situations = articles.filter((a: any) => a.usecase).slice(0, 8);
+const recents = [...articles].sort((a: any, b: any) =>
+  (b.updatedDate ?? '').localeCompare(a.updatedDate ?? '')).slice(0, 6);
+const observations = network.observations ?? [];
+const suivis = new Set(observations.map((o: any) => o.product));
+---
+<Base title={`${SITE.brand} — ${SITE.tagline}`} description={SITE.description} ogType="website" rawTitle>
+  <section class="mb-12">
+    <h1 class="font-serif text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.1] mb-5">
+      {SITE.tagline}
+    </h1>
+    <div class="w-12 h-px bg-accent mb-5"></div>
+    <p class="text-lg text-body max-w-prose leading-relaxed">
+      Décrivez votre situation plutôt qu'un produit. {articles.length} comparatifs et guides
+      publiés sur {network.sites.length} site{network.sites.length > 1 ? 's' : ''},
+      <span class="text-ink">{suivis.size} produit{suivis.size > 1 ? 's' : ''} dont le prix est relevé
+      dans le catalogue officiel de son fabricant.</span>
+    </p>
+
+    <form class="mt-8" role="search" onsubmit="return false">
+      <label for="q" class="sr-only">Rechercher</label>
+      <input id="q" type="search" autocomplete="off" placeholder="« mon café est trop amer », « j'ai un chat »…"
+        class="w-full border border-line rounded-md bg-paper px-4 py-3 text-base text-ink
+               placeholder:text-muted focus:outline-none focus:border-accent" />
+    </form>
+
+    <div id="resultats" class="mt-6" hidden></div>
+  </section>
+
+  {situations.length > 0 && (
+    <section class="mb-14" aria-labelledby="situations" id="bloc-situations">
+      <h2 id="situations" class="text-xs font-medium tracking-[0.14em] uppercase text-accent mb-1">
+        Par situation
+      </h2>
+      <p class="text-sm text-muted mb-5">Ce que les lecteurs cherchent vraiment.</p>
+      <div class="grid sm:grid-cols-2 gap-3">
+        {situations.map((a: any) => (
+          <a href={a.url} class="group flex items-start gap-3 border border-line rounded-md bg-paper p-4 transition-colors hover:border-accent hover:bg-surface">
+            <span class="text-accent mt-0.5 shrink-0" aria-hidden="true">›</span>
+            <span>
+              <span class="block font-medium leading-snug group-hover:text-accent transition-colors">{a.usecase.label}</span>
+              <span class="block text-sm text-muted mt-0.5">{a.usecase.hint}</span>
+              <span class="block text-xs text-muted mt-1.5">{a.brand} · {a.niche}</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <section class="mb-14" aria-labelledby="recents" id="bloc-recents">
+    <h2 id="recents" class="text-xs font-medium tracking-[0.14em] uppercase text-accent mb-5">
+      Révisés récemment
+    </h2>
+    <ul class="divide-y divide-line border-y border-line">
+      {recents.map((a: any) => (
+        <li class="py-4">
+          <a href={a.url} class="group block">
+            <span class="text-xs text-muted">{a.brand} · {a.category} · révisé le {a.updatedDate}</span>
+            <span class="block font-serif text-lg font-semibold tracking-tight mt-0.5 group-hover:text-accent transition-colors">{a.title}</span>
+            <span class="block text-sm text-body mt-1 leading-relaxed">{a.description}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <script is:inline define:vars={{ index }}>
+    const q = document.getElementById('q');
+    const box = document.getElementById('resultats');
+    const masquables = ['bloc-situations', 'bloc-recents'].map((id) => document.getElementById(id));
+    const norm = (s) => (s ?? '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    const champs = (e) => norm([e.t, e.d, e.r, e.s, e.h, e.n, e.b, e.c].join(' '));
+    const corpus = index.map((e) => ({ e, texte: champs(e) }));
+
+    function rendre(res, terme) {
+      if (!res.length) {
+        box.innerHTML = `<p class="text-sm text-muted">Rien ne correspond à « ${terme} ». Les ${index.length} pages du réseau portent sur d'autres sujets.</p>`;
+        return;
+      }
+      box.innerHTML =
+        `<p class="text-xs text-muted mb-3">${res.length} résultat${res.length > 1 ? 's' : ''}</p>` +
+        '<ul class="divide-y divide-line border-y border-line">' +
+        res.map(({ e }) => `
+          <li class="py-4">
+            <a href="${e.u}" class="group block">
+              <span class="text-xs text-muted">${e.b} · ${e.c}</span>
+              <span class="block font-serif text-lg font-semibold tracking-tight mt-0.5 group-hover:text-accent transition-colors">${e.t}</span>
+              <span class="block text-sm text-body mt-1 leading-relaxed">${e.r ?? e.d}</span>
+            </a>
+          </li>`).join('') +
+        '</ul>';
+    }
+
+    q.addEventListener('input', () => {
+      const terme = q.value.trim();
+      const mots = norm(terme).split(/\s+/).filter((m) => m.length > 1);
+      if (!mots.length) {
+        box.hidden = true;
+        masquables.forEach((el) => el && (el.hidden = false));
+        return;
+      }
+      // Tous les mots doivent être présents : une recherche qui remonte tout
+      // dès qu'un mot correspond ne trie rien.
+      const res = corpus
+        .map(({ e, texte }) => ({ e, n: mots.filter((m) => texte.includes(m)).length }))
+        .filter(({ n }) => n === mots.length)
+        .sort((a, b) => (b.e.m ?? '').localeCompare(a.e.m ?? ''));
+      box.hidden = false;
+      masquables.forEach((el) => el && (el.hidden = true));
+      rendre(res, terme);
+    });
+  </script>
+</Base>

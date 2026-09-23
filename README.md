@@ -383,3 +383,50 @@ original (`scripts/diagrams/`) ne prétend rien de faux : il est manifestement u
 
 **Un site fraîchement généré doit compiler avant d'avoir du contenu.** La configuration ne
 suppose jamais l'existence du dossier d'articles.
+
+## Le hub du réseau (`hub/`)
+
+Un site central qui recense les articles de tous les sites de niche et suit les prix
+relevés. Il est dérivé de `template/`, donc il hérite du design, des polices et des
+tokens des sites qu'il recense.
+
+```bash
+node scripts/collect-network.js          # lit les flux, écrit hub/src/data/network.json
+cd hub && npm run build
+```
+
+Ajouter un site au réseau, c'est ajouter une entrée dans `config/network.json` :
+
+```json
+{ "brand": "Aspirob", "feed": "https://aspirob.com/index.json", "local": "sites/aspirob" }
+```
+
+Le collecteur lit le flux HTTP du site déployé ; si le flux ne répond pas, il retombe
+sur le dossier local, pour qu'un site tout juste généré n'empêche pas de construire le
+hub. L'historique de prix est toujours lu en local : c'est une série que ce dépôt
+accumule, pas quelque chose que le site publie.
+
+### Pourquoi ce hub n'est pas un PBN
+
+Un site central qui pointe vers vos autres sites a exactement la forme de ce que Google
+sanctionne comme *link scheme*, et l'empreinte est facile à recouper : une IP de VPS, un
+gabarit, un compte Cloudflare, un compte Partenaires. Ce qui fait la différence, c'est
+que le hub fasse quelque chose que ses membres ne peuvent pas faire. Ici, deux choses :
+
+- **chercher une situation** (« j'ai un chat ») à travers tous les sites, ce qu'aucun
+  site de niche ne peut faire puisqu'il ne connaît que ses propres pages ;
+- **l'historique des prix**, qui demande des mois de collecte répétée et qu'aucun
+  article ne peut produire.
+
+Trois règles en découlent, appliquées dans le code :
+
+- le hub **ne republie pas** les articles — titre, description et réponse directe, puis
+  lien vers la page d'origine. Recopier le contenu de ses propres sites en ferait du
+  contenu dupliqué ;
+- le hub **ne porte aucun lien rémunéré** : ce sont les sites de niche qui monétisent ;
+- le hub **dit qu'il édite les sites qu'il recense**, en pied de page et sur `/methode/`.
+  Un moteur qui recommande des sources dont il est l'éditeur et le tait serait la seule
+  vraie tromperie de ce montage.
+
+Le nom et le domaine du hub sont provisoires (`Comparo`, `comparo.example`) et vivent
+dans `hub/src/lib/site.ts`.

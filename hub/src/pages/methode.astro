@@ -1,0 +1,79 @@
+---
+/**
+ * La page qui rend ce montage honnête.
+ *
+ * Un moteur qui recommande des sources dont il est l'éditeur doit le dire, et
+ * le dire en clair plutôt qu'en note de bas de page. C'est aussi ce qui sépare
+ * un portail d'un réseau de sites monté pour se faire des liens entre eux.
+ */
+import Base from '../layouts/Base.astro';
+import { SITE } from '../lib/site';
+import network from '../data/network.json';
+---
+<Base
+  title="Méthode"
+  description={`Comment ${SITE.brand} recense les comparatifs du réseau, relève les prix, et qui l'édite.`}
+>
+  <h1 class="font-serif text-3xl md:text-4xl font-semibold tracking-tight mb-8">Méthode</h1>
+
+  <div class="prose prose-lg max-w-none
+              prose-headings:font-serif prose-headings:font-semibold prose-headings:tracking-tight
+              prose-h2:text-xl prose-h2:mt-9 prose-h2:mb-2
+              prose-p:text-body prose-p:leading-[1.7]
+              prose-a:text-accent prose-a:underline prose-a:underline-offset-2">
+
+    <h2>Qui édite ce site, et les sites qu'il recense</h2>
+    <p>
+      La même personne. {SITE.brand} n'est pas un comparateur indépendant qui aurait sélectionné
+      les meilleures sources du web : c'est le moteur de recherche d'un réseau de sites que
+      nous éditons nous-mêmes. Le taire serait la seule vraie tromperie possible ici, et c'est
+      pour ça que cette page existe avant les autres.
+    </p>
+    <p>
+      Ce site n'affiche aucun lien rémunéré. Les sites vers lesquels il renvoie en contiennent,
+      et le signalent sur chaque page concernée. Autrement dit : nous gagnons de l'argent si vous
+      achetez après avoir lu un de ces articles, pas en vous envoyant vers eux.
+    </p>
+
+    <h2>Ce que ce site apporte que les autres n'ont pas</h2>
+    <p>
+      Deux choses. La première : chercher une <strong>situation</strong> plutôt qu'un produit,
+      et trouver la réponse quel que soit le site du réseau qui l'a écrite. Un site de niche ne
+      connaît que ses propres pages.
+    </p>
+    <p>
+      La seconde : l'<a href="/prix/">historique des prix</a>. À chaque passage, nous relevons le
+      prix des produits cités dans le catalogue public de la boutique officielle de leur
+      fabricant, et nous <strong>empilons</strong> ces relevés au lieu de garder seulement le
+      dernier. Une série d'observations demande des mois de collecte : aucun article ne peut la
+      produire, et c'est ce qui justifie l'existence de ce site.
+    </p>
+
+    <h2>Ce que nous ne faisons pas</h2>
+    <p>
+      Nous ne republions pas les articles. Ce site affiche leur titre, leur description et le
+      paragraphe de réponse directe, puis renvoie vers la page d'origine — recopier le contenu
+      de nos propres sites en ferait du contenu dupliqué, et ne rendrait service à personne.
+    </p>
+    <p>
+      Nous n'affichons aucun prix estimé. Un prix sans sa source et sa date de relevé n'est pas
+      vérifiable, donc il n'est pas publié. Quand un fabricant ne publie pas de catalogue
+      lisible, le produit n'apparaît simplement pas dans le suivi des prix.
+    </p>
+    <p>
+      Nous ne testons pas les produits, sur aucun site du réseau. Ce qui est expliqué, ce sont les
+      différences structurelles entre appareils — celles qui restent vraies d'une génération de
+      produits à la suivante.
+    </p>
+
+    <h2>Les sites recensés</h2>
+    <ul>
+      {network.sites.map((s: any) => (
+        <li>
+          <a href={s.url}>{s.brand}</a> — {s.niche} ({s.articles.length} article{s.articles.length > 1 ? 's' : ''})
+        </li>
+      ))}
+    </ul>
+    <p class="text-sm">Recensement mis à jour le {network.generatedAt}.</p>
+  </div>
+</Base>

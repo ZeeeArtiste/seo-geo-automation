@@ -1,0 +1,90 @@
+---
+/**
+ * Historique d'un produit.
+ *
+ * Le graphique n'est dessiné qu'à partir de deux points : une courbe tracée
+ * sur une seule observation suggère une évolution qu'on n'a pas constatée.
+ */
+import Base from '../../layouts/Base.astro';
+import network from '../../data/network.json';
+import { parProduit, euros } from '../../lib/prix';
+
+export async function getStaticPaths() {
+  const net = (await import('../../data/network.json')).default as any;
+  const { parProduit } = await import('../../lib/prix');
+  return parProduit(net.observations ?? []).map((p) => ({ params: { produit: p.key } }));
+}
+
+const { produit } = Astro.params;
+const p = parProduit(network.observations ?? []).find((x) => x.key === produit)!;
+
+const W = 720, H = 220, M = 44;
+const prix = p.serie.map((o) => o.price);
+const min = Math.min(...prix), max = Math.max(...prix);
+const span = max - min || 1;
+const x = (i: number) => M + (i * (W - 2 * M)) / Math.max(1, p.serie.length - 1);
+const y = (v: number) => H - M - ((v - min) / span) * (H - 2 * M);
+const ligne = p.serie.map((o, i) => `${i ? 'L' : 'M'} ${x(i).toFixed(1)} ${y(o.price).toFixed(1)}`).join(' ');
+---
+<Base
+  title={`Prix relevés : ${p.product}`}
+  description={`Historique des prix relevés pour le ${p.product} dans le catalogue de la ${p.storeLabel}.`}
+>
+  <nav class="text-xs text-muted mb-4" aria-label="Fil d'Ariane">
+    <a href="/prix/" class="hover:text-accent underline underline-offset-4 decoration-lineStrong">Prix relevés</a>
+    <span aria-hidden="true"> › </span>{p.product}
+  </nav>
+
+  <h1 class="font-serif text-3xl md:text-4xl font-semibold tracking-tight mb-3">{p.product}</h1>
+  <p class="text-body max-w-prose leading-relaxed mb-8">
+    Relevés dans le catalogue public de la {p.storeLabel}. Dernier relevé :
+    <strong class="text-ink">{euros(p.dernier.price, p.currency)}</strong> le {p.dernier.date}.
+    {p.ecart !== null && p.ecart !== 0 && (
+      <> Soit {p.ecart > 0 ? '+' : ''}{euros(p.ecart, p.currency)} depuis le premier relevé du {p.premier.date}.</>
+    )}
+  </p>
+
+  {p.serie.length > 1 ? (
+    <figure class="mb-10">
+      <svg viewBox={`0 0 ${W} ${H}`} width={W} height={H} class="w-full h-auto border border-line rounded-md bg-surface"
+           role="img" aria-label={`Évolution du prix relevé, de ${euros(p.premier.price, p.currency)} le ${p.premier.date} à ${euros(p.dernier.price, p.currency)} le ${p.dernier.date}.`}>
+        <path d={ligne} fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linejoin="round" />
+        {p.serie.map((o, i) => <circle cx={x(i)} cy={y(o.price)} r="4" fill="#2563EB" />)}
+        <text x={M} y={H - 14} font-size="11" fill="#64748B">{p.premier.date}</text>
+        <text x={W - M} y={H - 14} font-size="11" fill="#64748B" text-anchor="end">{p.dernier.date}</text>
+      </svg>
+      <figcaption class="text-xs text-muted mt-2">
+        {p.serie.length} observations. Les intervalles entre points ne sont pas à l'échelle du temps.
+      </figcaption>
+    </figure>
+  ) : (
+    <p class="text-sm text-muted border border-line rounded-md bg-surface p-4 mb-10">
+      Une seule observation pour l'instant : il n'y a pas de courbe à tracer. La série se
+      constitue à chaque passage du collecteur.
+    </p>
+  )}
+
+  <h2 class="font-serif text-xl font-semibold tracking-tight mb-3">Tous les relevés</h2>
+  <table class="w-full text-sm border-y border-line mb-10">
+    <thead><tr class="text-left text-xs uppercase tracking-wider text-muted">
+      <th scope="col" class="py-2 font-medium">Date</th>
+      <th scope="col" class="py-2 font-medium">Prix</th>
+      <th scope="col" class="py-2 font-medium">Source</th>
+    </tr></thead>
+    <tbody class="divide-y divide-line">
+      {[...p.serie].reverse().map((o) => (
+        <tr>
+          <td class="py-2">{o.date}</td>
+          <td class="py-2 text-ink">{euros(o.price, o.currency)}</td>
+          <td class="py-2 text-muted">{o.storeLabel}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+
+  <p class="text-sm">
+    <a href={p.articleUrl} class="text-accent underline underline-offset-2 decoration-accentSoft hover:decoration-accent">
+      Ce que {p.brand} dit du {p.product}
+    </a>
+  </p>
+</Base>

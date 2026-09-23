@@ -1,0 +1,198 @@
+---
+import { SITE, NAV, HEADER_CTA } from '../lib/site';
+import '../styles/fonts.css';
+import '../styles/diagrams.css';
+
+interface Props {
+  title: string;
+  description: string;
+  jsonLd?: object[];
+  ogType?: 'website' | 'article';
+  ogImage?: string;
+  /** Conteneur élargi, pour les pages qui affichent une colonne latérale. */
+  wide?: boolean;
+  /** Rendu tel quel dans <title>, sans suffixe de marque (page d'accueil). */
+  rawTitle?: boolean;
+}
+const {
+  title,
+  description,
+  jsonLd = [],
+  ogType = 'website',
+  ogImage = '/og-default.png',
+  rawTitle = false,
+  wide = false,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const ogImageUrl = new URL(ogImage, SITE.url).href;
+const pageTitle = rawTitle ? title : `${title} — ${SITE.brand}`;
+
+// Ce site ne porte aucun lien rémunéré : il renvoie vers les articles des sites
+// du réseau, ce sont eux qui monétisent. Mais il édite ces sites, et le taire
+// serait la seule vraie tromperie de ce montage : un lecteur doit savoir que
+// le moteur qui lui recommande une source en est aussi l'éditeur.
+
+// Organization n'existait que NICHÉE comme `publisher` : l'entité de marque
+// n'était jamais déclarée en propre. On la pose comme bloc racine, avec un
+// @id que les autres schémas référencent au lieu de la redupliquer.
+const orgId = `${SITE.url}/#organization`;
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': orgId,
+  name: SITE.brand,
+  url: SITE.url,
+  description: SITE.description,
+  logo: {
+    '@type': 'ImageObject',
+    url: new URL('/apple-touch-icon.png', SITE.url).href,
+    width: 180,
+    height: 180,
+  },
+  // sameAs reste à renseigner : aucun profil social n'existe aujourd'hui, et
+  // en inventer un casserait la résolution d'entité plutôt que de l'aider.
+};
+
+// Schéma WebSite : permet à Google d'associer le nom du site au domaine.
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${SITE.url}/#website`,
+  name: SITE.brand,
+  url: SITE.url,
+  inLanguage: SITE.lang,
+  description: SITE.description,
+  publisher: { '@id': orgId },
+};
+---
+<!doctype html>
+<html lang={SITE.lang}>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{pageTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="alternate icon" href="/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content={ogType} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:site_name" content={SITE.brand} />
+  <meta property="og:locale" content={SITE.locale} />
+  <meta property="og:image" content={ogImageUrl} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={pageTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageUrl} />
+
+  <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+  {jsonLd.map((schema) => (
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  ))}
+</head>
+
+<body class="bg-paper text-ink font-sans antialiased flex flex-col min-h-screen">
+  <header class="border-b border-line sticky top-0 z-40 bg-paper/95 backdrop-blur supports-[backdrop-filter]:bg-paper/80">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center gap-6">
+      <!-- Gauche : marque -->
+      <a href="/" class="flex items-center gap-2.5 shrink-0 group" aria-label={`${SITE.brand}, accueil`}>
+        <svg viewBox="0 0 64 64" width="28" height="28" aria-hidden="true" class="shrink-0">
+          <rect width="64" height="64" rx="12" fill="#0F172A" />
+          <g stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" fill="none">
+            <path d="M16 20h26a6 6 0 0 1 0 12H22a6 6 0 0 0 0 12h26" />
+          </g>
+          <circle cx="46" cy="20" r="4.5" fill="#2563EB" />
+        </svg>
+        <span class="font-serif text-lg font-semibold tracking-tight group-hover:text-accent transition-colors">
+          {SITE.brand}
+        </span>
+      </a>
+
+      <!-- Centre : navigation par catégorie -->
+      <nav aria-label="Navigation principale" class="hidden sm:block">
+        <ul class="flex gap-6 text-sm">
+          {NAV.map((item) => {
+            const active = Astro.url.pathname.startsWith(item.href);
+            return (
+              <li>
+                <a
+                  href={item.href}
+                  aria-current={active ? 'page' : undefined}
+                  class={`py-1 border-b-2 transition-colors ${
+                    active
+                      ? 'border-accent text-ink font-medium'
+                      : 'border-transparent text-muted hover:text-ink'
+                  }`}
+                >
+                  {item.label}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+
+      <!-- Droite : appel à l'action -->
+      <a
+        href={HEADER_CTA.href}
+        class="ml-auto shrink-0 inline-flex items-center gap-1.5 rounded-md bg-ink px-3.5 py-2 text-sm font-medium text-paper transition-colors hover:bg-accent"
+      >
+        {HEADER_CTA.label}
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <!-- Sous 640 px, la navigation passe sous la marque plutôt que dans un
+         menu déroulant : deux entrées ne justifient pas un hamburger. -->
+    <nav aria-label="Catégories" class="sm:hidden border-t border-line">
+      <ul class="max-w-6xl mx-auto px-6 flex gap-5 text-sm h-11 items-center">
+        {NAV.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              aria-current={Astro.url.pathname.startsWith(item.href) ? 'page' : undefined}
+              class={Astro.url.pathname.startsWith(item.href) ? 'text-ink font-medium' : 'text-muted'}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </header>
+
+  <main class={`${wide ? 'max-w-6xl' : 'max-w-3xl'} mx-auto px-6 py-12 w-full flex-1`}>
+    <slot />
+  </main>
+
+  <footer class="border-t border-line mt-16">
+    <div class="max-w-3xl mx-auto px-6 py-10 text-sm text-muted space-y-4">
+      <p class="max-w-prose text-xs">
+        {SITE.brand} n'affiche aucun lien rémunéré. Les sites vers lesquels il renvoie sont
+        édités par la même personne et contiennent, eux, des liens affiliés —
+        <a class="hover:text-ink underline underline-offset-4 decoration-lineStrong" href="/methode/">comment ce réseau fonctionne</a>.
+      </p>
+      <nav aria-label="Pages légales">
+        <ul class="flex flex-wrap gap-x-5 gap-y-2">
+          <li><a class="hover:text-ink underline underline-offset-4 decoration-lineStrong" href="/prix/">Prix relevés</a></li>
+          <li><a class="hover:text-ink underline underline-offset-4 decoration-lineStrong" href="/methode/">Méthode</a></li>
+          <li><a class="hover:text-ink underline underline-offset-4 decoration-lineStrong" href="/mentions-legales/">Mentions légales</a></li>
+          <li><a class="hover:text-ink underline underline-offset-4 decoration-lineStrong" href="/confidentialite/">Confidentialité</a></li>
+        </ul>
+      </nav>
+      <p>© {new Date().getFullYear()} {SITE.brand}. Tous droits réservés.</p>
+    </div>
+  </footer>
+</body>
+</html>
