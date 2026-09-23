@@ -128,6 +128,40 @@ def match(name, store):
     return hits
 
 
+def log_observation(site, rows):
+    """Empile les relevés dans un journal, au lieu de n'en garder que le dernier.
+
+    Le frontmatter ne porte que le prix courant : c'est ce dont l'article a
+    besoin. Mais un prix relevé et jeté est une observation perdue, et une
+    série d'observations vaut beaucoup plus que la dernière — c'est ce qu'un
+    site de niche ne peut pas produire seul, puisque ça demande une collecte
+    répétée sur des mois.
+
+    Une observation est identifiée par (produit, boutique, jour) : relancer le
+    script le même jour corrige la ligne du jour au lieu d'en ajouter une.
+    """
+    f = pathlib.Path(site) / 'price-history.jsonl'
+    kept = {}
+    if f.exists():
+        for line in f.read_text(encoding='utf-8').splitlines():
+            if not line.strip():
+                continue
+            try:
+                o = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            kept[(o.get('product'), o.get('store'), o.get('date'))] = o
+    added = 0
+    for o in rows:
+        k = (o['product'], o['store'], o['date'])
+        if k not in kept:
+            added += 1
+        kept[k] = o
+    ordered = sorted(kept.values(), key=lambda o: (o['date'], o['product']))
+    f.write_text(''.join(json.dumps(o, ensure_ascii=False) + '\n' for o in ordered), encoding='utf-8')
+    return added, len(ordered)
+
+
 PRICE_KEYS = ('price', 'priceCurrency', 'priceSource', 'priceCheckedAt')
 
 
@@ -145,7 +179,7 @@ def write_prices(path, today):
     block = m.group(1)
     chunks = re.split(r'(?=^  - name: )', block, flags=re.M)
     priced = missing = 0
-    out = []
+    out, seen = [], []
     for c in chunks:
         if not c.strip():
             out.append(c)
@@ -165,6 +199,9 @@ def write_prices(path, today):
             priced += 1
             src = STORES[store][1]
             print(f"  ✅ {name[:42]:<44} {price:.2f} € — {src}")
+            seen.append({'date': today, 'article': path.stem, 'product': name,
+                         'store': store, 'storeLabel': src, 'price': price,
+                         'currency': 'EUR', 'url': url})
             c = c.rstrip('\n') + (
                 f'\n    price: {price:g}'
                 f'\n    priceCurrency: "EUR"'
@@ -174,7 +211,7 @@ def write_prices(path, today):
         out.append(c)
     s = s[:m.start(1)] + ''.join(out) + s[m.end(1):]
     path.write_text(s, encoding='utf-8')
-    return priced, missing
+    return priced, missing, seen
 
 
 def main():
@@ -220,15 +257,21 @@ def main():
     arts = sorted((site / 'src/content/articles').glob('*.md'))
     today = datetime.date.today().isoformat()
     touched = priced = missing = 0
+    journal = []
 
     for f in arts:
         if not re.search(r'^products:\n', f.read_text(encoding='utf-8'), re.M):
             continue
         print(f"\n{f.name}")
         touched += 1
-        p_, m_ = write_prices(f, today)
+        p_, m_, obs = write_prices(f, today)
         priced += p_
         missing += m_
+        journal += obs
+
+    if journal:
+        added, total = log_observation(a.site, journal)
+        print(f"\n📈 price-history.jsonl : +{added} observation(s), {total} au total")
 
     print(f"\n{touched} article(s) avec produits · {priced} prix relevés · {missing} sans prix")
     if missing:

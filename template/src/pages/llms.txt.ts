@@ -31,10 +31,14 @@ export async function GET() {
 
   lines.push(
     '',
+    `Flux machine de ce site : ${SITE.url}/index.json`,
+    '',
     '## Méthode éditoriale',
     '',
     "- Les produits ne sont pas testés : aucun score ni mesure n'est présenté comme issu de nos tests.",
-    "- Aucun prix n'est affiché : les tarifs varient trop vite pour rester exacts dans un article.",
+    "- Un prix n'est affiché que s'il a pu être relevé dans le catalogue public de la boutique",
+    "  officielle du fabricant. Il porte alors sa source et sa date de relevé, et le marchand vers",
+    "  lequel le lien renvoie peut en pratiquer un autre. Aucun prix n'est estimé.",
     "- Aucune donnée chiffrée non vérifiable n'est publiée, y compris les puissances en pascals,",
     "  qui ne sont pas mesurées selon une norme commune entre fabricants.",
     '- Les articles sont rédigés avec assistance IA puis relus et corrigés à la main.',
