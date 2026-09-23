@@ -59,22 +59,21 @@ const releveLe = p.priceCheckedAt
         </div>
       )}
 
-      {/* Chaque prix appartient au lien qui le vend. Un tarif relevé chez le
-          fabricant affiché au-dessus d'un bouton menant ailleurs laissait
-          croire que c'était celui du marchand : les deux sont donc des lignes
-          distinctes, et celle dont le prix n'est pas relevable l'annonce
-          plutôt que d'emprunter celui de l'autre. */}
-      {(p.url || p.sourceUrl) && (
+      {/* Deux lignes, un seul lien. Le prix relevé chez le fabricant reste
+          affiché et nommément attribué — sans cela, placé juste au-dessus du
+          bouton marchand, il passerait pour celui du marchand. Mais il n'est
+          plus cliquable : un lien non rémunéré vers une boutique concurrente
+          ne fait que détourner le clic qui finance le site. La boutique dont
+          le prix n'est pas relevable ne produit donc plus aucune ligne. */}
+      {(p.url || prix) && (
         <div class="produit-achat">
           <p class="produit-achat-titre">Où acheter</p>
           <ul>
-            {p.sourceUrl && (
-              <li>
-                <a href={p.sourceUrl} rel="noopener" target="_blank">{boutique}</a>
+            {prix && (
+              <li class="est-reference">
+                <span>{boutique}</span>
                 <span class="produit-achat-prix">
-                  {prix
-                    ? <><strong>{prix}</strong>{releveLe && <small>relevé le {releveLe}</small>}</>
-                    : <em>voir le prix</em>}
+                  <strong>{prix}</strong>{releveLe && <small>relevé le {releveLe}</small>}
                 </span>
               </li>
             )}

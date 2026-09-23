@@ -519,6 +519,18 @@ figure.fiche img {
 
 .produit-achat li a:hover { color: #2563eb; }
 
+/* Ligne de référence : elle informe, elle ne mène nulle part. Elle est donc
+   posée en retrait du bouton marchand, sans affordance de lien. */
+.produit-achat li.est-reference {
+  background: #f7f8fa;
+  border-style: dashed;
+}
+
+.produit-achat li.est-reference > span:first-child {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
 .produit-achat-prix {
   display: flex;
   flex-wrap: wrap;
