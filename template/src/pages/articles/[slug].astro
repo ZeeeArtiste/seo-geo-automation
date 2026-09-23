@@ -79,6 +79,29 @@ const articleSchema = {
   image: [new URL(`/og-${article.slug}.png`, SITE.url).href],
 };
 
+// Un Product n'est éligible au résultat enrichi que s'il porte une offre.
+// On n'en génère donc que pour les produits dont le prix a été RELEVÉ.
+const productSchemas = data.products
+  .filter((p) => p.price !== undefined)
+  .map((p) => ({
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: p.name,
+    description: p.summary,
+    ...(p.schematic ? { image: [new URL(p.schematic, SITE.url).href] } : {}),
+    offers: {
+      '@type': 'Offer',
+      price: p.price,
+      priceCurrency: p.priceCurrency ?? 'EUR',
+      // Date au-delà de laquelle le prix ne doit plus être présenté comme valide.
+      priceValidUntil: new Date(
+        new Date(p.priceCheckedAt ?? Date.now()).getTime() + 30 * 864e5
+      ).toISOString().slice(0, 10),
+      availability: 'https://schema.org/InStock',
+      ...(p.url ? { url: p.url } : {}),
+    },
+  }));
+
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -101,7 +124,7 @@ const breadcrumbSchema = {
   ogType="article"
   ogImage={`/og-${article.slug}.png`}
   wide
-  jsonLd={[articleSchema, breadcrumbSchema, faqSchema]}
+  jsonLd={[articleSchema, breadcrumbSchema, faqSchema, ...productSchemas]}
 >
   <div class="lg:grid lg:grid-cols-[15rem_minmax(0,1fr)] lg:gap-10 xl:gap-14">
     <!-- Colonne latérale : sommaire collant, masqué sous lg où la version

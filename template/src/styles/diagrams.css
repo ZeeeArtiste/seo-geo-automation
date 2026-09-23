@@ -498,3 +498,26 @@ figure.fiche img {
 }
 
 .affiliation a:hover { color: #2563eb; text-decoration-color: #2563eb; }
+
+/* ── Prix relevé ───────────────────────────────────────────────────────
+   Toujours accompagné de sa date et de sa source : c'est ce qui en fait
+   une observation vérifiable plutôt qu'un chiffre affirmé. */
+.produit-prix {
+  margin: 0 0 0.9rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.produit-prix strong {
+  font-size: 1.3rem;
+  color: #0f172a;
+  font-weight: 600;
+}
+
+.produit-prix span {
+  font-size: 0.78rem;
+  color: #64748b;
+  line-height: 1.4;
+}

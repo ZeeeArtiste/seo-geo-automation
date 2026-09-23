@@ -8,6 +8,7 @@ interface Props {
   product: {
     name: string; summary: string; schematic?: string; url?: string;
     pros: string[]; cons: string[];
+    price?: number; priceCurrency?: string; priceSource?: string; priceCheckedAt?: string;
   };
   index?: number;
 }
@@ -28,6 +29,16 @@ const { product: p, index } = Astro.props;
 
     <div class="produit-texte">
       <p class="produit-resume">{p.summary}</p>
+
+      {p.price !== undefined && (
+        <p class="produit-prix">
+          <strong>{p.price.toLocaleString('fr-FR', { style: 'currency', currency: p.priceCurrency ?? 'EUR', maximumFractionDigits: 0 })}</strong>
+          <span>
+            relevé le {new Date(p.priceCheckedAt ?? Date.now()).toLocaleDateString('fr-FR')}
+            {p.priceSource ? ` sur la ${p.priceSource}` : ''} — il a pu changer depuis
+          </span>
+        </p>
+      )}
 
       {(p.pros.length > 0 || p.cons.length > 0) && (
         <div class="verdict">
