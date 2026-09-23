@@ -98,7 +98,14 @@ const productSchemas = data.products
         new Date(p.priceCheckedAt ?? Date.now()).getTime() + 30 * 864e5
       ).toISOString().slice(0, 10),
       availability: 'https://schema.org/InStock',
-      ...(p.url ? { url: p.url } : {}),
+      // L'URL de l'offre est celle où CE prix est pratiqué, pas le lien
+      // d'affiliation. Annoncer un tarif relevé chez le fabricant en le
+      // rattachant à la fiche d'un autre marchand est un écart que Google
+      // vérifie, et c'est surtout faux.
+      ...(p.sourceUrl ?? p.url ? { url: p.sourceUrl ?? p.url } : {}),
+      ...(p.priceSource
+        ? { seller: { '@type': 'Organization', name: p.priceSource } }
+        : {}),
     },
   }));
 

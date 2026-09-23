@@ -1,21 +1,36 @@
 ---
 /**
  * Fiche produit groupée : schéma, description, points forts / à savoir et
- * appel à l'action dans un seul bloc. Empilés séparément, ces éléments ne
+ * liens d'achat dans un seul bloc. Empilés séparément, ces éléments ne
  * disaient pas qu'ils parlaient du même produit.
  */
 interface Props {
   product: {
-    name: string; summary: string; schematic?: string; url?: string; sourceUrl?: string; affiliate?: boolean;
-    pros: string[]; cons: string[];
+    name: string; summary: string; schematic?: string; url?: string; sourceUrl?: string;
+    affiliate?: boolean; pros: string[]; cons: string[];
     price?: number; priceCurrency?: string; priceSource?: string; priceCheckedAt?: string;
   };
   index?: number;
 }
 const { product: p, index } = Astro.props;
-// Le libellé du bouton nomme le marchand : « Voir sur Amazon » dit où l'on
-// atterrit, ce que « Voir le produit » cache. Déduit de l'URL, jamais supposé.
-const marchand = p.url?.includes('amazon.') ? 'Amazon' : null;
+
+// Le libellé nomme le marchand : « Amazon » dit où l'on atterrit, ce que
+// « Voir le produit » cache. Déduit de l'URL, jamais supposé.
+const marchand = p.url?.includes('amazon.') ? 'Amazon' : 'Le marchand';
+const boutique = p.priceSource
+  ? p.priceSource.charAt(0).toUpperCase() + p.priceSource.slice(1)
+  : 'Boutique officielle';
+const prix =
+  p.price !== undefined
+    ? p.price.toLocaleString('fr-FR', {
+        style: 'currency',
+        currency: p.priceCurrency ?? 'EUR',
+        maximumFractionDigits: 2,
+      })
+    : null;
+const releveLe = p.priceCheckedAt
+  ? new Date(p.priceCheckedAt).toLocaleDateString('fr-FR')
+  : null;
 ---
 <article class="produit">
   <div class="produit-tete">
@@ -33,20 +48,6 @@ const marchand = p.url?.includes('amazon.') ? 'Amazon' : null;
     <div class="produit-texte">
       <p class="produit-resume">{p.summary}</p>
 
-      {p.price !== undefined && (
-        <p class="produit-prix">
-          <strong>{p.price.toLocaleString('fr-FR', { style: 'currency', currency: p.priceCurrency ?? 'EUR', maximumFractionDigits: 2 })}</strong>
-          <span>
-            relevé le {new Date(p.priceCheckedAt ?? Date.now()).toLocaleDateString('fr-FR')}
-            {p.priceSource && ' sur la '}
-            {p.priceSource && (p.sourceUrl
-              ? <a href={p.sourceUrl} rel="noopener" target="_blank">{p.priceSource}</a>
-              : p.priceSource)}
-            {' '}— il a pu changer depuis, et le prix du marchand peut différer
-          </span>
-        </p>
-      )}
-
       {(p.pros.length > 0 || p.cons.length > 0) && (
         <div class="verdict">
           {p.pros.length > 0 && (
@@ -58,17 +59,35 @@ const marchand = p.url?.includes('amazon.') ? 'Amazon' : null;
         </div>
       )}
 
-      {p.url && (
-        <p class="produit-cta">
-          {/* « sponsored » décrit une contrepartie financière. Sur un lien vers
-              la boutique du fabricant, qui n'en rapporte aucune, l'annoncer
-              serait faux — et Google traite la déclaration comme une donnée. */}
-          <a href={p.url} rel={p.affiliate ? 'sponsored nofollow noopener' : 'noopener'} target="_blank">
-            {p.affiliate
-              ? (marchand ? `Voir ${p.name} sur ${marchand}` : `Voir ${p.name}`)
-              : `Fiche officielle : ${p.name}`}
-          </a>
-        </p>
+      {/* Chaque prix appartient au lien qui le vend. Un tarif relevé chez le
+          fabricant affiché au-dessus d'un bouton menant ailleurs laissait
+          croire que c'était celui du marchand : les deux sont donc des lignes
+          distinctes, et celle dont le prix n'est pas relevable l'annonce
+          plutôt que d'emprunter celui de l'autre. */}
+      {(p.url || p.sourceUrl) && (
+        <div class="produit-achat">
+          <p class="produit-achat-titre">Où acheter</p>
+          <ul>
+            {p.sourceUrl && (
+              <li>
+                <a href={p.sourceUrl} rel="noopener" target="_blank">{boutique}</a>
+                <span class="produit-achat-prix">
+                  {prix
+                    ? <><strong>{prix}</strong>{releveLe && <small>relevé le {releveLe}</small>}</>
+                    : <em>voir le prix</em>}
+                </span>
+              </li>
+            )}
+            {p.url && (
+              <li class="est-principal">
+                <a href={p.url} rel={p.affiliate ? 'sponsored nofollow noopener' : 'noopener'} target="_blank">
+                  {marchand}
+                </a>
+                <span class="produit-achat-prix"><em>voir le prix</em></span>
+              </li>
+            )}
+          </ul>
+        </div>
       )}
     </div>
   </div>

@@ -404,30 +404,6 @@ figure.fiche img {
 
 .produit .verdict { margin: 0 0 1rem; }
 
-.produit-cta { margin: 0; }
-
-.produit-cta a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  /* 48 px : cible tactile recommandée. Sans ce minimum, un libellé court
-     tenant sur une ligne produisait un bouton de 41 px, et deux cartes
-     voisines n'avaient pas la même hauteur de bouton selon la longueur
-     du nom de produit. */
-  min-height: 48px;
-  gap: 0.45em;
-  padding: 0.6em 1.15em;
-  background: #2563eb;
-  color: #fff;
-  font-size: 0.95rem;
-  font-weight: 500;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: background 0.15s ease;
-}
-
-.produit-cta a:hover { background: #1d4ed8; }
-.produit-cta a::after { content: '→'; font-weight: 400; }
 
 /* ── Tableau comparatif ────────────────────────────────────────────── */
 .tableau-wrap { overflow-x: auto; margin-bottom: 1.5rem; }
@@ -499,25 +475,71 @@ figure.fiche img {
 
 .affiliation a:hover { color: #2563eb; text-decoration-color: #2563eb; }
 
-/* ── Prix relevé ───────────────────────────────────────────────────────
-   Toujours accompagné de sa date et de sa source : c'est ce qui en fait
-   une observation vérifiable plutôt qu'un chiffre affirmé. */
-.produit-prix {
-  margin: 0 0 0.9rem;
+/* ── Où acheter ─────────────────────────────────────────────────────────
+   Chaque prix appartient au lien qui le vend. Un tarif relevé chez le
+   fabricant, affiché au-dessus d'un bouton menant vers un autre marchand,
+   laissait croire qu'il était celui de ce marchand. Une ligne par boutique
+   supprime l'ambiguïté, et celle dont le prix n'est pas relevable l'annonce
+   plutôt que d'emprunter celui de la voisine. */
+.produit-achat { margin: 0; }
+
+.produit-achat-titre {
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.produit-achat ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.produit-achat li {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  gap: 0.5rem;
+  justify-content: space-between;
+  gap: 0.35rem 0.9rem;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: #fff;
 }
 
-.produit-prix strong {
-  font-size: 1.3rem;
+.produit-achat li a {
+  font-weight: 500;
   color: #0f172a;
-  font-weight: 600;
+  text-decoration: none;
 }
 
-.produit-prix span {
-  font-size: 0.78rem;
-  color: #64748b;
-  line-height: 1.4;
+.produit-achat li a:hover { color: #2563eb; }
+
+.produit-achat-prix {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.45rem;
 }
+
+.produit-achat-prix strong { font-size: 1.15rem; color: #0f172a; font-weight: 600; }
+.produit-achat-prix small { font-size: 0.72rem; color: #64748b; }
+.produit-achat-prix em { font-size: 0.85rem; color: #64748b; font-style: normal; }
+
+/* La ligne marchande reste l'action principale : contraste, et les 48 px de
+   cible tactile recommandés. */
+.produit-achat li.est-principal {
+  min-height: 48px;
+  align-items: center;
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+.produit-achat li.est-principal a { color: #fff; }
+.produit-achat li.est-principal a:hover { color: #fff; text-decoration: underline; }
+.produit-achat li.est-principal a::after { content: ' →'; font-weight: 400; }
+.produit-achat li.est-principal .produit-achat-prix em { color: rgba(255, 255, 255, 0.85); }
