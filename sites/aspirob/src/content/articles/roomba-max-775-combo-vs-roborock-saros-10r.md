@@ -7,6 +7,7 @@ updatedDate: "2026-09-23"
 directAnswer: "Le Roborock Saros 10R tient en 7,98 cm et passe sous les meubles bas, au prix d'une navigation sans tourelle plus récente. Le Roomba Max 775 Combo mise sur un LiDAR classique, deux brosses en caoutchouc et une base qui lave la serpillière à 75 °C. Environ cent euros les séparent."
 draft: false
 affiliate: true
+usecase: {"label": "Surtout du carrelage ou du parquet", "hint": "La question du lavage des sols."}
 cover: "/photos/roomba-max-775-combo-vs-roborock-saros-10r.webp"
 cluster: "sols-et-lavage"
 category: "Comparatif"

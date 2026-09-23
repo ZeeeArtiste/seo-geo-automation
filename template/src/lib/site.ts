@@ -4,13 +4,13 @@
  * ces valeurs se dispersent dans les gabarits.
  */
 export const SITE = {
-  brand: 'Aspirob',
-  niche: 'aspirateurs robots',
-  domain: 'aspirob.com',
-  url: 'https://aspirob.com',
-  tagline: "Guides et comparatifs d'aspirateurs robots",
+  brand: '{{BRAND}}',
+  niche: '{{NICHE}}',
+  domain: '{{DOMAIN}}',
+  url: 'https://{{DOMAIN}}',
+  tagline: "Guides et comparatifs : {{NICHE}}",
   description:
-    "Guides d'achat et comparatifs indépendants sur les aspirateurs robots : navigation, brosses, entretien. Sans chiffres invérifiés ni photos de catalogue.",
+    "Guides d'achat et comparatifs indépendants : {{NICHE}}. Les différences structurelles, expliquées. Sans chiffres invérifiés ni photos de catalogue.",
   locale: 'fr_FR',
   lang: 'fr',
 } as const;
@@ -20,9 +20,9 @@ export const SITE = {
  * moteurs génératifs privilégient le contenu attribuable à quelqu'un.
  */
 export const AUTHOR = {
-  name: 'Dany Derensy',
+  name: '{{AUTHOR}}',
   role: 'Éditeur du site',
-  url: 'https://aspirob.com/mentions-legales/',
+  url: 'https://{{DOMAIN}}/mentions-legales/',
 } as const;
 
 /**
@@ -30,9 +30,9 @@ export const AUTHOR = {
  * L'hébergeur a été relevé via RDAP sur l'IP du serveur.
  */
 export const LEGAL = {
-  editor: 'Dany Derensy',
+  editor: '{{AUTHOR}}',
   editorStatus: 'Éditeur individuel',
-  contactEmail: 'contact@aspirob.com',
+  contactEmail: 'contact@{{DOMAIN}}',
   // ⚠️ À compléter : l'adresse postale de l'éditeur est légalement obligatoire.
   editorAddress: null as string | null,
   host: {
@@ -40,7 +40,7 @@ export const LEGAL = {
     address: 'Industriestr. 25, 91710 Gunzenhausen, Allemagne',
     url: 'https://www.hetzner.com',
   },
-  publicationDirector: 'Dany Derensy',
+  publicationDirector: '{{AUTHOR}}',
 } as const;
 
 /** Navigation par catégorie : les pages /comparatifs/ et /guides/ sont
@@ -53,5 +53,5 @@ export const NAV = [
 /** Bouton d'action de l'en-tête : le contenu le plus commercial du site. */
 export const HEADER_CTA = {
   href: '/comparatifs/',
-  label: 'Quel robot choisir ?',
+  label: 'Par où commencer ?',
 } as const;

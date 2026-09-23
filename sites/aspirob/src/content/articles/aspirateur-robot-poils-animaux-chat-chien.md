@@ -7,6 +7,7 @@ updatedDate: "2026-09-23"
 directAnswer: "Les aspirateurs robots qui s'en sortent avec les poils de chat sont ceux équipés d'une brosse principale en caoutchouc, sans soies filiformes, et d'un système de démêlage. Sans ces deux caractéristiques, le rouleau s'enroule de poils toutes les deux ou trois utilisations et perd en aspiration."
 draft: false
 affiliate: true
+usecase: {"label": "J'ai un chat ou un chien", "hint": "Le critère qui compte est la brosse."}
 cover: "/photos/aspirateur-robot-poils-animaux-chat-chien.webp"
 cluster: "animaux"
 category: "Comparatif"

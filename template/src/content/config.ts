@@ -29,6 +29,13 @@ const articles = defineCollection({
     // Sans lui, « À lire aussi » rapprochait deux comparatifs sans rapport de
     // sujet — l'article LiDAR pointait vers l'article poils de chat.
     cluster: z.string().optional(),
+    // Situation de lecteur menant à cet article, pour le bloc « Par où
+    // commencer » de l'accueil. Portée par l'article et non par la page
+    // d'accueil : une liste de slugs écrite en dur dans le gabarit ne survit
+    // pas à la génération d'un site sur une autre niche.
+    usecase: z
+      .object({ label: z.string(), hint: z.string() })
+      .optional(),
     // Un seul article mis en avant en page d'accueil.
     featured: z.boolean().default(false),
     // Vignette affichée en page d'accueil. Optionnelle : sans elle, l'entrée

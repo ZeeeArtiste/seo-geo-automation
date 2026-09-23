@@ -29,17 +29,17 @@ const { category, articles } = Astro.props;
 const COPY: Record<string, { lede: string; body: string; meta: string; h2: string; seoTitle?: string }> = {
   Comparatif: {
     lede: 'Face-à-face entre modèles, sur les différences qui comptent vraiment.',
-    body: "Nos comparatifs opposent deux appareils sur ce qui les sépare structurellement — la technologie de navigation, le type de brosse principale, les modules de la station — plutôt que sur des fiches techniques que personne ne peut vérifier. Vous n'y trouverez ni note sur dix ni prix : les tarifs varient trop vite pour rester justes, et nous ne testons pas les produits.",
-    meta: "Comparatifs d'aspirateurs robots : navigation, brosses et stations comparées sur les différences structurelles, sans prix ni note inventée.",
+    body: "Nos comparatifs opposent deux appareils sur ce qui les sépare structurellement — la technologie employée, les composants qui s'usent, ce que chacun sait faire et ne sait pas faire — plutôt que sur des fiches techniques que personne ne peut vérifier. Vous n'y trouverez pas de note sur dix : nous ne testons pas les produits. Les prix affichés, eux, sont relevés chez le fabricant, datés et attribués — jamais estimés.",
+    meta: "Comparatifs : {{NICHE}}. Les différences structurelles entre modèles, sans note ni chiffre inventé.",
     h2: 'Tous nos comparatifs',
-    seoTitle: "Comparatifs d'aspirateurs robots",
+    seoTitle: "Comparatifs : {{NICHE}}",
   },
   Guide: {
     lede: "Comprendre le sujet avant d'acheter.",
-    body: "Nos guides expliquent le fonctionnement des aspirateurs robots : comment un laser cartographie une pièce, pourquoi certaines zones sont systématiquement ratées, ce qui distingue une brosse en caoutchouc d'une brosse à soies. Ce sont les critères qui restent valables d'une génération de produits à la suivante, contrairement aux caractéristiques commerciales.",
-    meta: "Guides sur les aspirateurs robots : navigation LiDAR, caméra, types de brosse et erreurs d'installation expliqués simplement avant d'acheter.",
+    body: "Nos guides expliquent le fonctionnement de ce que vous achetez : comment la technologie marche réellement, pourquoi certains problèmes reviennent toujours, ce qui distingue deux composants qui se ressemblent. Ce sont les critères qui restent valables d'une génération de produits à la suivante, contrairement aux arguments commerciaux.",
+    meta: "Guides : {{NICHE}}. Le fonctionnement et les critères de choix expliqués simplement avant d'acheter.",
     h2: 'Tous nos guides',
-    seoTitle: "Guides d'achat : aspirateurs robots",
+    seoTitle: "Guides d'achat : {{NICHE}}",
   },
   Test: { lede: 'Nos retours détaillés.', body: '', meta: 'Nos retours détaillés.', h2: 'Tous nos tests' },
   Actualité: { lede: 'Ce qui bouge dans la catégorie.', body: '', meta: 'Ce qui bouge dans la catégorie.', h2: 'Toute l\'actualité' },

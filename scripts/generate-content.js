@@ -43,7 +43,7 @@ async function loadAffiliateLinks() {
 // contenu quasi-dupliqué qui déclenche les pénalités "contenu de faible valeur"
 async function generateTitles(niche, count) {
   const msg = await client.messages.create({
-    model: 'claude-sonnet-4-6',
+    model: 'claude-sonnet-5',
     max_tokens: 1500,
     messages: [{
       role: 'user',
@@ -66,7 +66,7 @@ async function generateArticle(niche, titleObj, affiliateLinks) {
     : 'Aucun lien affilié fourni — écris l\'article sans lien produit spécifique.';
 
   const msg = await client.messages.create({
-    model: 'claude-sonnet-4-6',
+    model: 'claude-sonnet-5',
     max_tokens: 4000,
     messages: [{
       role: 'user',
@@ -99,6 +99,10 @@ Réponds UNIQUEMENT en JSON avec cette structure exacte:
   "metaDescription": "150-160 caractères pour la balise meta description",
   "seoTitle": "titre COURT pour la balise <title> : 45 caractères MAXIMUM, mots-clés en tête. Le titre éditorial long reste en H1 ; celui-ci doit tenir dans les ~60 caractères affichés par Google, suffixe de marque compris.",
   "directAnswer": "le paragraphe de réponse directe, 40 à 60 mots (identique au premier paragraphe de l'article)",
+  "usecase": {
+    "label": "la SITUATION du lecteur que cet article résout, formulée à la première personne et telle qu'il la dirait lui-même : « J'ai un chat ou un chien », « Mon robot rate toujours les mêmes zones ». Pas un titre, pas un mot-clé — une phrase de 4 à 8 mots.",
+    "hint": "ce que l'article tranche pour lui, en 4 à 8 mots"
+  },
   "bodyMarkdown": "le corps de l'article en Markdown, SANS la FAQ et SANS fiches produit",
   "products": [
     {
@@ -251,7 +255,11 @@ description: "${article.metaDescription.replace(/"/g, '\\"')}"
 publishDate: "${new Date().toISOString().split('T')[0]}"
 directAnswer: "${article.directAnswer.replace(/"/g, '\\"').replace(/\n/g, ' ')}"
 draft: ${isDraft}
-affiliate: ${usedAffiliate}
+affiliate: ${usedAffiliate}${
+      article.usecase?.label && article.usecase?.hint
+        ? `\nusecase: ${JSON.stringify(article.usecase)}`
+        : ''
+    }
 products: ${JSON.stringify(products)}
 faq: ${JSON.stringify(article.faq)}
 ---

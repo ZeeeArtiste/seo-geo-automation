@@ -164,14 +164,25 @@ Les produits d'un article vivent dans le **frontmatter**, pas dans le corps Mark
 
 ```yaml
 products:
-  - name: "Roborock S8 Pro Ultra"
+  - name: "Modèle A"
     summary: "..."
-    schematic: "/fiches/roborock-s8-pro-ultra.svg"   # optionnel
-    url: "https://www.amazon.fr/dp/...?tag=..."
+    schematic: "/fiches/modele-a.svg"                # optionnel
+    url: "https://www.amazon.fr/dp/...?tag=..."      # le lien marchand
+    affiliate: true                                  # false = lien non rémunéré
+    sourceUrl: "https://boutique-fabricant/..."      # d'où vient le prix
     pros: ["..."]
     cons: ["..."]
-    attrs: { "Navigation": "LiDAR", "Lavage des sols": "Serpillière" }
+    attrs: { "Critère": "valeur courte" }
+    price: 499
+    priceCurrency: "EUR"
+    priceSource: "boutique officielle Fabricant"
+    priceCheckedAt: "2026-09-23"
 ```
+
+Les quatre champs de prix vont **ensemble** : un prix sans sa source ni sa date d'observation
+n'est pas vérifiable. Ils sont posés par `scripts/fetch-prices.py --site … --update`, jamais
+à la main. `affiliate` et `sourceUrl` séparent deux rôles qu'un seul lien ne peut pas tenir :
+le marchand qui rémunère, et la boutique dont le prix est affiché.
 
 `generate-content.js` les produit automatiquement à partir des liens affiliés fournis, et
 `[slug].astro` en tire **à la fois** les fiches groupées et le tableau comparatif — les colonnes
@@ -256,7 +267,48 @@ fiche se rend quand même, en texte seul.
 
 ## Structure du template Astro
 
-Voir `template/` — layout de base avec JSON-LD (Product, FAQPage, Organization), `llms.txt`, `robots.txt` autorisant explicitement GPTBot/PerplexityBot/ClaudeBot/Google-Extended.
-# seo-geo-automation
-# seo-geo-automation
-# seo-geo-automation
+Voir `template/` — layout de base avec JSON-LD (BlogPosting, Product, FAQPage, BreadcrumbList,
+Organization), `llms.txt`, et un `robots.txt` qui nomme explicitement **deux familles distinctes**
+de robots : ceux qui collectent pour l'entraînement (GPTBot, ClaudeBot, Google-Extended) et ceux
+qui vont chercher une page pour la **citer** dans une réponse (OAI-SearchBot, Claude-SearchBot,
+PerplexityBot, Googlebot, Bingbot). Autoriser les premiers ne dit rien des seconds, et ce sont
+les seconds qui apportent du trafic.
+
+## Ce que le gabarit garantit, et pourquoi
+
+Ces règles sont nées de corrections successives sur un site réel. Elles sont **portées par
+`template/` et par les scripts**, donc héritées par tout nouveau site : ce sont des invariants,
+pas des consignes à réappliquer à la main.
+
+**Aucun chiffre non vérifiable n'est publié.** Pas de prix estimé, pas de note sur dix, pas de
+mesure de performance inventée. Un modèle introuvable dans le catalogue de son fabricant ne
+reçoit aucun prix plutôt qu'un prix approché — et cette absence est une information : un produit
+absent du catalogue de sa propre marque n'est en général plus commercialisé.
+
+**Un prix appartient au marchand qui le pratique.** La fiche liste une ligne par boutique. Un
+tarif relevé chez le fabricant, affiché au-dessus d'un bouton menant ailleurs, se lit comme le
+prix de ce bouton. La même règle vaut dans le JSON-LD, où `Offer.url` pointe vers la page d'où
+le prix vient : Google recoupe une offre avec sa destination.
+
+**La divulgation d'affiliation suit les liens réellement rémunérés**, dans les deux sens.
+L'afficher sans lien payant est une affirmation fausse, l'omettre avec un lien payant est une
+infraction. Même logique pour `rel="sponsored"`, qui décrit une contrepartie financière et n'a
+rien à faire sur un lien qui n'en produit aucune.
+
+**Rien de propre à une niche n'est codé en dur.** Les colonnes du tableau comparatif sont
+choisies par le modèle pour la catégorie traitée. Le bloc « Par où commencer » de l'accueil est
+construit à partir du champ `usecase` que chaque article déclare — une liste de slugs écrite
+dans le gabarit ne survivrait pas au changement de sujet. `{{BRAND}}`, `{{NICHE}}`, `{{DOMAIN}}`
+et `{{AUTHOR}}` restent des jetons dans `template/`, y compris dans les `.ts`.
+
+**Les pages institutionnelles doivent rester vraies.** Les mentions légales décrivent la méthode
+éditoriale : dès qu'une fonctionnalité change ce que fait le site — l'ajout des prix, par
+exemple — ce texte change avec elle. Une page « méthode » contredite par le site lui-même est
+pire que pas de page du tout.
+
+**Les images produit sont des schémas, jamais des photos.** Les visuels des fabricants sont
+verrouillés hors PA-API et aucune banque libre ne propose de vue étiquetée par modèle. Un schéma
+original (`scripts/diagrams/`) ne prétend rien de faux : il est manifestement un schéma.
+
+**Un site fraîchement généré doit compiler avant d'avoir du contenu.** La configuration ne
+suppose jamais l'existence du dossier d'articles.

@@ -58,9 +58,12 @@ function rehypeExternalLinks() {
 // `astro:content` est un module virtuel du runtime, indisponible ici : on lit
 // donc le frontmatter directement sur le disque.
 const ARTICLES = path.resolve('./src/content/articles');
+// Un site fraîchement généré n'a pas encore d'articles. Sans cette garde, la
+// lecture du dossier lève ENOENT au chargement de la config et le build échoue
+// avant même d'avoir commencé — le site ne compilait pas tant qu'on n'avait pas
+// lancé la génération de contenu.
 const articleDates = new Map(
-  fs
-    .readdirSync(ARTICLES)
+  (fs.existsSync(ARTICLES) ? fs.readdirSync(ARTICLES) : [])
     .filter((f) => f.endsWith('.md'))
     .map((f) => {
       const fm = fs.readFileSync(path.join(ARTICLES, f), 'utf-8').split('---')[1] ?? '';

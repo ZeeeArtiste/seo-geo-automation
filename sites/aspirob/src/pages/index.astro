@@ -20,19 +20,12 @@ const featured =
   all[0];
 const rest = all.filter((a) => a.slug !== featured?.slug);
 
-// Chaque entrée pointe vers un article existant : rien n'est promis qui
-// n'existe pas sur le site.
-const bySlug = (slug: string) => all.find((a) => a.slug === slug);
-const usecases = [
-  { label: "J'ai un chat ou un chien", hint: 'Le critère qui compte est la brosse.',
-    href: '/articles/aspirateur-robot-poils-animaux-chat-chien/' },
-  { label: 'Surtout du carrelage ou du parquet', hint: 'La question du lavage des sols.',
-    href: '/articles/roomba-max-775-combo-vs-roborock-saros-10r/' },
-  { label: 'Mon robot rate toujours les mêmes zones', hint: 'Angles morts et carte obsolète.',
-    href: '/articles/navigation-lidar-aspirateur-robot-explication/' },
-  { label: "Je ne sais pas quelle navigation choisir", hint: 'LiDAR ou caméra, les deux angles morts.',
-    href: '/articles/navigation-lidar-camera-aspirateur-robot-differences/' },
-].filter((u) => all.some((a) => `/articles/${a.slug}/` === u.href));
+// Chaque entrée vient d'un article qui la déclare : rien n'est promis qui
+// n'existe pas, et le bloc se remplit tout seul quel que soit le sujet du site.
+const usecases = all
+  .filter((a) => a.data.usecase)
+  .slice(0, 4)
+  .map((a) => ({ ...a.data.usecase!, href: `/articles/${a.slug}/` }));
 
 const comparatifs = rest.filter((a) => a.data.category === 'Comparatif');
 const guides = rest.filter((a) => a.data.category !== 'Comparatif');
