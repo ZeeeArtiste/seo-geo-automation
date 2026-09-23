@@ -14,7 +14,7 @@ Usage:
       --brand "CleanTop" --tagline "Guides et comparatifs d'aspirateurs robots" \
       --domain aspirob.com
 """
-import argparse, pathlib, tempfile
+import argparse, pathlib, re, tempfile
 from PIL import Image, ImageDraw, ImageFont
 from fontTools.ttLib import TTFont
 
@@ -60,20 +60,21 @@ def wrap(draw, text, font, max_w):
     return lines
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument('--site', required=True)
-    ap.add_argument('--brand', required=True)
-    ap.add_argument('--tagline', required=True)
-    ap.add_argument('--domain', required=True)
-    ap.add_argument('--out', default='public/og-default.png')
-    a = ap.parse_args()
+def articles(site):
+    """(slug, titre) de chaque article publié."""
+    d = pathlib.Path(site) / 'src' / 'content' / 'articles'
+    out = []
+    for f in sorted(d.glob('*.md')) if d.exists() else []:
+        txt = f.read_text(encoding='utf-8')
+        fm = txt.split('---')[1] if txt.startswith('---') else ''
+        if re.search(r'^draft:[ \t]*true', fm, re.M):
+            continue
+        m = re.search(r'^title:[ \t]*"(.+?)"', fm, re.M)
+        out.append((f.stem, m.group(1) if m else f.stem.replace('-', ' ')))
+    return out
 
-    site = pathlib.Path(a.site)
-    fonts = site / 'public' / 'fonts'
-    serif = woff2_to_ttf(fonts / 'SourceSerif4-latin.woff2')
-    sans = woff2_to_ttf(fonts / 'Inter-latin.woff2')
 
+def render(site, serif, sans, brand, texte, domain, out_rel):
     img = Image.new('RGB', (W, H), BG)
     d = ImageDraw.Draw(img)
 
@@ -88,13 +89,13 @@ def main():
     size, lines = 74, None
     while size >= 40:
         f_title = load(serif, size, 600)
-        lines = wrap(d, a.tagline, f_title, W - 2 * M)
+        lines = wrap(d, texte, f_title, W - 2 * M)
         if len(lines) <= (3 if size > 56 else 4):
             break
         size -= 6
     leading = int(size * 1.24)
 
-    d.text((M, M), a.brand.upper(), font=f_brand, fill=ACCENT)
+    d.text((M, M), brand.upper(), font=f_brand, fill=ACCENT)
 
     block_h = leading * len(lines)
     y = max(M + 92, (H - block_h) // 2 - 6)
@@ -103,12 +104,50 @@ def main():
         y += leading
 
     d.line([(M, H - M - 62), (W - M, H - M - 62)], fill=RULE, width=2)
-    d.text((M, H - M - 40), a.domain, font=f_dom, fill=MUTED)
+    d.text((M, H - M - 40), domain, font=f_dom, fill=MUTED)
 
-    out = site / a.out
+    out = pathlib.Path(site) / out_rel
     out.parent.mkdir(parents=True, exist_ok=True)
     img.save(out, 'PNG', optimize=True)
     print(f'✅ {out} — {W}x{H}, {out.stat().st_size // 1024} Ko')
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--site', required=True)
+    ap.add_argument('--brand', required=True)
+    ap.add_argument('--tagline', required=True)
+    ap.add_argument('--domain', required=True)
+    ap.add_argument('--out', default='public/og-default.png')
+    ap.add_argument('--articles', action='store_true',
+                    help='Génère aussi une image par article publié.')
+    a = ap.parse_args()
+
+    site = pathlib.Path(a.site)
+    fonts = site / 'public' / 'fonts'
+    serif = woff2_to_ttf(fonts / 'SourceSerif4-latin.woff2')
+    sans = woff2_to_ttf(fonts / 'Inter-latin.woff2')
+
+    render(site, serif, sans, a.brand, a.tagline, a.domain, a.out)
+
+    # Le gabarit d'article demande /og-<slug>.png. Sans cette boucle, chaque
+    # article partagé affiche une image cassée : l'en-tête la déclare, le
+    # fichier n'existe pas. C'est passé inaperçu tant que ces images étaient
+    # produites à la main.
+    if a.articles:
+        found = articles(site)
+        if not found:
+            print('Aucun article : pas d\'image de partage par article.')
+        for slug, titre in found:
+            render(site, serif, sans, a.brand, titre, a.domain, f'public/og-{slug}.png')
+
+        # Une image restée d'un article renommé ou supprimé finirait par être
+        # servie pour une URL qui n'existe plus.
+        vivants = {f'og-{s_}.png' for s_, _ in found} | {pathlib.Path(a.out).name}
+        for f in (site / 'public').glob('og-*.png'):
+            if f.name not in vivants:
+                f.unlink()
+                print(f'🗑️  {f.name} — article disparu')
 
 
 if __name__ == '__main__':

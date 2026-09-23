@@ -207,6 +207,47 @@ Les schémas produit (`/fiches/*.svg`) sont propres à la niche : voir
 `scripts/diagrams/fiches-produit.py`, à réécrire pour chaque nouveau site. Sans schéma, la
 fiche se rend quand même, en texte seul.
 
+### Ce que le pipeline produit, étape par étape
+
+`run-pipeline.js` enchaîne huit étapes. Les quatre premières fabriquent le site,
+les quatre suivantes l'habillent — ces dernières sont **non bloquantes** : il leur faut
+Pillow ou une clé Unsplash, et leur absence ne doit pas faire échouer un site dont le
+contenu est bon.
+
+| Étape | Produit | Sans elle |
+|---|---|---|
+| `generate-domains.js` | suggestions de domaine | — |
+| `scaffold-site.js` | le projet Astro, jetons remplacés | rien |
+| `generate-content.js` | articles, produits, `usecase` | site vide |
+| `diagrams/covers.py` | vignette SVG de repli par article | vignette absente |
+| `fetch-unsplash.py --auto` | photo d'accueil et d'article, crédits | pas d'illustration |
+| `make-og-image.py --articles` | `og-default.png` **et une image par article** | `og:image` en 404 |
+| `fetch-prices.py --update` | prix relevés, sourcés, datés | pas de prix |
+| `deploy-vps.js` | nginx + HTTPS | pas de mise en ligne |
+
+Deux pièges que ces étapes referment, tous deux passés inaperçus parce qu'ils ne
+cassent rien visiblement :
+
+- **Une image générée mais non déclarée ne s'affiche pas.** La page d'accueil
+  n'affiche une vignette que si l'article porte un champ `cover`. Les scripts
+  l'écrivent donc eux-mêmes dans le frontmatter — la photo écrase le motif de repli.
+- **Le gabarit d'article demande `/og-<slug>.png`.** Sans la boucle `--articles`,
+  chaque article partagé affiche une image cassée, alors que l'en-tête la déclare.
+  Les images d'articles renommés ou supprimés sont nettoyées au passage.
+
+`--auto` sur Unsplash choisit le premier résultat paysage : c'est un premier jet à
+curer, pas un choix éditorial. Il ne remplace jamais une photo déjà en place
+(`--force` pour forcer).
+
+Les boutiques dont les prix sont relevés sont déclarées **par site**, dans
+`sites/<marque>/price-stores.json` — modèle : `config/price-stores.example.json`.
+Rien n'est hérité d'un autre site : les boutiques d'une niche n'ont rien à dire sur
+les produits d'une autre.
+
+Restent propres à la niche, donc à réécrire par site : les schémas produit
+(`scripts/diagrams/fiches-produit.py`) et les schémas explicatifs du corps des
+articles. Sans eux, les fiches se rendent en texte seul.
+
 ## ⚠️ Points d'attention avant de scaler
 
 0. **Garde-fou `draft`** : quand Claude n'a pas de donnée réelle vérifiée, il insère des marqueurs

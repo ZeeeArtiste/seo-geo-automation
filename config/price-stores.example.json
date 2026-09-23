@@ -1,0 +1,5 @@
+{
+  "_comment": "Boutiques officielles exposant un catalogue Shopify public (/products.json). Format : \"cle\": [\"domaine\", \"libelle affiche sous le prix\"]. Vérifiez que le domaine répond avant de l'ajouter.",
+  "roborock": ["fr.roborock.com", "boutique officielle Roborock"],
+  "dreame": ["fr.dreametech.com", "boutique officielle Dreame"]
+}

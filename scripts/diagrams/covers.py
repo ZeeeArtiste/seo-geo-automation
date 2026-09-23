@@ -6,7 +6,7 @@ Réduire un schéma détaillé à 200 px le rend illisible. On génère donc un 
 simplifié, dérivé de l'idée du schéma, qui tient à petite taille : quelques
 formes, aucune typographie.
 """
-import math, pathlib, sys
+import argparse, math, pathlib, re, sys
 
 INK, MUTED, ACCENT, RULE, PAPER, PANEL = '#0F172A','#64748B','#2563EB','#E2E8F0','#F8FAFC','#FFFFFF'
 W, H = 480, 300
@@ -78,9 +78,108 @@ COVERS = {
     'aspirateur-robot-animaux-erreurs-eviter': c_dock,
 }
 
+
+# ── Motifs neutres, valables quelle que soit la niche ────────────────────────
+# Les motifs ci-dessus illustrent un sujet précis : une brosse, un LiDAR. Posés
+# sur un article d'une autre catégorie de produits, ils seraient faux. Ceux-ci
+# ne représentent que la FORME de l'article — une opposition, une explication
+# en couches — et conviennent donc partout.
+
+def g_guide():
+    """Un guide : des couches qu'on explique de haut en bas."""
+    b = ''
+    for i, w in enumerate((300, 240, 180)):
+        y = 96 + i * 42
+        b += (f'<rect x="{(W - w) / 2:.0f}" y="{y}" width="{w}" height="22" rx="11" '
+              f'fill="{INK if i == 0 else RULE}"/>')
+    b += f'<circle cx="{W/2:.0f}" cy="78" r="9" fill="{ACCENT}"/>'
+    return frame(b, "Vignette de guide",
+                 "Trois bandes superposees de largeur decroissante, surmontees d un point.")
+
+
+def g_test():
+    """Un test : une mesure, donc une échelle."""
+    b = f'<line x1="70" y1="210" x2="410" y2="210" stroke="{RULE}" stroke-width="4"/>'
+    for i, h in enumerate((44, 92, 66, 120)):
+        x = 96 + i * 78
+        b += f'<rect x="{x}" y="{210 - h}" width="38" height="{h}" rx="6" fill="{ACCENT if i == 3 else INK}"/>'
+    return frame(b, "Vignette de test", "Quatre barres de hauteurs differentes posees sur une ligne.")
+
+
+def g_actu():
+    """Une actualité : un signal qui se propage."""
+    b = f'<circle cx="{W/2:.0f}" cy="150" r="14" fill="{ACCENT}"/>'
+    for r in (46, 80, 114):
+        b += (f'<circle cx="{W/2:.0f}" cy="150" r="{r}" fill="none" stroke="{RULE}" '
+              f'stroke-width="3" opacity="{1 - r / 160:.2f}"/>')
+    return frame(b, "Vignette d actualite", "Un point central entoure de cercles concentriques.")
+
+
+# Motif de repli par catégorie éditoriale. c_compare ne dessine que deux blocs
+# opposés : il est déjà neutre et sert donc aussi de générique.
+GENERIC = {
+    'Comparatif': c_compare,
+    'Guide': g_guide,
+    'Test': g_test,
+    'Actualite': g_actu,
+    'Actualité': g_actu,
+}
+
+
+def articles(site):
+    """Slug et catégorie de chaque article publié du site."""
+    d = pathlib.Path(site) / 'src' / 'content' / 'articles'
+    out = []
+    for f in sorted(d.glob('*.md')) if d.exists() else []:
+        txt = f.read_text(encoding='utf-8')
+        fm = txt.split('---')[1] if txt.startswith('---') else ''
+        if re.search(r'^draft:[ \t]*true', fm, re.M):
+            continue
+        m = re.search(r'^category:[ \t]*"?([^"\n]+)"?', fm, re.M)
+        out.append((f.stem, (m.group(1).strip() if m else 'Guide')))
+    return out
+
+
+
+def set_cover(site, slug, value, overwrite):
+    """Pose `cover:` dans le frontmatter de l'article.
+
+    Sans ce champ, l'image produite reste sur le disque sans jamais être
+    affichée : la page d'accueil n'affiche une vignette que si l'article en
+    déclare une. Générer l'image sans la déclarer donnait un site illustré à
+    moitié, ce qui ne se voit qu'en regardant la page.
+    """
+    f = pathlib.Path(site) / 'src' / 'content' / 'articles' / f'{slug}.md'
+    if not f.exists():
+        return False
+    s = f.read_text(encoding='utf-8')
+    if not s.startswith('---'):
+        return False
+    head, sep, rest = s[3:].partition('\n---')
+    if re.search(r'^cover:', head, re.M):
+        if not overwrite:
+            return False
+        head = re.sub(r'^cover:.*$', f'cover: "{value}"', head, count=1, flags=re.M)
+    else:
+        head = head.rstrip('\n') + f'\ncover: "{value}"\n'
+    f.write_text('---' + head + sep + rest, encoding='utf-8')
+    return True
+
 if __name__ == '__main__':
-    out = pathlib.Path(sys.argv[1] if len(sys.argv) > 1 else 'public/covers')
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--site', required=True)
+    ap.add_argument('--out', help='defaut : <site>/public/covers')
+    a = ap.parse_args()
+
+    out = pathlib.Path(a.out) if a.out else pathlib.Path(a.site) / 'public' / 'covers'
     out.mkdir(parents=True, exist_ok=True)
-    for slug, fn in COVERS.items():
+    found = articles(a.site)
+    if not found:
+        print('Aucun article : aucune vignette a produire.')
+    for slug, cat in found:
+        fn = COVERS.get(slug) or GENERIC.get(cat) or g_guide
         (out / f'{slug}.svg').write_text(fn(), encoding='utf-8')
-        print(f'✅ {slug}.svg')
+        # Repli seulement : une photo, posée ensuite, vaut mieux qu'un motif.
+        pose = set_cover(a.site, slug, f'/covers/{slug}.svg', overwrite=False)
+        print(f"OK {slug}.svg  ({'motif dedie' if slug in COVERS else 'generique ' + cat})"
+              f"{' + cover pose' if pose else ''}")

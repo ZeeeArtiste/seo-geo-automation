@@ -46,6 +46,27 @@ function step(script, scriptArgs) {
   execFileSync('node', [path.join(__dirname, script), ...scriptArgs], { stdio: 'inherit' });
 }
 
+/**
+ * Étape d'habillage : vignettes, photos, image de partage, prix.
+ *
+ * Ces scripts produisent ce qui distingue un site fini d'un squelette. Ils
+ * étaient exécutés à la main sur le premier site, donc absents de toute
+ * génération suivante : un site neuf sortait sans image de partage — et donc
+ * avec un og:image en 404 sur chaque lien partagé — sans vignette et sans prix.
+ *
+ * Aucun n'est bloquant. Il leur faut des dépendances système (Pillow) ou des
+ * clés (Unsplash) qui peuvent manquer : l'absence d'illustration ne doit pas
+ * faire échouer un site dont le contenu est bon.
+ */
+function optionalStep(interpreter, script, scriptArgs, why) {
+  console.log(`\n\x1b[36m▶ ${script} ${scriptArgs.join(' ')}\x1b[0m`);
+  try {
+    execFileSync(interpreter, [path.join(__dirname, script), ...scriptArgs], { stdio: 'inherit' });
+  } catch (e) {
+    console.warn(`\x1b[33m⚠️  ${script} a échoué — ${why}. Le site reste utilisable.\x1b[0m`);
+  }
+}
+
 const slug = brand.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 const siteDir = `sites/${slug}`;
 
@@ -60,6 +81,27 @@ step('scaffold-site.js', scaffoldArgs);
 const contentArgs = ['--site', siteDir, '--niche', niche, '--articles', String(articles)];
 if (affiliateLinks) contentArgs.push('--affiliate-links', affiliateLinks);
 step('generate-content.js', contentArgs);
+
+// ── Habillage ───────────────────────────────────────────────────────────────
+optionalStep('python3', 'diagrams/covers.py', ['--site', siteDir],
+  'pas de vignette en page d\'accueil');
+
+optionalStep('python3', 'fetch-unsplash.py', ['--site', siteDir, '--brand', brand, '--auto', niche],
+  'pas de photo (UNSPLASH_ACCESS_KEY manquante ?)');
+
+if (domain) {
+  optionalStep('python3', 'make-og-image.py',
+    ['--site', siteDir, '--brand', brand, '--tagline', `Guides et comparatifs : ${niche}`,
+     '--domain', domain, '--articles'],
+    'pas d\'image de partage (python3-pil installé ?)');
+} else {
+  console.warn("\n\x1b[33m⚠️  Sans --domain, l'image de partage n'est pas générée : og:image renverra un 404.\x1b[0m");
+}
+
+// Les prix ne sont relevés que si le site déclare des boutiques exploitables
+// dans config/price-stores.json. Sans elles, le script ne fait rien et le dit.
+optionalStep('python3', 'fetch-prices.py', ['--site', siteDir, '--update'],
+  'pas de prix relevé');
 
 if (shouldDeploy && target === 'vps') {
   const deployArgs = ['--site', siteDir, '--domain', domain];

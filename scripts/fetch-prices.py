@@ -24,10 +24,37 @@ Usage:
 """
 import argparse, datetime, json, pathlib, re, sys, urllib.request
 
-STORES = {
-    'roborock': ('fr.roborock.com', 'boutique officielle Roborock'),
-    'dreame': ('fr.dreametech.com', 'boutique officielle Dreame'),
-}
+# Boutiques interrogées. Elles dépendent de la niche, pas du script : une liste
+# codée en dur ici ne servirait qu'à un seul site. Chaque site déclare les
+# siennes dans config/price-stores.json ; sans ce fichier, aucun prix n'est
+# relevé, ce qui est le comportement correct pour une niche dont on ne connaît
+# pas encore de catalogue public.
+#
+#   { "roborock": ["fr.roborock.com", "boutique officielle Roborock"] }
+#
+# Le domaine doit exposer /products.json (Shopify). Vérifiez-le avant d'ajouter
+# une boutique : c'est un point d'accès public et documenté, contrairement au
+# scraping d'une page produit.
+DEFAULT_STORES_FILE = pathlib.Path(__file__).resolve().parent.parent / 'config' / 'price-stores.json'
+
+
+def load_stores(path=None, site=None):
+    """Boutiques du site, sinon celles du dépôt.
+
+    L'ordre compte dès qu'on exploite plusieurs niches : les boutiques d'un site
+    d'aspirateurs n'ont rien à dire sur des machines à café. Un fichier posé à
+    la racine du site prime donc sur celui du dépôt, qui n'est plus qu'un
+    défaut commode pour le premier site.
+    """
+    for f in ([pathlib.Path(path)] if path else
+              ([pathlib.Path(site) / 'price-stores.json'] if site else []) + [DEFAULT_STORES_FILE]):
+        if f.exists():
+            raw = json.loads(f.read_text(encoding='utf-8'))
+            return {k: tuple(v) for k, v in raw.items() if not k.startswith('_')}
+    return {}
+
+
+STORES = {}
 UA = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) '
                     'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36'}
 ACCESSORY = re.compile(
@@ -154,10 +181,19 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--list')
     ap.add_argument('--match')
-    ap.add_argument('--store', choices=list(STORES))
+    ap.add_argument('--store')
     ap.add_argument('--site')
     ap.add_argument('--update', action='store_true')
+    ap.add_argument('--stores', help='JSON des boutiques (défaut : config/price-stores.json)')
     a = ap.parse_args()
+
+    STORES.update(load_stores(a.stores, a.site))
+    if not STORES:
+        print("Aucune boutique déclarée (config/price-stores.json absent ou vide).\n"
+              "Aucun prix ne sera relevé — un prix inventé serait pire que pas de prix.")
+        return
+    if a.list and a.list not in STORES:
+        ap.error(f"boutique inconnue : {a.list} (connues : {', '.join(STORES) or 'aucune'})")
 
     if a.list:
         for r in robots(a.list):

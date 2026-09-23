@@ -73,6 +73,18 @@ async function main() {
     );
   }
 
+  // Emplacement des boutiques dont on relèvera les prix. Vide par défaut : les
+  // boutiques dépendent de la niche, et en hériter d'un autre site ferait
+  // interroger un catalogue sans rapport avec les produits de celui-ci.
+  await fs.writeJson(
+    path.join(targetDir, 'price-stores.json'),
+    {
+      _comment:
+        "Boutiques officielles exposant un catalogue Shopify public (/products.json), propres a cette niche. Format : \"cle\": [\"domaine\", \"libelle affiche sous le prix\"]. Verifiez que le domaine repond avant de l'ajouter.",
+    },
+    { spaces: 2 }
+  );
+
   console.log(`\n✅ Site créé dans sites/${slug}/`);
   if (author === 'À COMPLÉTER' || domain === 'example.com') {
     console.log(
