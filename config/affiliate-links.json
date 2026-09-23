@@ -1,27 +1,37 @@
 [
   {
     "productName": "Roborock Saros 10R",
-    "url": "https://fr.roborock.com/products/roborock-saros-10r",
-    "network": "fabricant"
+    "url": "https://www.amazon.fr/dp/B0DJ3284BS?tag=aspirob0d-21",
+    "network": "amazon",
+    "asin": "B0DJ3284BS",
+    "sourceUrl": "https://fr.roborock.com/products/roborock-saros-10r"
   },
   {
     "productName": "iRobot Roomba Max 775 Combo",
-    "url": "https://www.irobot.fr/fr_FR/roomba-max-775-combo/X285040.html",
-    "network": "fabricant"
+    "url": "https://www.amazon.fr/dp/B0GXWTH75T?tag=aspirob0d-21",
+    "network": "amazon",
+    "asin": "B0GXWTH75T",
+    "sourceUrl": "https://www.irobot.fr/fr_FR/roomba-max-775-combo/X285040.html"
   },
   {
     "productName": "Dreame L50s Pro Ultra",
-    "url": "https://fr.dreametech.com/products/dreame-l50s-pro-ultra-robot-aspirateur-laveur",
-    "network": "fabricant"
+    "url": "https://www.amazon.fr/dp/B0GD79DTS7?tag=aspirob0d-21",
+    "network": "amazon",
+    "asin": "B0GD79DTS7",
+    "sourceUrl": "https://fr.dreametech.com/products/dreame-l50s-pro-ultra-robot-aspirateur-laveur"
   },
   {
     "productName": "Ecovacs Deebot X9 Pro Omni",
-    "url": "https://www.ecovacs.com/fr/shop/deebot-robotic-vacuum-cleaner/deebot-x9-pro-omni",
-    "network": "fabricant"
+    "url": "https://www.amazon.fr/dp/B0F1SWS24N?tag=aspirob0d-21",
+    "network": "amazon",
+    "asin": "B0F1SWS24N",
+    "sourceUrl": "https://www.ecovacs.com/fr/shop/deebot-robotic-vacuum-cleaner/deebot-x9-pro-omni"
   },
   {
     "productName": "Roborock Q7 L5+",
-    "url": "https://fr.roborock.com/products/roborock-q7-l5-plus-robot-aspirateur",
-    "network": "fabricant"
+    "url": "https://www.amazon.fr/dp/B0DWK8GJZX?tag=aspirob0d-21",
+    "network": "amazon",
+    "asin": "B0DWK8GJZX",
+    "sourceUrl": "https://fr.roborock.com/products/roborock-q7-l5-plus-robot-aspirateur"
   }
 ]

@@ -124,7 +124,11 @@ def write_prices(path, today):
             out.append(c)
             continue
         name = (re.search(r'^  - name:\s*"(.+?)"', c, re.M) or [None, '?'])[1]
-        url = (re.search(r'^    url:\s*"(.+?)"', c, re.M) or [None, ''])[1]
+        # Le prix se relève sur la page qui le publie, pas sur le lien d'achat :
+        # depuis que les fiches renvoient vers un marchand affilié, l'URL de la
+        # boutique du fabricant vit dans sourceUrl.
+        url = (re.search(r'^    sourceUrl:\s*"(.+?)"', c, re.M)
+               or re.search(r'^    url:\s*"(.+?)"', c, re.M) or [None, ''])[1]
         c = re.sub(rf'^    (?:{"|".join(PRICE_KEYS)}):.*\n', '', c, flags=re.M)
         price, store, why = by_handle(url)
         if price is None:

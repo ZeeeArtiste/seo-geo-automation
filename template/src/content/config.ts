@@ -48,6 +48,11 @@ const articles = defineCollection({
           cons: z.array(z.string()).default([]),
           // Colonnes du tableau comparatif : { "Navigation": "LiDAR", ... }
           attrs: z.record(z.string()).default({}),
+          // Page d'où le prix est relevé, quand elle diffère du lien marchand.
+          // Le prix vient du catalogue du fabricant, l'achat se fait ailleurs :
+          // afficher un tarif sans dire de quelle boutique il vient laisserait
+          // croire qu'il s'agit de celui du marchand vers lequel on renvoie.
+          sourceUrl: z.string().optional(),
           // true seulement si `url` est un lien d'affiliation. Un lien vers la
           // boutique du fabricant n'en est pas un : le marquer « sponsored »
           // serait faux, et la divulgation qu'il déclenche annoncerait une

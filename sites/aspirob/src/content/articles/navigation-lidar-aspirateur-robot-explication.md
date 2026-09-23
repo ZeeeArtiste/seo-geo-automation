@@ -7,7 +7,7 @@ updatedDate: "2026-09-23"
 directAnswer: "Un aspirateur robot LiDAR mesure la distance aux obstacles avec un laser tournant et en construit une carte, ce qui lui permet de nettoyer en bandes parallèles plutôt qu'au hasard. S'il rate toujours les mêmes zones, la cause est presque toujours un angle mort du capteur ou une carte devenue obsolète."
 cover: "/photos/navigation-lidar-aspirateur-robot-explication.webp"
 cluster: "navigation"
-affiliate: false
+affiliate: true
 category: "Guide"
 faq: [{"question":"Pourquoi mon robot tourne-t-il en rond au lieu de faire des lignes droites ?","answer":"Cela arrive généralement quand la carte est corrompue ou quand le robot ne parvient pas à se localiser (capteur LiDAR sale ou bloqué). Nettoyez le module rotatif avec un chiffon sec et supprimez la carte pour en créer une nouvelle."},{"question":"Le LiDAR détecte-t-il les obstacles au sol comme les câbles ?","answer":"Non, le LiDAR scanne en plan horizontal et ne voit pas les objets plats posés au sol. Les câbles, chaussettes ou petits jouets sont détectés uniquement par les capteurs anti-chute ou les capteurs tactiles en façade — avec une fiabilité variable selon les modèles."},{"question":"Combien de temps faut-il pour que le robot construise une carte complète ?","answer":"Pour un appartement de 60 à 80 m², comptez généralement une à deux sessions complètes, soit 1 à 3 heures. La carte se précise ensuite à chaque passage. Certains modèles affichent une carte exploitable dès la première session."},{"question":"La présence d'animaux ou d'enfants qui bougent perturbe-t-elle la navigation LiDAR ?","answer":"Ponctuellement oui : le robot peut détecter un animal comme un obstacle et le contourner. Mais cela ne corrompt pas la carte enregistrée, car le SLAM distingue les obstacles fixes (murs, meubles) des obstacles mobiles détectés en temps réel."}]
 ---
@@ -95,7 +95,7 @@ Plutôt que d'espérer que le robot s'adapte, définissez des **zones de nettoya
 
 Pour les portes vitrées : placez un autocollant ou un petit obstacle visuel à la base pour créer un point de réflexion. Ce n'est pas élégant, mais c'est efficace.
 
-Si vous cherchez un modèle à tourelle rotative, le [Roomba Max 775 Combo](https://www.irobot.fr/fr_FR/roomba-max-775-combo/X285040.html) embarque exactement le dispositif décrit plus haut, sous le nom de ClearView Pro LiDAR. C'est un renversement : la génération précédente d'iRobot naviguait à la caméra.
+Si vous cherchez un modèle à tourelle rotative, le [Roomba Max 775 Combo](https://www.amazon.fr/dp/B0GXWTH75T?tag=aspirob0d-21) embarque exactement le dispositif décrit plus haut, sous le nom de ClearView Pro LiDAR. C'est un renversement : la génération précédente d'iRobot naviguait à la caméra.
 
 ## Et si votre robot n'est pas équipé d'un LiDAR ?
 

@@ -6,7 +6,7 @@ publishDate: "2026-09-18"
 updatedDate: "2026-09-23"
 directAnswer: "Le Roborock Saros 10R tient en 7,98 cm et passe sous les meubles bas, au prix d'une navigation sans tourelle plus récente. Le Roomba Max 775 Combo mise sur un LiDAR classique, deux brosses en caoutchouc et une base qui lave la serpillière à 75 °C. Environ cent euros les séparent."
 draft: false
-affiliate: false
+affiliate: true
 cover: "/photos/roomba-max-775-combo-vs-roborock-saros-10r.webp"
 cluster: "sols-et-lavage"
 category: "Comparatif"
@@ -15,8 +15,9 @@ products:
   - name: "iRobot Roomba Max 775 Combo"
     summary: "Le modèle par lequel iRobot adopte enfin le LiDAR. Deux brosses en caoutchouc anti-emmêlement, un rouleau serpillière lavé à l'eau chaude par la base, et une autonomie de station annoncée jusqu'à trois mois."
     schematic: "/fiches/roomba-max-775-combo.svg"
-    url: "https://www.irobot.fr/fr_FR/roomba-max-775-combo/X285040.html"
-    affiliate: false
+    url: "https://www.amazon.fr/dp/B0GXWTH75T?tag=aspirob0d-21"
+    affiliate: true
+    sourceUrl: "https://www.irobot.fr/fr_FR/roomba-max-775-combo/X285040.html"
     pros:
       - "Deux brosses en caoutchouc, sans soies"
       - "Base AutoWash : serpillière lavée à 75 °C et raclée"
@@ -30,8 +31,9 @@ products:
   - name: "Roborock Saros 10R"
     summary: "Le modèle par lequel Roborock abandonne la tourelle qui était sa signature. StarSight 2.0 la remplace, et le robot descend à 7,98 cm — la hauteur devient un argument de nettoyage, pas de design."
     schematic: "/fiches/roborock-saros-10r.svg"
-    url: "https://fr.roborock.com/products/roborock-saros-10r"
-    affiliate: false
+    url: "https://www.amazon.fr/dp/B0DJ3284BS?tag=aspirob0d-21"
+    affiliate: true
+    sourceUrl: "https://fr.roborock.com/products/roborock-saros-10r"
     pros:
       - "7,98 cm : passe sous la plupart des meubles bas"
       - "Double système anti-enchevêtrements"

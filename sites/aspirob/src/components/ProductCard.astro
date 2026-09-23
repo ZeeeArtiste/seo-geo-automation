@@ -6,13 +6,16 @@
  */
 interface Props {
   product: {
-    name: string; summary: string; schematic?: string; url?: string; affiliate?: boolean;
+    name: string; summary: string; schematic?: string; url?: string; sourceUrl?: string; affiliate?: boolean;
     pros: string[]; cons: string[];
     price?: number; priceCurrency?: string; priceSource?: string; priceCheckedAt?: string;
   };
   index?: number;
 }
 const { product: p, index } = Astro.props;
+// Le libellé du bouton nomme le marchand : « Voir sur Amazon » dit où l'on
+// atterrit, ce que « Voir le produit » cache. Déduit de l'URL, jamais supposé.
+const marchand = p.url?.includes('amazon.') ? 'Amazon' : null;
 ---
 <article class="produit">
   <div class="produit-tete">
@@ -35,7 +38,11 @@ const { product: p, index } = Astro.props;
           <strong>{p.price.toLocaleString('fr-FR', { style: 'currency', currency: p.priceCurrency ?? 'EUR', maximumFractionDigits: 2 })}</strong>
           <span>
             relevé le {new Date(p.priceCheckedAt ?? Date.now()).toLocaleDateString('fr-FR')}
-            {p.priceSource ? ` sur la ${p.priceSource}` : ''} — il a pu changer depuis
+            {p.priceSource && ' sur la '}
+            {p.priceSource && (p.sourceUrl
+              ? <a href={p.sourceUrl} rel="noopener" target="_blank">{p.priceSource}</a>
+              : p.priceSource)}
+            {' '}— il a pu changer depuis, et le prix du marchand peut différer
           </span>
         </p>
       )}
@@ -57,7 +64,9 @@ const { product: p, index } = Astro.props;
               la boutique du fabricant, qui n'en rapporte aucune, l'annoncer
               serait faux — et Google traite la déclaration comme une donnée. */}
           <a href={p.url} rel={p.affiliate ? 'sponsored nofollow noopener' : 'noopener'} target="_blank">
-            {p.affiliate ? `Voir ${p.name}` : `Fiche officielle : ${p.name}`}
+            {p.affiliate
+              ? (marchand ? `Voir ${p.name} sur ${marchand}` : `Voir ${p.name}`)
+              : `Fiche officielle : ${p.name}`}
           </a>
         </p>
       )}

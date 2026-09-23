@@ -6,7 +6,7 @@ publishDate: "2026-09-18"
 updatedDate: "2026-09-23"
 directAnswer: "Les aspirateurs robots qui s'en sortent avec les poils de chat sont ceux équipés d'une brosse principale en caoutchouc, sans soies filiformes, et d'un système de démêlage. Sans ces deux caractéristiques, le rouleau s'enroule de poils toutes les deux ou trois utilisations et perd en aspiration."
 draft: false
-affiliate: false
+affiliate: true
 cover: "/photos/aspirateur-robot-poils-animaux-chat-chien.webp"
 cluster: "animaux"
 category: "Comparatif"
@@ -14,8 +14,9 @@ products:
   - name: "Roborock Saros 10R"
     summary: "Roborock annonce un « double système anti-enchevêtrements » : deux mécanismes distincts plutôt qu'un seul, ce qui est aujourd'hui l'argument le plus explicite du catalogue sur les poils. Ses 7,98 cm lui permettent en plus d'aller chercher les amas sous les meubles bas, là où ils s'accumulent."
     schematic: "/fiches/roborock-saros-10r.svg"
-    url: "https://fr.roborock.com/products/roborock-saros-10r"
-    affiliate: false
+    url: "https://www.amazon.fr/dp/B0DJ3284BS?tag=aspirob0d-21"
+    affiliate: true
+    sourceUrl: "https://fr.roborock.com/products/roborock-saros-10r"
     pros:
       - "Double système anti-enchevêtrements"
       - "7,98 cm : passe sous la plupart des meubles bas"
@@ -32,8 +33,9 @@ products:
   - name: "iRobot Roomba Max 775 Combo"
     summary: "Deux brosses en caoutchouc anti-emmêlement, et non une seule : les poils passent entre les deux rouleaux au lieu de s'enrouler sur un axe unique. C'est la configuration qui demande le moins de démêlage manuel."
     schematic: "/fiches/roomba-max-775-combo.svg"
-    url: "https://www.irobot.fr/fr_FR/roomba-max-775-combo/X285040.html"
-    affiliate: false
+    url: "https://www.amazon.fr/dp/B0GXWTH75T?tag=aspirob0d-21"
+    affiliate: true
+    sourceUrl: "https://www.irobot.fr/fr_FR/roomba-max-775-combo/X285040.html"
     pros:
       - "Deux brosses en caoutchouc, sans soies"
       - "Serpillière lavée à l'eau chaude 75 °C par la base"
@@ -46,8 +48,9 @@ products:
   - name: "Dreame L50s Pro Ultra"
     summary: "Sa brosse duo HyperStream est conçue pour empêcher les cheveux et les poils de s'emmêler. Son LiDAR se rétracte, ramenant le robot à 8,95 cm pour passer sous les meubles sans renoncer à la cartographie 360°."
     schematic: "/fiches/dreame-l50s-pro-ultra.svg"
-    url: "https://fr.dreametech.com/products/dreame-l50s-pro-ultra-robot-aspirateur-laveur"
-    affiliate: false
+    url: "https://www.amazon.fr/dp/B0GD79DTS7?tag=aspirob0d-21"
+    affiliate: true
+    sourceUrl: "https://fr.dreametech.com/products/dreame-l50s-pro-ultra-robot-aspirateur-laveur"
     pros:
       - "Brosse duo HyperStream anti-nœuds"
       - "LiDAR rétractable : 8,95 cm une fois abaissé"
@@ -64,8 +67,9 @@ products:
   - name: "Ecovacs Deebot X9 Pro Omni"
     summary: "Le seul de cette sélection à traiter aussi la brosse latérale, celle qu'on oublie toujours : ZeroTangle 3.0 associe une brosse latérale ARClean à une brosse principale anti-nœuds. Sa serpillière est un rouleau nettoyé en continu plutôt qu'un patin traîné sur le sol."
     schematic: "/fiches/ecovacs-deebot-x9-pro-omni.svg"
-    url: "https://www.ecovacs.com/fr/shop/deebot-robotic-vacuum-cleaner/deebot-x9-pro-omni"
-    affiliate: false
+    url: "https://www.amazon.fr/dp/B0F1SWS24N?tag=aspirob0d-21"
+    affiliate: true
+    sourceUrl: "https://www.ecovacs.com/fr/shop/deebot-robotic-vacuum-cleaner/deebot-x9-pro-omni"
     pros:
       - "ZeroTangle 3.0 : brosse principale ET brosse latérale"
       - "Serpillière à rouleau auto-nettoyant OZMO ROLLER"
@@ -78,8 +82,9 @@ products:
   - name: "Roborock Q7 L5+"
     summary: "Le même « double système anti-enchevêtrements » que le Saros 10R, sur un modèle d'entrée de gamme. Si l'emmêlement est votre seul vrai problème, c'est la façon la moins chère de le régler — le reste de la fiche est en retrait, pas ce point-là."
     schematic: "/fiches/roborock-q7-l5-plus.svg"
-    url: "https://fr.roborock.com/products/roborock-q7-l5-plus-robot-aspirateur"
-    affiliate: false
+    url: "https://www.amazon.fr/dp/B0DWK8GJZX?tag=aspirob0d-21"
+    affiliate: true
+    sourceUrl: "https://fr.roborock.com/products/roborock-q7-l5-plus-robot-aspirateur"
     pros:
       - "Double système anti-enchevêtrements à prix d'entrée de gamme"
       - "Navigation LiDAR PreciSense malgré le positionnement"

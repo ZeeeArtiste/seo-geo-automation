@@ -186,6 +186,7 @@ async function main() {
           name: p.name,
           summary: p.summary ?? '',
           url: link.url,
+          ...(link.sourceUrl ? { sourceUrl: link.sourceUrl } : {}),
           pros: (p.pros ?? []).slice(0, 3),
           cons: (p.cons ?? []).slice(0, 2),
           attrs: p.attrs ?? {},
