@@ -21,7 +21,14 @@ const AI_CRAWLERS = [
   'OAI-SearchBot', 'Claude-SearchBot', 'PerplexityBot', 'Googlebot', 'Bingbot',
 ];
 
+// En aperçu, aucune des règles ci-dessous ne s'applique : on interdit tout.
 export async function GET() {
+  if (SITE.preview) {
+    return new Response('User-agent: *\nDisallow: /\n', {
+      headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+    });
+  }
+
   const lines = ['User-agent: *', 'Allow: /', ''];
   lines.push('# Crawlers IA — autorisation explicite pour le GEO', '');
   for (const bot of AI_CRAWLERS) lines.push(`User-agent: ${bot}`, 'Allow: /', '');

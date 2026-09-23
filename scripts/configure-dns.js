@@ -105,7 +105,10 @@ async function main() {
     console.log(`NS     : ${zone.name_servers.join(', ')}`);
   }
 
-  const targets = [domain, `www.${domain}`];
+  // Par défaut le domaine nu et www. `--host` permet de ne créer qu'un
+  // sous-domaine précis — utile pour mettre un site en aperçu sans toucher
+  // aux enregistrements du site en production.
+  const targets = args.host ? [args.host] : [domain, `www.${domain}`];
   console.log('');
   for (const name of targets) {
     const { action, record } = await upsertARecord(zone.id, name, ip, { proxied });

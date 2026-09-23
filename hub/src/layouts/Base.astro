@@ -86,6 +86,7 @@ const websiteSchema = {
   <meta property="og:url" content={canonical} />
   <meta property="og:site_name" content={SITE.brand} />
   <meta property="og:locale" content={SITE.locale} />
+  {SITE.preview && <meta name="robots" content="noindex, nofollow" />}
   <meta property="og:image" content={ogImageUrl} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />

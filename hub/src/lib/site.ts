@@ -6,11 +6,16 @@
 export const SITE = {
   brand: 'Comparo',
   niche: 'comparatifs de produits',
-  domain: 'comparo.example',
-  url: 'https://comparo.example',
+  domain: 'hub.aspirob.com',
+  url: 'https://hub.aspirob.com',
   tagline: "Le moteur de recherche des comparatifs",
   description:
     "Cherchez parmi les comparatifs du réseau, et suivez l'évolution des prix relevés dans les catalogues officiels des fabricants.",
+  // Aperçu : le site est servi pour être regardé, pas pour être trouvé. Tant
+  // que ce drapeau est vrai, robots.txt interdit tout et chaque page porte un
+  // noindex — un aperçu indexé sur un sous-domaine d'un site du réseau serait
+  // exactement le genre d'empreinte qu'on cherche à éviter.
+  preview: true,
   locale: 'fr_FR',
   lang: 'fr',
 } as const;
@@ -22,7 +27,7 @@ export const SITE = {
 export const AUTHOR = {
   name: 'Dany Derensy',
   role: 'Éditeur du site',
-  url: 'https://comparo.example/mentions-legales/',
+  url: 'https://hub.aspirob.com/mentions-legales/',
 } as const;
 
 /**
@@ -32,7 +37,7 @@ export const AUTHOR = {
 export const LEGAL = {
   editor: 'Dany Derensy',
   editorStatus: 'Éditeur individuel',
-  contactEmail: 'contact@comparo.example',
+  contactEmail: 'contact@aspirob.com',
   // ⚠️ À compléter : l'adresse postale de l'éditeur est légalement obligatoire.
   editorAddress: null as string | null,
   host: {
