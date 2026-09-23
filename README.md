@@ -442,6 +442,30 @@ sur le dossier local, pour qu'un site tout juste généré n'empêche pas de con
 hub. L'historique de prix est toujours lu en local : c'est une série que ce dépôt
 accumule, pas quelque chose que le site publie.
 
+### Le sélecteur de cadeaux (`/cadeaux/`)
+
+Un outil, pas une page : trois questions qui trient réellement — connaissance des goûts,
+rapport de la personne à l'achat, usage attendu — puis trois idées, chacune avec sa
+justification **et le piège de sa catégorie**. C'est ce second point qui fait la différence
+entre un conseil et une liste.
+
+Les idées vivent dans `hub/src/data/cadeaux.json`, écrites à la main. Deux niveaux de lien,
+assumés :
+
+- **catégories du réseau** → lien vers l'article qui justifie le choix, avec prix relevé ;
+- **tout le reste** → lien vers une page de résultats Amazon **taggée**
+  (`amazon.fr/s?k=…&tag=…`). Format officiellement supporté : aucun ASIN requis, aucune
+  référence qui périme, et surtout aucun accès automatisé au catalogue d'Amazon — lequel est
+  interdit hors PA-API.
+
+Aucun prix n'est affiché ici : une tranche de budget suffit à orienter, et un tarif écrit en
+dur serait faux en quelques jours.
+
+**Deux points de vigilance.** Les CGU Amazon Partenaires interdisent les sites
+« auto-générés sans valeur ajoutée » — d'où la justification et le piège écrits à la main
+pour chaque idée, qui sont la valeur ajoutée. Et **ce domaine doit être déclaré dans le
+compte Partenaires** au même titre que les sites de niche.
+
 ### Pourquoi ce hub n'est pas un PBN
 
 Un site central qui pointe vers vos autres sites a exactement la forme de ce que Google
@@ -459,7 +483,7 @@ Trois règles en découlent, appliquées dans le code :
 - le hub **ne republie pas** les articles — titre, description et réponse directe, puis
   lien vers la page d'origine. Recopier le contenu de ses propres sites en ferait du
   contenu dupliqué ;
-- le hub **ne porte aucun lien rémunéré** : ce sont les sites de niche qui monétisent ;
+- hors sélecteur de cadeaux, le hub **ne porte aucun lien rémunéré** : la recherche et les relevés de prix n'en contiennent pas ;
 - le hub **dit qu'il édite les sites qu'il recense**, en pied de page et sur `/methode/`.
   Un moteur qui recommande des sources dont il est l'éditeur et le tait serait la seule
   vraie tromperie de ce montage.

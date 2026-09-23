@@ -46,12 +46,31 @@ export const LEGAL = {
 /** Navigation par catégorie : les pages /comparatifs/ et /guides/ sont
     générées depuis les catégories réellement représentées. */
 export const NAV = [
+  { href: '/cadeaux/', label: 'Quel cadeau ?' },
   { href: '/prix/', label: 'Prix relevés' },
   { href: '/methode/', label: 'Méthode' },
 ] as const;
 
 /** Bouton d'action de l'en-tête : le contenu le plus commercial du site. */
 export const HEADER_CTA = {
-  href: '/prix/',
-  label: 'Voir les prix relevés',
+  href: '/cadeaux/',
+  label: 'Quel cadeau offrir ?',
+} as const;
+
+/**
+ * Identifiant Amazon Partenaires utilisé par le sélecteur de cadeaux.
+ *
+ * Les liens produits pointent vers une PAGE DE RÉSULTATS taggée, format
+ * officiellement supporté : il ne demande aucun ASIN, ne peut pas mener à une
+ * référence épuisée, et n'exige aucun accès automatisé au catalogue d'Amazon —
+ * lequel est interdit hors PA-API.
+ *
+ * ⚠️ Ce site doit être déclaré dans le compte Partenaires, au même titre que
+ * les sites de niche. Un identifiant dédié à ce domaine permettrait en plus de
+ * distinguer ce qu'il rapporte.
+ */
+export const AFFILIATE = {
+  amazonTag: 'aspirob0d-21',
+  amazonSearch: (q: string) =>
+    `https://www.amazon.fr/s?k=${encodeURIComponent(q)}&tag=${AFFILIATE.amazonTag}`,
 } as const;

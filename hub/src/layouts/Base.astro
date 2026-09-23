@@ -28,10 +28,10 @@ const canonical = new URL(Astro.url.pathname, SITE.url).href;
 const ogImageUrl = new URL(ogImage, SITE.url).href;
 const pageTitle = rawTitle ? title : `${title} — ${SITE.brand}`;
 
-// Ce site ne porte aucun lien rémunéré : il renvoie vers les articles des sites
-// du réseau, ce sont eux qui monétisent. Mais il édite ces sites, et le taire
-// serait la seule vraie tromperie de ce montage : un lecteur doit savoir que
-// le moteur qui lui recommande une source en est aussi l'éditeur.
+// Le sélecteur de cadeaux a changé cela : ce site porte désormais des liens
+// rémunérés, et l'annonce. Il édite par ailleurs les sites qu'il recense, ce
+// qui reste la chose à ne pas taire — un moteur qui recommande des sources
+// dont il est l'éditeur et le cache serait la seule vraie tromperie ici.
 
 // Organization n'existait que NICHÉE comme `publisher` : l'entité de marque
 // n'était jamais déclarée en propre. On la pose comme bloc racine, avec un
@@ -179,13 +179,14 @@ const websiteSchema = {
   <footer class="border-t border-line mt-16">
     <div class="max-w-3xl mx-auto px-6 py-10 text-sm text-muted space-y-4">
       <p class="max-w-prose text-xs">
-        {SITE.brand} n'affiche aucun lien rémunéré. Les sites vers lesquels il renvoie sont
-        édités par la même personne et contiennent, eux, des liens affiliés —
+        Le sélecteur de cadeaux contient des liens affiliés : nous pouvons percevoir une
+        commission si vous achetez, sans surcoût pour vous. Les sites recensés ici sont par
+        ailleurs édités par la même personne —
         <a class="hover:text-ink underline underline-offset-4 decoration-lineStrong" href="/methode/">comment ce réseau fonctionne</a>.
       </p>
       <nav aria-label="Pages légales">
         <ul class="flex flex-wrap gap-x-5 gap-y-2">
-          <li><a class="hover:text-ink underline underline-offset-4 decoration-lineStrong" href="/prix/">Prix relevés</a></li>
+          <li><a class="hover:text-ink underline underline-offset-4 decoration-lineStrong" href="/cadeaux/">Quel cadeau ?</a></li>
           <li><a class="hover:text-ink underline underline-offset-4 decoration-lineStrong" href="/methode/">Méthode</a></li>
           <li><a class="hover:text-ink underline underline-offset-4 decoration-lineStrong" href="/mentions-legales/">Mentions légales</a></li>
           <li><a class="hover:text-ink underline underline-offset-4 decoration-lineStrong" href="/confidentialite/">Confidentialité</a></li>

@@ -1,0 +1,709 @@
+{
+  "_comment": "Idées de cadeaux. Chaque entrée porte un RAISONNEMENT et un PIÈGE : c'est ce qui distingue ce sélecteur d'une liste auto-générée, aux yeux d'un lecteur comme d'Amazon. Aucun prix n'est écrit ici — les prix bougent, et une fourchette de budget suffit à orienter.",
+  "budgets": [
+    {
+      "id": "petit",
+      "label": "Moins de 30 €"
+    },
+    {
+      "id": "moyen",
+      "label": "30 à 80 €"
+    },
+    {
+      "id": "confort",
+      "label": "80 à 200 €"
+    },
+    {
+      "id": "gros",
+      "label": "200 à 600 €"
+    },
+    {
+      "id": "exceptionnel",
+      "label": "Plus de 600 €"
+    }
+  ],
+  "questions": [
+    {
+      "id": "gout",
+      "question": "Savez-vous ce qui l'intéresse ?",
+      "aide": "C'est le facteur qui élimine le plus d'idées. Un cadeau qui suppose un goût qu'on ne connaît pas se range dans un placard.",
+      "options": [
+        {
+          "id": "precis",
+          "label": "Précisément",
+          "hint": "Je connais ses centres d'intérêt"
+        },
+        {
+          "id": "vague",
+          "label": "En gros",
+          "hint": "J'ai une idée générale"
+        },
+        {
+          "id": "inconnu",
+          "label": "Pas vraiment",
+          "hint": "Collègue, belle-famille, tirage au sort"
+        }
+      ]
+    },
+    {
+      "id": "profil",
+      "question": "Est-ce quelqu'un qui s'achète déjà ce qu'il veut ?",
+      "aide": "Si oui, offrir la version supérieure d'un objet qu'il utilise déjà bat toute tentative de surprise.",
+      "options": [
+        {
+          "id": "soffre",
+          "label": "Oui, tout le temps",
+          "hint": "Difficile à surprendre"
+        },
+        {
+          "id": "prive",
+          "label": "Non, il se prive",
+          "hint": "Ne s'achète jamais rien"
+        },
+        {
+          "id": "neutre",
+          "label": "Entre les deux",
+          "hint": ""
+        }
+      ]
+    },
+    {
+      "id": "usage",
+      "question": "Le cadeau doit servir…",
+      "aide": "Un objet qui demande de l'installation ou un apprentissage finit inutilisé si la personne n'avait pas le projet.",
+      "options": [
+        {
+          "id": "immediat",
+          "label": "Tout de suite",
+          "hint": "Utilisable le jour même"
+        },
+        {
+          "id": "projet",
+          "label": "Un projet qu'il a",
+          "hint": "Il en a parlé, il attend l'occasion"
+        },
+        {
+          "id": "plaisir",
+          "label": "À faire plaisir",
+          "hint": "Pas d'utilité requise"
+        }
+      ]
+    }
+  ],
+  "idees": [
+    {
+      "id": "couteau-office",
+      "label": "Un bon couteau d'office",
+      "budget": [
+        "petit",
+        "moyen"
+      ],
+      "gout": [
+        "inconnu",
+        "vague",
+        "precis"
+      ],
+      "profil": [
+        "prive",
+        "neutre"
+      ],
+      "usage": [
+        "immediat"
+      ],
+      "pourquoi": "Presque tout le monde cuisine avec un couteau trop émoussé sans y penser. C'est l'objet du quotidien dont le remplacement change quelque chose immédiatement, et que personne ne s'achète.",
+      "piege": "Pas un coffret de six. Un seul bon couteau sert tous les jours, un coffret finit dans un tiroir avec cinq lames jamais sorties.",
+      "lien": {
+        "type": "recherche",
+        "q": "couteau d'office lame acier forgé"
+      }
+    },
+    {
+      "id": "lampe-frontale",
+      "label": "Une lampe frontale rechargeable",
+      "budget": [
+        "petit",
+        "moyen"
+      ],
+      "gout": [
+        "inconnu",
+        "vague"
+      ],
+      "profil": [
+        "prive",
+        "neutre",
+        "soffre"
+      ],
+      "usage": [
+        "immediat"
+      ],
+      "pourquoi": "Objet qu'on ne pense jamais à acheter et qu'on utilise dès qu'on l'a : cave, voiture, panne de courant, course à pied l'hiver.",
+      "piege": "Rechargeable par USB-C, pas à piles. Une frontale à piles finit vide au moment où on en a besoin.",
+      "lien": {
+        "type": "recherche",
+        "q": "lampe frontale rechargeable USB-C"
+      }
+    },
+    {
+      "id": "gourde-iso",
+      "label": "Une gourde isotherme",
+      "budget": [
+        "petit",
+        "moyen"
+      ],
+      "gout": [
+        "inconnu"
+      ],
+      "profil": [
+        "prive",
+        "neutre"
+      ],
+      "usage": [
+        "immediat"
+      ],
+      "pourquoi": "Le cadeau neutre qui sert vraiment, quand on ne connaît pas la personne. Bureau, voiture, sport.",
+      "piege": "Vérifiez que le bouchon se démonte entièrement : ceux qui ne se démontent pas deviennent impossibles à nettoyer et finissent jetés.",
+      "lien": {
+        "type": "recherche",
+        "q": "gourde isotherme inox bouchon démontable"
+      }
+    },
+    {
+      "id": "jeu-deux",
+      "label": "Un jeu de société à deux",
+      "budget": [
+        "petit",
+        "moyen"
+      ],
+      "gout": [
+        "vague",
+        "precis"
+      ],
+      "profil": [
+        "prive",
+        "neutre"
+      ],
+      "usage": [
+        "plaisir"
+      ],
+      "pourquoi": "Se joue en vingt minutes, ne demande pas de réunir six personnes. C'est ce qui décide si un jeu ressort ou pas.",
+      "piege": "Évitez les jeux à deux heures de partie si vous n'êtes pas sûr : le temps de jeu est la première raison pour laquelle une boîte reste fermée.",
+      "lien": {
+        "type": "recherche",
+        "q": "jeu de société 2 joueurs 20 minutes"
+      }
+    },
+    {
+      "id": "moulin-cafe",
+      "label": "Un moulin à café manuel",
+      "budget": [
+        "moyen",
+        "confort"
+      ],
+      "gout": [
+        "precis",
+        "vague"
+      ],
+      "profil": [
+        "prive",
+        "neutre"
+      ],
+      "usage": [
+        "immediat",
+        "projet"
+      ],
+      "pourquoi": "L'écart entre du café prémoulu et du café moulu à la minute est le plus grand saut de qualité accessible pour ce prix — plus grand que changer de machine.",
+      "piege": "Inutile si la personne boit des dosettes ou des capsules. Vérifiez avant : c'est le cadeau qui tombe le plus souvent à côté.",
+      "lien": {
+        "type": "recherche",
+        "q": "moulin à café manuel meules coniques"
+      }
+    },
+    {
+      "id": "planche-bois",
+      "label": "Une planche à découper en bois massif",
+      "budget": [
+        "moyen",
+        "confort"
+      ],
+      "gout": [
+        "inconnu",
+        "vague"
+      ],
+      "profil": [
+        "prive",
+        "neutre"
+      ],
+      "usage": [
+        "immediat"
+      ],
+      "pourquoi": "Dure vingt ans, s'utilise tous les jours, et préserve le fil des couteaux là où le plastique et le verre l'usent.",
+      "piege": "Bois de bout si possible, et jamais au lave-vaisselle. Si la personne met tout au lave-vaisselle, offrez autre chose.",
+      "lien": {
+        "type": "recherche",
+        "q": "planche à découper bois de bout"
+      }
+    },
+    {
+      "id": "thermometre-sonde",
+      "label": "Un thermomètre de cuisson à sonde",
+      "budget": [
+        "moyen"
+      ],
+      "gout": [
+        "vague",
+        "precis"
+      ],
+      "profil": [
+        "prive",
+        "neutre"
+      ],
+      "usage": [
+        "immediat",
+        "projet"
+      ],
+      "pourquoi": "Transforme la cuisson des viandes et du pain d'une loterie en quelque chose de reproductible. Petit objet, effet immédiat.",
+      "piege": "Sonde filaire pour le four, instantané pour la poêle : ce ne sont pas les mêmes outils. Un instantané ne se laisse pas dans le four.",
+      "lien": {
+        "type": "recherche",
+        "q": "thermomètre de cuisson sonde instantané"
+      }
+    },
+    {
+      "id": "lampe-bureau",
+      "label": "Une lampe de bureau à température réglable",
+      "budget": [
+        "moyen",
+        "confort"
+      ],
+      "gout": [
+        "inconnu",
+        "vague"
+      ],
+      "profil": [
+        "prive",
+        "neutre"
+      ],
+      "usage": [
+        "immediat"
+      ],
+      "pourquoi": "Quelqu'un qui travaille chez soi passe ses soirées d'hiver sous un plafonnier. Une lumière chaude le soir change la fatigue de fin de journée.",
+      "piege": "Regardez l'indice de rendu des couleurs (IRC) : en dessous de 90, la lumière est désagréable même si la puissance est là.",
+      "lien": {
+        "type": "recherche",
+        "q": "lampe de bureau LED température réglable IRC 90"
+      }
+    },
+    {
+      "id": "sac-20l",
+      "label": "Un sac à dos de 20 litres",
+      "budget": [
+        "moyen",
+        "confort"
+      ],
+      "gout": [
+        "vague"
+      ],
+      "profil": [
+        "prive",
+        "neutre"
+      ],
+      "usage": [
+        "immediat"
+      ],
+      "pourquoi": "La taille qui sert tous les jours — bureau, week-end, cabine d'avion — alors que les 30 litres et plus ne sortent que rarement.",
+      "piege": "Vérifiez qu'il tient debout tout seul une fois posé. Ceux qui s'affaissent sont pénibles au quotidien, et ça ne se voit pas sur une photo.",
+      "lien": {
+        "type": "recherche",
+        "q": "sac à dos 20L ordinateur portable"
+      }
+    },
+    {
+      "id": "jumelles",
+      "label": "Une paire de jumelles",
+      "budget": [
+        "confort",
+        "gros"
+      ],
+      "gout": [
+        "precis"
+      ],
+      "profil": [
+        "prive",
+        "neutre"
+      ],
+      "usage": [
+        "projet",
+        "plaisir"
+      ],
+      "pourquoi": "Cadeau de longue durée pour quelqu'un qui marche, observe les oiseaux ou va au spectacle. Un bon modèle se garde à vie.",
+      "piege": "8x42 pour un usage général. Au-delà de 10x, l'image tremble sans trépied — le grossissement élevé est un argument de vente, pas un avantage.",
+      "lien": {
+        "type": "recherche",
+        "q": "jumelles 8x42 observation nature"
+      }
+    },
+    {
+      "id": "aeropress",
+      "label": "Une cafetière à piston ou à pression manuelle",
+      "budget": [
+        "moyen",
+        "confort"
+      ],
+      "gout": [
+        "precis",
+        "vague"
+      ],
+      "profil": [
+        "prive",
+        "neutre"
+      ],
+      "usage": [
+        "immediat"
+      ],
+      "pourquoi": "Se nettoie en dix secondes, ne prend pas de place, et donne un café bien meilleur qu'une machine à filtre d'entrée de gamme.",
+      "piege": "Demande du café moulu à la bonne finesse. Offert seul à quelqu'un qui n'a pas de moulin, l'objet reste sur l'étagère.",
+      "lien": {
+        "type": "recherche",
+        "q": "cafetière pression manuelle voyage"
+      }
+    },
+    {
+      "id": "batterie-externe",
+      "label": "Une batterie externe à charge rapide",
+      "budget": [
+        "moyen",
+        "confort"
+      ],
+      "gout": [
+        "inconnu",
+        "vague"
+      ],
+      "profil": [
+        "prive",
+        "neutre",
+        "soffre"
+      ],
+      "usage": [
+        "immediat"
+      ],
+      "pourquoi": "Cadeau neutre qui sert immédiatement, à quelqu'un dont on ne connaît pas les goûts. Train, avion, festival, panne.",
+      "piege": "Regardez la puissance de sortie en watts, pas seulement la capacité. Une grosse batterie à 18 W ne recharge pas un ordinateur portable.",
+      "lien": {
+        "type": "recherche",
+        "q": "batterie externe 20000mAh 100W USB-C"
+      }
+    },
+    {
+      "id": "luminotherapie",
+      "label": "Une lampe de luminothérapie",
+      "budget": [
+        "confort"
+      ],
+      "gout": [
+        "vague",
+        "precis"
+      ],
+      "profil": [
+        "prive"
+      ],
+      "usage": [
+        "immediat",
+        "projet"
+      ],
+      "pourquoi": "Pour quelqu'un qui encaisse mal les mois sans lumière. C'est typiquement l'achat qu'on repousse et qu'on est content qu'on ait fait à sa place.",
+      "piege": "10 000 lux à distance d'utilisation, pas au contact de la dalle. Beaucoup de modèles annoncent le chiffre mesuré à cinq centimètres.",
+      "lien": {
+        "type": "recherche",
+        "q": "lampe luminothérapie 10000 lux"
+      }
+    },
+    {
+      "id": "casque-anc",
+      "label": "Un casque à réduction de bruit",
+      "budget": [
+        "gros"
+      ],
+      "gout": [
+        "vague",
+        "precis"
+      ],
+      "profil": [
+        "prive",
+        "neutre"
+      ],
+      "usage": [
+        "immediat"
+      ],
+      "pourquoi": "Pour quelqu'un qui prend les transports ou travaille en espace ouvert, c'est l'objet qui change le plus la journée.",
+      "piege": "Vérifiez qu'il n'a pas déjà des écouteurs à réduction de bruit — c'est le doublon le plus fréquent de cette catégorie.",
+      "lien": {
+        "type": "recherche",
+        "q": "casque audio réduction de bruit active"
+      }
+    },
+    {
+      "id": "station-energie-moyenne",
+      "label": "Une station d'énergie portable (500 à 1000 Wh)",
+      "budget": [
+        "gros"
+      ],
+      "gout": [
+        "precis"
+      ],
+      "profil": [
+        "prive",
+        "neutre"
+      ],
+      "usage": [
+        "projet"
+      ],
+      "pourquoi": "Pour quelqu'un qui campe, part en van, télétravaille dehors ou a vécu une coupure de courant. Cette taille couvre un frigo quelques heures ou un ordinateur plusieurs jours.",
+      "piege": "Regardez la chimie de la batterie : LFP tient plusieurs milliers de cycles, le NMC quelques centaines. C'est l'écart le plus déterminant, et il n'est presque jamais mis en avant.",
+      "lien": {
+        "type": "recherche",
+        "q": "station énergie portable 1000Wh LFP"
+      }
+    },
+    {
+      "id": "station-energie-grosse",
+      "label": "Une station d'énergie portable (2000 Wh et plus)",
+      "budget": [
+        "exceptionnel"
+      ],
+      "gout": [
+        "precis"
+      ],
+      "profil": [
+        "prive",
+        "neutre",
+        "soffre"
+      ],
+      "usage": [
+        "projet"
+      ],
+      "pourquoi": "Le format secours domestique : il tient un congélateur, une box et un chauffage d'appoint pendant une coupure. C'est un achat qu'on repousse jusqu'à la première panne.",
+      "piege": "Vérifiez le temps de bascule en mode onduleur. Au-delà de 20 ms, un ordinateur de bureau redémarre quand même — donc l'argument principal tombe.",
+      "lien": {
+        "type": "recherche",
+        "q": "station énergie portable 2000Wh onduleur UPS"
+      }
+    },
+    {
+      "id": "robot-entree",
+      "label": "Un aspirateur robot d'entrée de gamme",
+      "budget": [
+        "gros"
+      ],
+      "gout": [
+        "vague",
+        "inconnu"
+      ],
+      "profil": [
+        "prive"
+      ],
+      "usage": [
+        "immediat"
+      ],
+      "pourquoi": "Pour un foyer avec animaux ou un appartement à sols durs, c'est le cadeau qui rend du temps toutes les semaines.",
+      "piege": "Le critère qui compte est le système anti-emmêlement de la brosse, pas la puissance annoncée en pascals — qui n'est mesurée selon aucune norme commune.",
+      "lien": {
+        "type": "reseau",
+        "url": "https://aspirob.com/articles/aspirateur-robot-poils-animaux-chat-chien/",
+        "produit": "Roborock Q7 L5+"
+      }
+    },
+    {
+      "id": "robot-haut",
+      "label": "Un aspirateur robot haut de gamme",
+      "budget": [
+        "exceptionnel"
+      ],
+      "gout": [
+        "vague",
+        "precis"
+      ],
+      "profil": [
+        "prive",
+        "soffre"
+      ],
+      "usage": [
+        "immediat"
+      ],
+      "pourquoi": "À ce niveau, la station lave et sèche la serpillière toute seule : l'entretien devient mensuel au lieu d'hebdomadaire. C'est ça qu'on achète, pas l'aspiration.",
+      "piege": "Mesurez le dégagement sous les canapés et les lits avant de choisir. Un robot qui n'entre pas sous les meubles ne les nettoiera jamais, quelle que soit sa fiche technique.",
+      "lien": {
+        "type": "reseau",
+        "url": "https://aspirob.com/articles/roomba-max-775-combo-vs-roborock-saros-10r/",
+        "produit": "Roborock Saros 10R"
+      }
+    },
+    {
+      "id": "carnet-stylo",
+      "label": "Un carnet et un stylo qui écrit vraiment",
+      "budget": [
+        "petit"
+      ],
+      "gout": [
+        "inconnu",
+        "vague"
+      ],
+      "profil": [
+        "prive",
+        "neutre"
+      ],
+      "usage": [
+        "immediat",
+        "plaisir"
+      ],
+      "pourquoi": "Le petit cadeau qui ne tombe jamais à côté, à condition que le stylo soit bon : c'est lui qui fait la différence, pas la couverture du carnet.",
+      "piege": "Papier assez épais pour ne pas traverser si le stylo est à encre liquide. Un beau carnet qui buvarde ne ressert pas.",
+      "lien": {
+        "type": "recherche",
+        "q": "carnet papier épais stylo roller"
+      }
+    },
+    {
+      "id": "chaussettes-merinos",
+      "label": "Des chaussettes en laine mérinos",
+      "budget": [
+        "petit",
+        "moyen"
+      ],
+      "gout": [
+        "inconnu"
+      ],
+      "profil": [
+        "prive"
+      ],
+      "usage": [
+        "immediat"
+      ],
+      "pourquoi": "Le cadeau qu'on moque et qui est porté tous les jours de l'hiver. La mérinos ne gratte pas et ne sent pas après une journée, contrairement au coton.",
+      "piege": "C'est le seul de cette liste où la taille compte. Dans le doute, prenez une taille au-dessus plutôt qu'en dessous.",
+      "lien": {
+        "type": "recherche",
+        "q": "chaussettes laine mérinos hiver"
+      }
+    },
+    {
+      "id": "aspirateur-main",
+      "label": "Un aspirateur à main",
+      "budget": [
+        "confort",
+        "gros"
+      ],
+      "gout": [
+        "inconnu",
+        "vague"
+      ],
+      "profil": [
+        "prive"
+      ],
+      "usage": [
+        "immediat"
+      ],
+      "pourquoi": "Pour la voiture, les miettes, les poils sur un canapé. Il sert bien plus souvent que l'aspirateur principal, parce qu'il s'attrape en trois secondes.",
+      "piege": "L'autonomie annoncée est celle du mode faible. En mode fort, comptez souvent la moitié — vérifiez que les deux chiffres sont donnés.",
+      "lien": {
+        "type": "recherche",
+        "q": "aspirateur à main sans fil"
+      }
+    },
+    {
+      "id": "station-meteo",
+      "label": "Une station météo avec capteur extérieur",
+      "budget": [
+        "confort"
+      ],
+      "gout": [
+        "precis",
+        "vague"
+      ],
+      "profil": [
+        "prive",
+        "neutre"
+      ],
+      "usage": [
+        "immediat",
+        "plaisir"
+      ],
+      "pourquoi": "Pour quelqu'un qui jardine, court, ou surveille l'humidité de sa maison. On la regarde tous les jours, ce qui est rare pour un objet à ce prix.",
+      "piege": "Capteur extérieur sans fil fourni, et vérifiez la portée annoncée en intérieur : les portées données sont mesurées en champ libre.",
+      "lien": {
+        "type": "recherche",
+        "q": "station météo capteur extérieur sans fil"
+      }
+    },
+    {
+      "id": "rameur",
+      "label": "Un rameur ou un vélo d'appartement de qualité",
+      "budget": [
+        "exceptionnel"
+      ],
+      "gout": [
+        "precis"
+      ],
+      "profil": [
+        "prive",
+        "neutre"
+      ],
+      "usage": [
+        "projet"
+      ],
+      "pourquoi": "Pour quelqu'un qui a dit vouloir s'y mettre. Un modèle solide se garde quinze ans et se revend ; un modèle bas de gamme est abandonné en trois semaines à cause du bruit et de l'inconfort.",
+      "piege": "N'offrez ça que si la personne en a parlé d'elle-même. Offert sans demande, c'est le cadeau qui se lit comme un reproche.",
+      "lien": {
+        "type": "recherche",
+        "q": "rameur à air pliable usage intensif"
+      }
+    },
+    {
+      "id": "machine-grains",
+      "label": "Une machine à café à grains",
+      "budget": [
+        "exceptionnel"
+      ],
+      "gout": [
+        "precis",
+        "vague"
+      ],
+      "profil": [
+        "prive",
+        "neutre"
+      ],
+      "usage": [
+        "immediat"
+      ],
+      "pourquoi": "Pour un foyer qui boit plusieurs cafés par jour en capsules, le calcul est rapide : la machine se rembourse en un à deux ans, et le café est meilleur.",
+      "piege": "Vérifiez que le groupe d'infusion est amovible et rinçable à l'eau. Sur les modèles où il est fixe, l'entretien impose un passage en réparation — et c'est la première cause de mise au rebut.",
+      "lien": {
+        "type": "recherche",
+        "q": "machine à café à grains groupe amovible"
+      }
+    },
+    {
+      "id": "robot-tondeuse",
+      "label": "Un robot tondeuse sans fil périphérique",
+      "budget": [
+        "exceptionnel"
+      ],
+      "gout": [
+        "precis"
+      ],
+      "profil": [
+        "prive",
+        "neutre",
+        "soffre"
+      ],
+      "usage": [
+        "projet"
+      ],
+      "pourquoi": "Pour quelqu'un qui a un jardin et y passe ses samedis. Les modèles sans câble à enterrer se posent en une après-midi, là où l'ancienne génération demandait une journée de tranchées.",
+      "piege": "La navigation satellite a besoin de ciel dégagé. Un jardin bordé d'arbres hauts ou de murs fait perdre le signal — vérifiez le terrain avant, pas après.",
+      "lien": {
+        "type": "recherche",
+        "q": "robot tondeuse sans fil périphérique RTK"
+      }
+    }
+  ]
+}

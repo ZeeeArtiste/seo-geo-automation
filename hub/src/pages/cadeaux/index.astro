@@ -1,0 +1,141 @@
+---
+/**
+ * Sélecteur de cadeaux.
+ *
+ * Ce que ce sélecteur vend, c'est le RAISONNEMENT, pas la liste. Trois
+ * questions qui trient réellement — connaissance des goûts, rapport de la
+ * personne à l'achat, usage attendu — et une réponse qui dit pourquoi cette
+ * idée et quel piège l'accompagne. Une liste de produits par profil, sans
+ * justification, est exactement ce que les CGU Amazon rangent sous « site
+ * auto-généré sans valeur ajoutée », et ce que Google traite en contenu à
+ * grande échelle. La valeur ajoutée ici est écrite à la main, idée par idée.
+ *
+ * Aucun prix n'est affiché : une fourchette de budget suffit à orienter, et un
+ * prix écrit en dur serait faux en quelques jours — ce que ce réseau s'interdit.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE, AFFILIATE } from '../../lib/site';
+import data from '../../data/cadeaux.json';
+
+const idees = data.idees.map((i: any) => ({
+  ...i,
+  href: i.lien.type === 'recherche' ? AFFILIATE.amazonSearch(i.lien.q) : i.lien.url,
+  sponsored: i.lien.type === 'recherche',
+  cible: i.lien.type === 'recherche' ? 'Voir sur Amazon' : `Notre comparatif : ${i.lien.produit}`,
+}));
+---
+<Base
+  title="Quel cadeau offrir ?"
+  description="Trois questions, trois idées justifiées — avec le piège à éviter dans chaque catégorie. Pas de liste au hasard."
+>
+  <section class="mb-10">
+    <h1 class="font-serif text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.1] mb-5">
+      Quel cadeau offrir ?
+    </h1>
+    <div class="w-12 h-px bg-accent mb-5"></div>
+    <p class="text-lg text-body max-w-prose leading-relaxed">
+      Trois questions, puis trois idées — chacune avec la raison pour laquelle elle vous
+      correspond et <span class="text-ink">le piège à éviter dans cette catégorie</span>.
+      C'est ce deuxième point qui manque partout ailleurs, et c'est lui qui fait qu'un cadeau
+      sert ou finit dans un placard.
+    </p>
+  </section>
+
+  <form id="jeu" class="mb-10">
+    <fieldset class="mb-8" data-champ="budget">
+      <legend class="text-xs font-medium tracking-[0.14em] uppercase text-accent mb-1">Budget</legend>
+      <p class="text-sm text-muted mb-4">Ce que vous comptez y mettre.</p>
+      <div class="grid sm:grid-cols-3 gap-2">
+        {data.budgets.map((b: any) => (
+          <label class="choix">
+            <input type="radio" name="budget" value={b.id} class="sr-only" />
+            <span class="choix-titre">{b.label}</span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
+
+    {data.questions.map((q: any) => (
+      <fieldset class="mb-8" data-champ={q.id}>
+        <legend class="text-xs font-medium tracking-[0.14em] uppercase text-accent mb-1">{q.question}</legend>
+        <p class="text-sm text-muted mb-4">{q.aide}</p>
+        <div class="grid sm:grid-cols-3 gap-2">
+          {q.options.map((o: any) => (
+            <label class="choix">
+              <input type="radio" name={q.id} value={o.id} class="sr-only" />
+              <span class="choix-titre">{o.label}</span>
+              {o.hint && <span class="choix-aide">{o.hint}</span>}
+            </label>
+          ))}
+        </div>
+      </fieldset>
+    ))}
+  </form>
+
+  <div id="resultats" hidden></div>
+
+  <p class="mt-12 text-xs text-muted max-w-prose">
+    Les liens de cette page sont des liens affiliés : nous pouvons percevoir une commission si
+    vous achetez, sans surcoût pour vous. Cela ne change pas les idées proposées — elles sont
+    écrites à l'avance, indépendamment de ce qu'elles rapportent.
+    <a href="/methode/" class="underline underline-offset-4 decoration-lineStrong hover:text-ink">Notre méthode</a>
+  </p>
+
+  <script is:inline define:vars={{ idees }}>
+    const form = document.getElementById('jeu');
+    const box = document.getElementById('resultats');
+
+    function reponses() {
+      const r = {};
+      for (const el of form.querySelectorAll('input:checked')) r[el.name] = el.value;
+      return r;
+    }
+
+    function trier(r) {
+      // Le budget est éliminatoire : proposer hors budget ne rend service à personne.
+      const dans = idees.filter((i) => i.budget.includes(r.budget));
+      return dans
+        .map((i) => ({
+          i,
+          score: ['gout', 'profil', 'usage'].filter((k) => r[k] && i[k].includes(r[k])).length,
+        }))
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 3);
+    }
+
+    function afficher(res, complet) {
+      if (!res.length) {
+        box.hidden = false;
+        box.innerHTML = `<p class="text-sm text-muted">Rien dans cette tranche de budget pour l'instant. Cette page ne propose que des idées que nous pouvons justifier ; nous préférons ne rien proposer que remplir.</p>`;
+        return;
+      }
+      box.hidden = false;
+      box.innerHTML =
+        `<h2 class="font-serif text-2xl font-semibold tracking-tight mb-1">${complet ? 'Nos trois idées' : 'Déjà, avec ce budget'}</h2>
+         <p class="text-sm text-muted mb-6">${complet ? 'Classées par correspondance avec vos réponses.' : 'Répondez aux questions suivantes pour affiner.'}</p>` +
+        res.map(({ i }) => `
+          <article class="border border-line rounded-md bg-paper p-5 mb-3">
+            <h3 class="font-serif text-xl font-semibold tracking-tight mb-2">${i.label}</h3>
+            <p class="text-body leading-relaxed mb-3">${i.pourquoi}</p>
+            <p class="text-sm text-body leading-relaxed mb-4 border-l-2 border-accent pl-3">
+              <strong class="text-ink">Le piège :</strong> ${i.piege}
+            </p>
+            <p>
+              <a href="${i.href}" target="_blank"
+                 rel="${i.sponsored ? 'sponsored nofollow noopener' : 'noopener'}"
+                 class="inline-flex items-center gap-2 min-h-[48px] px-5 rounded-md bg-accent text-white font-medium hover:bg-accentInk transition-colors">
+                ${i.cible} <span aria-hidden="true">→</span>
+              </a>
+            </p>
+          </article>`).join('');
+    }
+
+    form.addEventListener('change', () => {
+      const r = reponses();
+      if (!r.budget) return;
+      const complet = ['gout', 'profil', 'usage'].every((k) => r[k]);
+      afficher(trier(r), complet);
+      if (complet) box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  </script>
+</Base>
